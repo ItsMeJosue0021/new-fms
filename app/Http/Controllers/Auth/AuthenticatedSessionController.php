@@ -29,7 +29,13 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        $url = $this->checkUserRole();
+
+        $request->session()->put('url.intended', $url);
+
+        return redirect()->intended($url);
+
+        // return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**
@@ -44,5 +50,20 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    public function checkUserRole()
+    {
+        $userRole = auth()->user()->role->name;
+
+        if ($userRole == 'admin') {
+            $url = route('admin.dashboard');
+        } elseif ($userRole == 'customer') {
+            $url = route('customer.dashboard');
+        } else {
+            $url = route('unauthorized-access');
+        }
+        return $url;
+
     }
 }

@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UnauthorizedAcceeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,24 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::get('/unauthorized-access', [UnauthorizedAcceeController::class, 'unauthorizedAccess'])->name('unauthorized-access');
+
+Route::group(['middleware' => ['auth', 'role:admin']], function () {
+
+    Route::get('/admin', function () {
+        return view('admin-dashboard');
+    })->name('admin.dashboard');
+
+});
+
+Route::group(['middleware' => ['auth', 'role:customer']], function () {
+
+    Route::get('/customer', function () {
+        return view('customer-dashboard');
+    })->name('customer.dashboard');
+
 });
 
 require __DIR__.'/auth.php';

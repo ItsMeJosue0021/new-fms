@@ -15,10 +15,10 @@ return new class extends Migration {
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('middle_name');
-            $table->string('age');
-            $table->string('sex');
-            $table->string('contact_number');
+            $table->string('middle_name')->nullable();
+            $table->string('age')->nullable();
+            $table->string('sex')->nullable();
+            $table->string('contact_number')->nullable();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
