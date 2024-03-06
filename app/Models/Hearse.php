@@ -2,10 +2,28 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Service;
+use App\Models\HearseImage;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Hearse extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'description',
+        'image'
+    ];
+
+    public function service()
+    {
+        return $this->hasOne(Service::class);
+    }
+
+    public function hearseImage()
+    {
+        return $this->hasMany(HearseImage::class);
+    }
 }

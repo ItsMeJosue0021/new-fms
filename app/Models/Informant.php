@@ -2,10 +2,30 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Service;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Informant extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'first_name',
+        'middle_name',
+        'last_name',
+        'age',
+        'dob',
+        'occupation',
+        'telephone',
+        'mobilephone',
+        'relationshipt_to_deceased'
+    ];
+
+    public function service()
+    {
+        return $this->hasOne(Service::class);
+    }
+
+    
 }

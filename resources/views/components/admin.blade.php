@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'FMS') }}</title>
+    <title>{{ config('app.name', 'Tores Escaro Funeral Services') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -150,6 +150,8 @@
   <div class="p-4 sm:ml-64">
      {{ $slot }}
   </div>
+
+  <x-flash-messages />
 </nav>
 </body>
 </html>

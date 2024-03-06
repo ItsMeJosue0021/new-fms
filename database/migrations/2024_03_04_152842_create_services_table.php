@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreignIdFor(Hearse::class)->nullable();
             $table->integer('water')->nullable();
             $table->string('service_type')->nullable();
-            $table->string('others')->nullable();
+            $table->longText('others')->nullable();
             $table->timestamps();
         });
     }
