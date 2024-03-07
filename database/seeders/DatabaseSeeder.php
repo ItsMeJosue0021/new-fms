@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Database\Seeders\RoleSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\CasketSeeder;
+use Database\Seeders\HearseSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(CasketSeeder::class);
+        $this->call(HearseSeeder::class);
     }
 }

@@ -38,6 +38,7 @@ Route::prefix('/services/{serviceId}')->group(function () {
         Route::get('/inclusions', 'inclusions')->name('services.inclusions');
         Route::post('/inclusions/save', 'saveInclusions')->name('services.save-inclusions');
         Route::get('/caskets', 'caskets')->name('services.caskets');
+        Route::get('/hearses', 'hearse')->name('services.hearses');
 
     });
 });

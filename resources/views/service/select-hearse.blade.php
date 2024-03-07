@@ -4,8 +4,9 @@
             <div class="flex flex-col space-y-4 relative mb-12">
                 <x-stepper/>
             </div>
+
             <div class="w-full flex items-center justify-between mb-10">
-                <h2 class="mb-2 text-2xl font-semibold text-gray-900 dark:text-white">Please Select a Casket</h2>
+                <h2 class="mb-2 text-2xl font-semibold text-gray-900 dark:text-white">Please Select a Hearse</h2>
 
                 <form class="w-full flex items-center max-w-lg">
                     <label for="voice-search" class="sr-only">Search</label>
@@ -25,8 +26,8 @@
                 </form>
             </div>
             <div class="flex flex-wrap -m-4">
-                @foreach ($caskets as $casket)
-                    <x-casket-card :casket="$casket"/>
+                @foreach ($hearses as $hearse)
+                    <x-hearse-card :hearse="$hearse"/>
                 @endforeach
             </div>
         </div>

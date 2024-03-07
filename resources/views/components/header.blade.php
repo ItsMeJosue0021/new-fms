@@ -1,4 +1,4 @@
-<header>
+<header class="sticky top-0 z-40">
     <nav class="bg-white border-gray-100 px-4 lg:px-6 py-1.5 dark:bg-gray-800 border-b">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-[1400px]">
             <a href="/" class="text-white flex space-x-2 items-center">

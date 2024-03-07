@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SetGallonOfWaterRequest;
 use App\Services\CasketService;
+use App\Services\HearseService;
 use App\Services\ServiceService;
 use App\Http\Requests\CreateServiceRequest;
 use App\Exceptions\ServiceNotFoundException;
@@ -12,10 +13,12 @@ class ServiceController extends Controller
 {
     private $serviceService;
     private $casketService;
+    private $hearseService;
 
-    public function __construct(ServiceService $serviceService, CasketService $casketService) {
+    public function __construct(ServiceService $serviceService, CasketService $casketService, HearseService $hearseService) {
         $this->serviceService = $serviceService;
         $this->casketService = $casketService;
+        $this->hearseService = $hearseService;
     }
 
     public function inclusions($serviceId) {
@@ -27,9 +30,14 @@ class ServiceController extends Controller
         }
     }
 
-    public function caskets() {
+    public function hearse($serviceId) {
+        $hearses = $this->hearseService->getHearses();
+        return view('service.select-hearse', ['hearses' => $hearses, 'serviceId' => $serviceId]);
+    }
+
+    public function caskets($serviceId) {
         $caskets = $this->casketService->getCaskets();
-        return view('service.select-casket',['caskets' => $caskets]);
+        return view('service.select-casket', ['caskets' => $caskets, 'serviceId' => $serviceId]);
     }
 
     public function createService(CreateServiceRequest $request) {
