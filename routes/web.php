@@ -36,6 +36,8 @@ Route::prefix('/services/{serviceId}')->group(function () {
     Route::controller(ServiceController::class)->group(function () {
         Route::get('', 'cancelServiceCreation')->name('services.cancel');
         Route::get('/inclusions', 'inclusions')->name('services.inclusions');
+        Route::post('/inclusions/save', 'saveInclusions')->name('services.save-inclusions');
+        Route::get('/caskets', 'caskets')->name('services.caskets');
 
     });
 });
