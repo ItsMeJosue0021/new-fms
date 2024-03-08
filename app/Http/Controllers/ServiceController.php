@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\CasketNotFoundException;
+use App\Exceptions\HearseNotFoundException;
 use App\Http\Requests\SetGallonOfWaterRequest;
 use App\Services\CasketService;
 use App\Services\HearseService;
@@ -15,13 +17,20 @@ class ServiceController extends Controller
     private $casketService;
     private $hearseService;
 
-    public function __construct(ServiceService $serviceService, CasketService $casketService, HearseService $hearseService) {
+    public function __construct(ServiceService $serviceService, CasketService $casketService, HearseService $hearseService)
+    {
         $this->serviceService = $serviceService;
         $this->casketService = $casketService;
         $this->hearseService = $hearseService;
     }
 
-    public function inclusions($serviceId) {
+    /*
+    |--------------------------------------------------------------------------
+    | Displaying of Inclusions
+    |--------------------------------------------------------------------------
+    */
+    public function inclusions($serviceId)
+    {
         try {
             $service = $this->serviceService->getServiceById($serviceId);
             return view('service.inclusions', ['service' => $service]);
@@ -30,16 +39,46 @@ class ServiceController extends Controller
         }
     }
 
-    public function hearse($serviceId) {
+    /*
+    |--------------------------------------------------------------------------
+    | Displaying of Hearse
+    |--------------------------------------------------------------------------
+    */
+    public function hearse($serviceId)
+    {
         $hearses = $this->hearseService->getHearses();
         return view('service.select-hearse', ['hearses' => $hearses, 'serviceId' => $serviceId]);
     }
 
-    public function caskets($serviceId) {
+    /*
+    |--------------------------------------------------------------------------
+    | Displaying of Caskets
+    |--------------------------------------------------------------------------
+    */
+
+    public function caskets($serviceId)
+    {
         $caskets = $this->casketService->getCaskets();
-        return view('service.select-casket', ['caskets' => $caskets, 'serviceId' => $serviceId]);
+        return view('service.select-casket', ['serviceId' => $serviceId]);
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Displaying of Decased Information
+    |--------------------------------------------------------------------------
+    */
+    public function deceased($serviceId)
+    {
+        $service = $this->serviceService->getServiceById($serviceId);
+        return view('service.deceased', ['service' => $service]);
+
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Creation of Service
+    |--------------------------------------------------------------------------
+    */
     public function createService(CreateServiceRequest $request) {
 
         $service = $this->serviceService->saveService($request->validated());
@@ -48,23 +87,32 @@ class ServiceController extends Controller
         }
 
         return redirect()->route('services.inclusions', $service->id)
-        ->with(['message', 'Service has been created.']);
+            ->with(['message', 'Service has been created.']);
 
     }
 
-    public function cancelServiceCreation($serviceId) {
-
+    /*
+    |--------------------------------------------------------------------------
+    | Cancelation of Service
+    |--------------------------------------------------------------------------
+    */
+    public function cancelServiceCreation($serviceId)
+    {
         try {
             $this->serviceService->deleteService($serviceId);
             return redirect()->route('services.type');
         } catch (ServiceNotFoundException $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
-
     }
 
-    public function saveInclusions(SetGallonOfWaterRequest $request, $serviceId) {
-
+    /*
+    |--------------------------------------------------------------------------
+    | Saving of Inclusions
+    |--------------------------------------------------------------------------
+    */
+    public function saveInclusions(SetGallonOfWaterRequest $request, $serviceId)
+    {
         try {
 
             $this->serviceService->setGallonsOfWater($request->validated(), $serviceId);
@@ -77,12 +125,50 @@ class ServiceController extends Controller
                 return redirect()->route('services.inclusions', $serviceId)->with('warning', 'Please Select a Hearse.');
             }
 
-            return redirect()->route('services.inclusions', $serviceId)
-            ->with('message', 'Gallons of water has been set.');
+            return redirect()->route('services.deceased', $serviceId);
 
         } catch (ServiceNotFoundException $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
+    }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Selection of Casket
+    |--------------------------------------------------------------------------
+    */
+    public function selectCasket($serviceId, $casketId)
+    {
+        try {
+            $this->serviceService->setCasket($serviceId, $casketId);
+            return redirect()->route('services.inclusions', $serviceId)
+                ->with('message', 'Casket has been selected.');
+
+        } catch (ServiceNotFoundException $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+
+        } catch (CasketNotFoundException $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Selection of Hearse
+    |--------------------------------------------------------------------------
+    */
+    public function selectHearse($serviceId, $hearseId)
+    {
+        try {
+            $this->serviceService->setHearse($serviceId, $hearseId);
+            return redirect()->route('services.inclusions', $serviceId)
+                ->with('message', 'Casket has been selected.');
+
+        } catch (ServiceNotFoundException $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+
+        } catch (HearseNotFoundException $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }

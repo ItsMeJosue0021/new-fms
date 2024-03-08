@@ -14,8 +14,7 @@ return new class extends Migration
     {
         Schema::create('deceased_addresses', function (Blueprint $table) {
             $table->id();
-            $table->string('lot');
-            $table->string('block');
+            $table->string('lot_block');
             $table->string('street');
             $table->string('brgy');
             $table->string('city');

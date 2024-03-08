@@ -1,19 +1,23 @@
 <?php
 
 namespace App\Services\Impl;
-use App\Exceptions\ServiceNotFoundException;
-use App\Http\Requests\SetGallonOfWaterRequest;
+use App\Models\Casket;
+use App\Models\Hearse;
 use App\Models\Service;
 use App\Services\ServiceService;
+use App\Exceptions\CasketNotFoundException;
+use App\Exceptions\HearseNotFoundException;
+use App\Exceptions\ServiceNotFoundException;
+use App\Http\Requests\SetGallonOfWaterRequest;
 
 class ServiceServiceImpl implements ServiceService {
 
-    private $serviceCannotBeFoundMessage = 'Service can not be found';
+    private $serviceNotBeFoundMessage = 'Service can not be found';
 
     public function getServiceById($serviceId) {
         $service = Service::find($serviceId);
         if (!$service) {
-            throw new ServiceNotFoundException($this->serviceCannotBeFoundMessage);
+            throw new ServiceNotFoundException($this->serviceNotBeFoundMessage);
         }
         return $service;
     }
@@ -28,7 +32,7 @@ class ServiceServiceImpl implements ServiceService {
     public function deleteService($serviceId) {
         $service = Service::find($serviceId);
         if (!$service) {
-            throw new ServiceNotFoundException($this->serviceCannotBeFoundMessage);
+            throw new ServiceNotFoundException($this->serviceNotBeFoundMessage);
         }
         $service->delete();
     }
@@ -36,7 +40,7 @@ class ServiceServiceImpl implements ServiceService {
     public function setGallonsOfWater($request, $serviceId) {
         $service = Service::find($serviceId);
         if (!$service) {
-            throw new ServiceNotFoundException($this->serviceCannotBeFoundMessage);
+            throw new ServiceNotFoundException($this->serviceNotBeFoundMessage);
         }
         return $service->update(['water' => $request['water']]);
     }
@@ -44,7 +48,7 @@ class ServiceServiceImpl implements ServiceService {
     public function casketIsSet($serviceId) {
         $service = Service::find($serviceId);
         if (!$service) {
-            throw new ServiceNotFoundException($this->serviceCannotBeFoundMessage);
+            throw new ServiceNotFoundException($this->serviceNotBeFoundMessage);
         }
         return $service->casket_id !== null;
     }
@@ -52,9 +56,37 @@ class ServiceServiceImpl implements ServiceService {
     public function hearseIsSet($serviceId) {
         $service = Service::find($serviceId);
         if (!$service) {
-            throw new ServiceNotFoundException($this->serviceCannotBeFoundMessage);
+            throw new ServiceNotFoundException($this->serviceNotBeFoundMessage);
         }
         return $service->hearse_id !== null;
+    }
+
+    public function setCasket($serviceId, $casketId) {
+        $service = Service::find($serviceId);
+        if (!$service) {
+            throw new ServiceNotFoundException($this->serviceNotBeFoundMessage);
+        }
+
+        $casket = Casket::find($casketId);
+        if (!$casket) {
+            throw new CasketNotFoundException('Casket can not be found');
+        }
+
+        return $service->update(['casket_id' => $casketId]);
+    }
+
+    public function setHearse($serviceId, $hearseId) {
+        $service = Service::find($serviceId);
+        if (!$service) {
+            throw new ServiceNotFoundException($this->serviceNotBeFoundMessage);
+        }
+
+        $hearse = Hearse::find($hearseId);
+        if (!$hearse) {
+            throw new HearseNotFoundException('Hearse can not be found');
+        }
+
+        return $service->update(['hearse_id' => $hearseId]);
     }
 
 

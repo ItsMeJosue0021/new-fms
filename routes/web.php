@@ -34,12 +34,22 @@ Route::get('/caskets', [ServiceController::class, 'selctedCasket'])->name('servi
 
 Route::prefix('/services/{serviceId}')->group(function () {
     Route::controller(ServiceController::class)->group(function () {
+        //Route for canceling service
         Route::get('', 'cancelServiceCreation')->name('services.cancel');
+        //Route for dsiplaying inclusions
         Route::get('/inclusions', 'inclusions')->name('services.inclusions');
+        //Route for saving inclusions
         Route::post('/inclusions/save', 'saveInclusions')->name('services.save-inclusions');
+        //Route for displaying caskets
         Route::get('/caskets', 'caskets')->name('services.caskets');
+        //Route for selecting casket
+        Route::get('/caskets/{casket}/select', 'selectCasket')->name('services.caskets-select');
+        //Route for displaying hearse
         Route::get('/hearses', 'hearse')->name('services.hearses');
-
+        //Route for selecting hearse
+        Route::get('/hearses/{hearse}/select', 'selectHearse')->name('services.hearses-select');
+        //Route for displaying decased information
+        Route::get('/deceased', 'deceased')->name('services.deceased');
     });
 });
 
@@ -47,7 +57,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
 });
 
 Route::get('/unauthorized-access', [UnauthorizedAcceeController::class, 'unauthorizedAccess'])->name('unauthorized-access');

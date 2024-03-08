@@ -9,4 +9,6 @@ interface ServiceService {
     public function setGallonsOfWater(array $data, $serviceId);
     public function casketIsSet($serviceId);
     public function hearseIsSet($serviceId);
+    public function setCasket($serviceId, $casketId);
+    public function setHearse($serviceId, $hearseId);
 }

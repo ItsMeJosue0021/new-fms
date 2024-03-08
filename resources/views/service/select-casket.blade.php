@@ -26,7 +26,7 @@
             </div>
             <div class="flex flex-wrap -m-4">
                 @foreach ($caskets as $casket)
-                    <x-casket-card :casket="$casket"/>
+                    <x-casket-card :casket="$casket" :serviceId="$serviceId" />
                 @endforeach
             </div>
         </div>

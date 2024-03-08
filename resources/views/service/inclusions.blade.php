@@ -8,7 +8,7 @@
                 </div>
                 <x-stepper/>
                 <div class="w-full z-10">
-                    <h2 class="mb-2 text-2xl font-semibold text-gray-900 dark:text-white">Package Inclusions:</h2>
+                    <h2 class="mb-2 text-2xl font-semibold text-gray-900 dark:text-white">Package Inclusions</h2>
                     <ul class="w-full space-y-1 text-gray-500 list-inside dark:text-gray-400">
                         <li class="flex items-center py-2 border-b border-gray-100">
                             <svg class="w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -61,7 +61,7 @@
                                     Hearse for Interment
                                 </div>
                                 <div class="flex items-center space-x-16">
-                                    @if ($service->hearse_id)
+                                @if ($service->hearse_id)
                                     <span class="text-sm">{{ $service->hearse->name }}</span>
                                 @else
                                     <span class="text-red-500 text-sm">No Hearse Selected</span>

@@ -27,7 +27,7 @@
             </div>
             <div class="flex flex-wrap -m-4">
                 @foreach ($hearses as $hearse)
-                    <x-hearse-card :hearse="$hearse"/>
+                    <x-hearse-card :hearse="$hearse" :serviceId="$serviceId"/>
                 @endforeach
             </div>
         </div>
