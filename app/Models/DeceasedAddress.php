@@ -11,8 +11,7 @@ class DeceasedAddress extends Model
     use HasFactory;
 
     protected $fillable = [
-        'lot',
-        'block',
+        'lot_block',
         'street',
         'brgy',
         'city',
@@ -25,5 +24,5 @@ class DeceasedAddress extends Model
         return $this->belongsTo(Deceased::class);
     }
 
-    
+
 }

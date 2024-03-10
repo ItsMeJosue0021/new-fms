@@ -6,5 +6,7 @@ use Illuminate\Http\Request;
 
 class DeathDetailController extends Controller
 {
-    //
+    public function store() {
+        
+    }
 }

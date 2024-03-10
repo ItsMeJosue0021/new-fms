@@ -9,6 +9,8 @@ use Database\Seeders\RoleSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\CasketSeeder;
 use Database\Seeders\HearseSeeder;
+use Database\Seeders\ReligionSeeder;
+use Database\Seeders\DeathCauseSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,5 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CasketSeeder::class);
         $this->call(HearseSeeder::class);
         $this->call(JobSeeder::class);
+        $this->call(ReligionSeeder::class);
+        $this->call(DeathCauseSeeder::class);
     }
 }

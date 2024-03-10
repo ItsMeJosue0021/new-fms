@@ -11,4 +11,5 @@ interface ServiceService {
     public function hearseIsSet($serviceId);
     public function setCasket($serviceId, $casketId);
     public function setHearse($serviceId, $hearseId);
+    public function setDeceased($serviceId, $deceasedId);
 }

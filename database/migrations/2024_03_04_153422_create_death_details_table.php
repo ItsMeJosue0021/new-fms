@@ -16,7 +16,8 @@ return new class extends Migration {
             $table->string('death_time');
             $table->string('death_date');
             $table->string('death_cause')->nullable();
-            $table->string('cementery_address');
+            $table->string('death_place')->nullable();
+            $table->string('cementery_address')->nullable();
             $table->string('viewing_place')->nullable();
             $table->string('internment_time');
             $table->string('internment_date');

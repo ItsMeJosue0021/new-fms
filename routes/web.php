@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DeceasedController;
+use App\Http\Controllers\InformantController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
@@ -50,6 +52,17 @@ Route::prefix('/services/{serviceId}')->group(function () {
         Route::get('/hearses/{hearse}/select', 'selectHearse')->name('services.hearses-select');
         //Route for displaying decased information
         Route::get('/deceased', 'deceased')->name('services.deceased');
+
+        Route::get('/informant', 'informant')->name('services.informant');
+    });
+
+    Route::controller(DeceasedController::class)->group(function () {
+        // Route::get('/deceased', 'deceased')->name('services.deceased');
+        Route::post('/deceased', 'store')->name('services.deceased-store');
+    });
+
+    Route::controller(InformantController::class)->group(function () {
+        // Route::get('/informant', 'deceased')->name('services.deceased');
     });
 });
 

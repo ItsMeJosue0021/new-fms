@@ -6,7 +6,10 @@ use App\Exceptions\CasketNotFoundException;
 use App\Exceptions\HearseNotFoundException;
 use App\Http\Requests\SetGallonOfWaterRequest;
 use App\Services\CasketService;
+use App\Services\DeathCauseService;
 use App\Services\HearseService;
+use App\Services\JobService;
+use App\Services\ReligionService;
 use App\Services\ServiceService;
 use App\Http\Requests\CreateServiceRequest;
 use App\Exceptions\ServiceNotFoundException;
@@ -16,12 +19,26 @@ class ServiceController extends Controller
     private $serviceService;
     private $casketService;
     private $hearseService;
+    private $replierService;
+    private $jobService;
+    private $religionService;
+    private $deathCauseService;
 
-    public function __construct(ServiceService $serviceService, CasketService $casketService, HearseService $hearseService)
-    {
+
+    public function __construct(
+        ServiceService $serviceService,
+        CasketService $casketService,
+        HearseService $hearseService,
+        JobService $jobService,
+        ReligionService $religionService,
+        DeathCauseService $deathCauseService
+    ) {
         $this->serviceService = $serviceService;
         $this->casketService = $casketService;
         $this->hearseService = $hearseService;
+        $this->jobService = $jobService;
+        $this->religionService = $religionService;
+        $this->deathCauseService = $deathCauseService;
     }
 
     /*
@@ -59,7 +76,7 @@ class ServiceController extends Controller
     public function caskets($serviceId)
     {
         $caskets = $this->casketService->getCaskets();
-        return view('service.select-casket', ['serviceId' => $serviceId]);
+        return view('service.select-casket', ['caskets' => $caskets, 'serviceId' => $serviceId]);
     }
 
     /*
@@ -70,8 +87,22 @@ class ServiceController extends Controller
     public function deceased($serviceId)
     {
         $service = $this->serviceService->getServiceById($serviceId);
-        return view('service.deceased', ['service' => $service]);
+        $jobs = $this->jobService->getJobs();
+        $religions = $this->religionService->getReligions();
+        $death_causes = $this->deathCauseService->getDeathCauses();
+        return view('service.deceased', [
+            'service' => $service,
+            'jobs' => $jobs,
+            'religions' => $religions,
+            'causes'=> $death_causes
+        ]);
 
+    }
+
+    public function informant($serviceId) {
+        return view('service.informant', [
+            'service' => $this->serviceService->getServiceById($serviceId)
+        ]);
     }
 
     /*
@@ -79,7 +110,8 @@ class ServiceController extends Controller
     | Creation of Service
     |--------------------------------------------------------------------------
     */
-    public function createService(CreateServiceRequest $request) {
+    public function createService(CreateServiceRequest $request)
+    {
 
         $service = $this->serviceService->saveService($request->validated());
         if (!$service) {
@@ -87,7 +119,7 @@ class ServiceController extends Controller
         }
 
         return redirect()->route('services.inclusions', $service->id)
-            ->with(['message', 'Service has been created.']);
+        ->with(['message', 'Service has been created.']);
 
     }
 
@@ -142,7 +174,7 @@ class ServiceController extends Controller
         try {
             $this->serviceService->setCasket($serviceId, $casketId);
             return redirect()->route('services.inclusions', $serviceId)
-                ->with('message', 'Casket has been selected.');
+            ->with('message', 'Casket has been selected.');
 
         } catch (ServiceNotFoundException $e) {
             return redirect()->back()->with('error', $e->getMessage());

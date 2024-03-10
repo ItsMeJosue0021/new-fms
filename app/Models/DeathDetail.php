@@ -14,6 +14,7 @@ class DeathDetail extends Model
         'death_time',
         'death_date',
         'death_cause',
+        'death_place',
         'cementery_address',
         'viewing_place',
         'internment_time',
