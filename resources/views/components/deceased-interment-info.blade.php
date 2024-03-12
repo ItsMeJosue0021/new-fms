@@ -20,7 +20,7 @@
         @enderror
     </div>
 
-    <div class="w-full flex space-x-4 items-center">
+    <div class="w-full flex space-x-4 items-start">
         <div class="w-full flex flex-col">
             <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white" >Time of Interment</label>
             <input type="time" name="internment_time" placeholder="Date of interment"

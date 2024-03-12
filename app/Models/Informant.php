@@ -17,6 +17,7 @@ class Informant extends Model
         'age',
         'dob',
         'occupation',
+        'address',
         'telephone',
         'mobilephone',
         'relationshipt_to_deceased'
@@ -27,5 +28,5 @@ class Informant extends Model
         return $this->hasOne(Service::class);
     }
 
-    
+
 }

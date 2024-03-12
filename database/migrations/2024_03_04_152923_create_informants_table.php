@@ -15,12 +15,13 @@ return new class extends Migration {
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('last_name');
-            $table->string('age')->nullable();
+            $table->string('age');
             $table->string('dob');
             $table->string('occupation')->nullable();
+            $table->longText('address')->nullable();
             $table->string('telephone')->nullable();
             $table->string('mobilephone');
-            $table->string('relationshipt_to_deceased')->nullable();
+            $table->string('relationshipt_to_deceased');
             $table->timestamps();
         });
     }

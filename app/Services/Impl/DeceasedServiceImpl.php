@@ -36,9 +36,9 @@ class DeceasedServiceImpl implements DeceasedService
             "sex" => $data["sex"],
             "height" => $data["height"],
             "weight" => $data["weight"],
-            "occupation" =>  $data["occupation"] ? 'Other' : ($data["other_occupation"] ?? null),
-            "citizenship" => $data["citizenship"] ? 'Other' : ($data["other_citizenship"] ?? null),
-            "religion" => $data["religion"] ? 'Other' : ($data["other_religion"] ?? null),
+            "occupation" => $this->optionChecker($data["occupation"] ?? null, $data["other_occupation"] ?? null),
+            "citizenship" => $this->optionChecker($data["citizenship"] ?? null, $data["other_citizenship"] ?? null),
+            "religion" => $this->optionChecker($data["religion"] ?? null, $data["other_religion"] ?? null),
             "civil_status" => $data["civil_status"],
             "fathers_name" => $data["fathers_name"],
             "mother_maiden_name" => $data["mother_maiden_name"],
@@ -63,7 +63,7 @@ class DeceasedServiceImpl implements DeceasedService
         return [
             "death_time" => $data["death_time"],
             "death_date" => $data["death_date"],
-            "death_cause" => $data["death_cause"] ? 'Other' : ($data["other_death_cause"] ?? null),
+            "death_cause" => $this->optionChecker($data["death_cause"] ?? null, $data["other_death_cause"] ?? null),
             "death_place"=> $data["death_place"],
             "cementery_address" => $data["cementery_address"],
             "viewing_place" => $data["viewing_place"],
@@ -73,6 +73,15 @@ class DeceasedServiceImpl implements DeceasedService
         ];
     }
 
+    public function optionChecker($value, $other_value) {
+        $option = $value;
+        if ($value == 'Other') {
+            $option = $other_value;
+        } elseif ($value === '' && $other_value === '') {
+            $option = null;
+        }
+        return $option;
+    }
 
 }
 

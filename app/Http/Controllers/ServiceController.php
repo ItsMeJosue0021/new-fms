@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\JobService;
+use App\Services\CasketService;
+use App\Services\HearseService;
+use App\Services\ServiceService;
+use App\Services\ReligionService;
+use App\Services\DeathCauseService;
+use App\Services\RelationshipService;
 use App\Exceptions\CasketNotFoundException;
 use App\Exceptions\HearseNotFoundException;
-use App\Http\Requests\SetGallonOfWaterRequest;
-use App\Services\CasketService;
-use App\Services\DeathCauseService;
-use App\Services\HearseService;
-use App\Services\JobService;
-use App\Services\ReligionService;
-use App\Services\ServiceService;
 use App\Http\Requests\CreateServiceRequest;
 use App\Exceptions\ServiceNotFoundException;
+use App\Http\Requests\SetGallonOfWaterRequest;
 
 class ServiceController extends Controller
 {
@@ -23,6 +24,7 @@ class ServiceController extends Controller
     private $jobService;
     private $religionService;
     private $deathCauseService;
+    private $relationshipService;
 
 
     public function __construct(
@@ -31,7 +33,8 @@ class ServiceController extends Controller
         HearseService $hearseService,
         JobService $jobService,
         ReligionService $religionService,
-        DeathCauseService $deathCauseService
+        DeathCauseService $deathCauseService,
+        RelationshipService $relationshipService,
     ) {
         $this->serviceService = $serviceService;
         $this->casketService = $casketService;
@@ -39,13 +42,12 @@ class ServiceController extends Controller
         $this->jobService = $jobService;
         $this->religionService = $religionService;
         $this->deathCauseService = $deathCauseService;
+        $this->relationshipService = $relationshipService;
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Displaying of Inclusions
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * Displaying of Inclusions
+     */
     public function inclusions($serviceId)
     {
         try {
@@ -56,60 +58,57 @@ class ServiceController extends Controller
         }
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Displaying of Hearse
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * Displaying of Hearse
+     */
     public function hearse($serviceId)
     {
-        $hearses = $this->hearseService->getHearses();
-        return view('service.select-hearse', ['hearses' => $hearses, 'serviceId' => $serviceId]);
+        return view('service.select-hearse', [
+            'hearses' => $this->hearseService->getHearses(),
+            'serviceId' => $serviceId
+        ]);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Displaying of Caskets
-    |--------------------------------------------------------------------------
-    */
-
+    /**
+     * Displaying of Caskets
+     */
     public function caskets($serviceId)
     {
-        $caskets = $this->casketService->getCaskets();
-        return view('service.select-casket', ['caskets' => $caskets, 'serviceId' => $serviceId]);
+        return view('service.select-casket', [
+            'caskets' => $this->casketService->getCaskets(),
+            'serviceId' => $serviceId
+        ]);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Displaying of Decased Information
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * Displaying of Decased Information
+     */
     public function deceased($serviceId)
     {
-        $service = $this->serviceService->getServiceById($serviceId);
-        $jobs = $this->jobService->getJobs();
-        $religions = $this->religionService->getReligions();
-        $death_causes = $this->deathCauseService->getDeathCauses();
         return view('service.deceased', [
-            'service' => $service,
-            'jobs' => $jobs,
-            'religions' => $religions,
-            'causes'=> $death_causes
+            'service' => $this->serviceService->getServiceById($serviceId),
+            'jobs' => $this->jobService->getJobs(),
+            'religions' => $this->religionService->getReligions(),
+            'causes'=> $this->deathCauseService->getDeathCauses()
         ]);
 
     }
 
-    public function informant($serviceId) {
+    /**
+     * Displaying of Informant Information
+     */
+    public function informant($serviceId)
+    {
         return view('service.informant', [
-            'service' => $this->serviceService->getServiceById($serviceId)
+            'service' => $this->serviceService->getServiceById($serviceId),
+            'jobs' => $this->jobService->getJobs(),
+            'relationships' => $this->relationshipService->getAllRelationships(),
         ]);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Creation of Service
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * Creation of Service
+     */
     public function createService(CreateServiceRequest $request)
     {
 
@@ -117,17 +116,13 @@ class ServiceController extends Controller
         if (!$service) {
             return redirect()->back()->with('error', 'Something went wrong, Please try again.');
         }
-
         return redirect()->route('services.inclusions', $service->id)
         ->with(['message', 'Service has been created.']);
-
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Cancelation of Service
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * Cancelation of Service
+     */
     public function cancelServiceCreation($serviceId)
     {
         try {
@@ -138,15 +133,12 @@ class ServiceController extends Controller
         }
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Saving of Inclusions
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * Saving of Inclusions
+     */
     public function saveInclusions(SetGallonOfWaterRequest $request, $serviceId)
     {
         try {
-
             $this->serviceService->setGallonsOfWater($request->validated(), $serviceId);
 
             if (!$this->serviceService->casketIsSet($serviceId)) {
@@ -164,11 +156,9 @@ class ServiceController extends Controller
         }
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Selection of Casket
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * Selection of Casket
+     */
     public function selectCasket($serviceId, $casketId)
     {
         try {
@@ -184,11 +174,9 @@ class ServiceController extends Controller
         }
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Selection of Hearse
-    |--------------------------------------------------------------------------
-    */
+    /**
+     * Selection of Hearse
+     */
     public function selectHearse($serviceId, $hearseId)
     {
         try {
