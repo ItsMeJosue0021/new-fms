@@ -10,6 +10,7 @@ use App\Services\ProfileService;
 use App\Services\ServiceService;
 use App\Services\DeceasedService;
 use App\Services\ReligionService;
+use App\Services\InformantService;
 use App\Services\DeathCauseService;
 use App\Services\Impl\JobServiceImpl;
 use App\Services\RelationshipService;
@@ -21,6 +22,7 @@ use App\Services\Impl\ProfileServiceImpl;
 use App\Services\Impl\ServiceServiceImpl;
 use App\Services\Impl\DeceasedServiceImpl;
 use App\Services\Impl\ReligionServiceImpl;
+use App\Services\Impl\InformantServiceImpl;
 use App\Services\Impl\DeathCauseServiceImpl;
 use App\Services\Impl\RelationshipServiceImpl;
 
@@ -41,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(DeathCauseService::class, DeathCauseServiceImpl::class);
         $this->app->bind(DeceasedService::class, DeceasedServiceImpl::class);
         $this->app->bind(RelationshipService::class, RelationshipServiceImpl::class);
+        $this->app->bind(InformantService::class, InformantServiceImpl::class);
     }
 
     /**

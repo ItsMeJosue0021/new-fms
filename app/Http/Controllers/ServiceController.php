@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SetOtherServiceRequest;
 use App\Services\JobService;
 use App\Services\CasketService;
 use App\Services\HearseService;
@@ -43,6 +44,20 @@ class ServiceController extends Controller
         $this->religionService = $religionService;
         $this->deathCauseService = $deathCauseService;
         $this->relationshipService = $relationshipService;
+    }
+
+    /**
+     * Creation of Service
+     */
+    public function createService(CreateServiceRequest $request)
+    {
+
+        $service = $this->serviceService->saveService($request->validated());
+        if (!$service) {
+            return redirect()->back()->with('error', 'Something went wrong, Please try again.');
+        }
+        return redirect()->route('services.inclusions', $service->id)
+        ->with(['message', 'Service has been created.']);
     }
 
     /**
@@ -107,17 +122,20 @@ class ServiceController extends Controller
     }
 
     /**
-     * Creation of Service
+     * Displaying of Other services
      */
-    public function createService(CreateServiceRequest $request)
+    public function otherServices($serviceId)
     {
+        return view('service.others', [
+            'service' => $this->serviceService->getServiceById($serviceId),
+        ]);
+    }
 
-        $service = $this->serviceService->saveService($request->validated());
-        if (!$service) {
-            return redirect()->back()->with('error', 'Something went wrong, Please try again.');
-        }
-        return redirect()->route('services.inclusions', $service->id)
-        ->with(['message', 'Service has been created.']);
+    public function summary($serviceId)
+    {
+        return view('service.summary', [
+            'service' => $this->serviceService->getServiceById($serviceId),
+        ]);
     }
 
     /**
@@ -188,6 +206,20 @@ class ServiceController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
 
         } catch (HearseNotFoundException $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function addOtherServices(SetOtherServiceRequest $request, $serviceId)
+    {
+        try {
+            $otherServices = $request->validated();
+            if ($otherServices['others'] === null) {
+                return redirect()->route('services.summary', $serviceId);
+            }
+            $this->serviceService->setOtherServices($serviceId, $otherServices);
+            return redirect()->route('services.summary', $serviceId);
+        } catch (ServiceNotFoundException $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
     }

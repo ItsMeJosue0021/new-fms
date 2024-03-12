@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->longText('address')->nullable();
             $table->string('telephone')->nullable();
             $table->string('mobilephone');
-            $table->string('relationshipt_to_deceased');
+            $table->string('relationship_to_deceased');
             $table->timestamps();
         });
     }

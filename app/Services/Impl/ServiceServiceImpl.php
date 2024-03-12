@@ -6,6 +6,7 @@ use App\Models\Casket;
 use App\Models\Hearse;
 use App\Models\Service;
 use App\Models\Deceased;
+use App\Models\Informant;
 use App\Services\ServiceService;
 use App\Exceptions\CasketNotFoundException;
 use App\Exceptions\HearseNotFoundException;
@@ -113,6 +114,31 @@ class ServiceServiceImpl implements ServiceService
         }
 
         return $service->update(['deceased_id' => $deceasedId]);
+    }
+
+    public function setInformant($serviceId, $informantId)
+    {
+        $service = Service::find($serviceId);
+        if (!$service) {
+            throw new ServiceNotFoundException($this->serviceNotBeFoundMessage);
+        }
+
+        $informant = Informant::find($informantId);
+        if (!$informant) {
+            throw new HearseNotFoundException('Informant can not be found');
+        }
+
+        return $service->update(['informant_id' => $informantId]);
+    }
+
+    public function setOtherServices($serviceId, array $data)
+    {
+        $service = Service::find($serviceId);
+        if (!$service) {
+            throw new ServiceNotFoundException($this->serviceNotBeFoundMessage);
+        }
+
+        return $service->update(['others' => $data['others']]);
     }
 
 

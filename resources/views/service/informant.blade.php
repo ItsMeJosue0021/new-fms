@@ -140,10 +140,8 @@
 
                             inputs.forEach(input => {
                                 input.addEventListener('input', function() {
-                                    // Remove any non-digit characters
                                     this.value = this.value.replace(/\D/g, '');
 
-                                    // Limit the input to 11 digits
                                     if (this.value.length > 11) {
                                         this.value = this.value.slice(0, 11);
                                     }
@@ -154,23 +152,23 @@
 
                     <div class="w-full flex flex-col">
                         <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Occupation</label>
-                        <select name="relationshipt_to_deceased" id="relationshipt_to_deceased" class="active:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
+                        <select name="relationship_to_deceased" id="relationship_to_deceased" class="active:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
                             <option value="" selected disabled>Choose your relationship</option>
                             @foreach ($relationships as $relationship)
-                            <option value="{{ $relationship->name }}" {{ (old('relationshipt_to_deceased') ?? ($informant->relationshipt_to_deceased ?? '')) == $relationship->name ? 'selected' : '' }}>{{ $relationship->name }}</option>
+                            <option value="{{ $relationship->name }}" {{ (old('relationship_to_deceased') ?? ($informant->relationship_to_deceased ?? '')) == $relationship->name ? 'selected' : '' }}>{{ $relationship->name }}</option>
                             @endforeach
                             <option value="Other" >Other (Specify Below)</option>
                         </select>
-                            <input type="text" id="otherRelationship" name="other_relationshipt_to_deceased" placeholder="Specify your Relationship"
+                            <input type="text" id="otherRelationship" name="other_relationship_to_deceased" placeholder="Specify your Relationship"
                             class="mt-2 active:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             style="display: none;"
-                            value="{{ old('relationshipt_to_deceased') ?? ($informant->relationshipt_to_deceased ?? '') }}">
+                            value="{{ old('relationship_to_deceased') ?? ($informant->relationship_to_deceased ?? '') }}">
                         @error('relationshipt_to_deceased')
                             <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
                         @enderror
 
                         <script>
-                            const relationshipSelect = document.getElementById('relationshipt_to_deceased');
+                            const relationshipSelect = document.getElementById('relationship_to_deceased');
                             const otherRelationshipInput = document.getElementById('otherRelationship');
                             relationshipSelect.addEventListener('change', function () {
                                 if (this.value === 'Other') {
@@ -185,7 +183,7 @@
 
                     <div class="flex items-center space-x-3 py-1">
                         <a class="nav-button text-sm px-6 py-2 rounded-md bg-gray-200 hover:bg-gray-300 hover:text-gray-700 cursor-pointer" data-back="personal-info">Back</a>
-                        <button type="submit" class=" text-sm px-6 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white cursor-pointer">Submit</button>
+                        <button type="submit" class=" text-sm px-6 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white cursor-pointer">Save and Proceed</button>
                     </div>
                 </div>
             </form>

@@ -45,6 +45,9 @@ Route::prefix('/services/{serviceId}')->group(function () {
         Route::get('/hearses/{hearse}/select', 'selectHearse')->name('services.hearses-select');
         Route::get('/deceased', 'deceased')->name('services.deceased');
         Route::get('/informant', 'informant')->name('services.informant');
+        Route::get('/other-services', 'otherServices')->name('services.other-services');
+        Route::post('/other-services/save', 'addOtherServices')->name('services.save-other-services');
+        Route::get('/summary', 'summary')->name('services.summary');
     });
 
     Route::controller(DeceasedController::class)->group(function () {

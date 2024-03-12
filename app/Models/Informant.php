@@ -20,7 +20,7 @@ class Informant extends Model
         'address',
         'telephone',
         'mobilephone',
-        'relationshipt_to_deceased'
+        'relationship_to_deceased'
     ];
 
     public function service()

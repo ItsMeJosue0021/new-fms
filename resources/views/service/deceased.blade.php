@@ -37,7 +37,7 @@
                         <x-deceased-interment-info />
                         <div class="flex items-center space-x-3 py-1">
                             <a class="nav-button text-sm px-6 py-2 rounded-md bg-gray-200 hover:bg-gray-300 hover:text-gray-700 cursor-pointer" data-back="other-info">Back</a>
-                            <button type="submit" class="text-sm px-6 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white cursor-pointer">Next</button>
+                            <button type="submit" class="text-sm px-6 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white cursor-pointer">Save and Proceed</button>
                         </div>
                     </div>
                 </form>
