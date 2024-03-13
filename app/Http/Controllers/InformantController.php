@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\ServiceService;
 use App\Services\InformantService;
+use App\Exceptions\ServiceNotFoundException;
 use App\Http\Requests\StoreInformantRequest;
 
 class InformantController extends Controller
@@ -20,15 +21,17 @@ class InformantController extends Controller
      * Store informant's information
      */
     public function store(StoreInformantRequest $request, $serviceId) {
-        // dd($request->all());
-        $validated = $request->validated();
+        try {
+            $validated = $request->validated();
 
-        $informant = $this->informantService->saveInfromantInfo($validated);
-        if (!$informant) {
-            return redirect()->back()->with("error","Something went wrong. Please try again.");
+            $informant = $this->informantService->saveInfromantInfo($serviceId, $validated);
+            if (!$informant) {
+                return redirect()->back()->with("error","Something went wrong. Please try again.");
+            }
+            $this->serviceService->setInformant($serviceId, $informant->id);
+            return redirect()->route("services.other-services", $serviceId)->with("success","Informant information has been saved.");
+        } catch (ServiceNotFoundException $e) {
+            return redirect()->back()->with("error",$e->getMessage());
         }
-        $this->serviceService->setInformant($serviceId, $informant->id);
-        return redirect()->route("services.other-services", $serviceId)->with("success","Informant information has been saved.");
-
     }
 }

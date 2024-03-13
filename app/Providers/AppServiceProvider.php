@@ -15,6 +15,7 @@ use App\Services\DeathCauseService;
 use App\Services\Impl\JobServiceImpl;
 use App\Services\RelationshipService;
 use App\Services\Impl\UserServiceImpl;
+use App\Services\ServiceRequestService;
 use Illuminate\Support\ServiceProvider;
 use App\Services\Impl\CasketServiceImpl;
 use App\Services\Impl\HearseServiceImpl;
@@ -25,6 +26,7 @@ use App\Services\Impl\ReligionServiceImpl;
 use App\Services\Impl\InformantServiceImpl;
 use App\Services\Impl\DeathCauseServiceImpl;
 use App\Services\Impl\RelationshipServiceImpl;
+use App\Services\Impl\ServiceRequestServiceImpl;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -44,6 +46,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(DeceasedService::class, DeceasedServiceImpl::class);
         $this->app->bind(RelationshipService::class, RelationshipServiceImpl::class);
         $this->app->bind(InformantService::class, InformantServiceImpl::class);
+        $this->app->bind(ServiceRequestService::class, ServiceRequestServiceImpl::class);
     }
 
     /**

@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Models\Role;
 use App\Models\Address;
 use App\Models\Profile;
+use App\Models\ServiceRequest;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -60,5 +61,10 @@ class User extends Authenticatable
     public function address()
     {
         return $this->hasOne(Address::class);
+    }
+
+    public function serviceRequests()
+    {
+        return $this->hasMany(ServiceRequest::class);
     }
 }

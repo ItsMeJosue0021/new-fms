@@ -8,7 +8,7 @@
                 <form action="{{ route('services.deceased-store', $service->id) }}" method="POST" class="w-full ">
                     @csrf
                     <div class="form-section flex flex-col space-y-4" id="personal-info">
-                        <x-deceased-personal-info />
+                        <x-deceased-personal-info :service="$service" />
                         <div class="flex items-center space-x-4 py-1">
                             <a class="nav-button text-sm px-6 py-2 rounded-md bg-gray-200 hover:bg-gray-300 hover:text-gray-700 cursor-pointer"
                             href="{{ route('services.inclusions', $service->id) }}"
@@ -18,7 +18,7 @@
                     </div>
 
                     <div class="form-section flex flex-col space-y-4" id="parents-info" style="display: none;">
-                        <x-deceased-parents-info :jobs="$jobs" :religions="$religions" />
+                        <x-deceased-parents-info :service="$service" :jobs="$jobs" :religions="$religions" />
                         <div class="flex items-center space-x-3 py-1">
                             <a class="nav-button text-sm px-6 py-2 rounded-md bg-gray-200 hover:bg-gray-300 hover:text-gray-700 cursor-pointer" data-back="personal-info">Back</a>
                             <a class="nav-button text-sm px-6 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white cursor-pointer" data-next="other-info">Next</a>
@@ -26,7 +26,7 @@
                     </div>
 
                     <div class="form-section flex flex-col space-y-4" id="other-info" style="display: none;">
-                        <x-deceased-other-info :causes="$causes" />
+                        <x-deceased-other-info :service="$service" :causes="$causes" />
                         <div class="flex items-center space-x-3 py-1">
                             <a class="nav-button text-sm px-6 py-2 rounded-md bg-gray-200 hover:bg-gray-300 hover:text-gray-700 cursor-pointer" data-back="parents-info">Back</a>
                             <a class="nav-button text-sm px-6 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white cursor-pointer" data-next="interment-info">Next</a>
@@ -34,7 +34,7 @@
                     </div>
 
                     <div class="form-section flex flex-col space-y-4" id="interment-info" style="display: none;">
-                        <x-deceased-interment-info />
+                        <x-deceased-interment-info :service="$service" />
                         <div class="flex items-center space-x-3 py-1">
                             <a class="nav-button text-sm px-6 py-2 rounded-md bg-gray-200 hover:bg-gray-300 hover:text-gray-700 cursor-pointer" data-back="other-info">Back</a>
                             <button type="submit" class="text-sm px-6 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white cursor-pointer">Save and Proceed</button>

@@ -2,30 +2,62 @@
 
 namespace App\Services\Impl;
 
+use App\Models\Service;
 use App\Models\Deceased;
 use App\Models\DeathDetail;
 use App\Models\DeceasedAddress;
 use App\Services\DeceasedService;
+use App\Exceptions\ServiceNotFoundException;
+use App\Exceptions\DeceasedNotFountException;
 
 class DeceasedServiceImpl implements DeceasedService
 {
 
-    public function saveDeceasedPersonalInfo(array $data)
+    private $serviceNotBeFoundMessage = 'Service can not be found';
+    public function saveDeceasedPersonalInfo($serviceId, array $data)
     {
-        return Deceased::create($this->toPersonalInfoArry($data));
+        $service = Service::find($serviceId);
+        if (!$service) {
+            throw new ServiceNotFoundException($this->serviceNotBeFoundMessage);
+        }
+
+        if ($service->deceased()->exists()) {
+            $service->deceased->fill($this->toPersonalInfoArray($data))->save();
+            return $service->deceased;
+        } else {
+            return Deceased::create($this->toPersonalInfoArray($data));
+        }
     }
 
     public function saveDeceasedAddress(array $data, $id)
     {
-        return DeceasedAddress::create($this->toAddressArray($data, $id));
+        $deceased = Deceased::find($id);
+        if (!$deceased) {
+            throw new DeceasedNotFountException($this->serviceNotBeFoundMessage);
+        }
+
+        if ($deceased->deceasedAddress()->exists()) {
+            return $deceased->deceasedAddress->update($this->toAddressArray($data, $id));
+        } else {
+            return DeceasedAddress::create($this->toAddressArray($data, $id));
+        }
     }
 
     public function saveDeathDetails(array $data, $id)
     {
-        return DeathDetail::create($this->toDeathDetailsArray($data, $id));
+        $deceased = Deceased::find($id);
+        if (!$deceased) {
+            throw new DeceasedNotFountException($this->serviceNotBeFoundMessage);
+        }
+
+        if ($deceased->deathDetail()->exists()) {
+            return $deceased->deathDetail->update($this->toDeathDetailsArray($data, $id));
+        } else {
+            return DeathDetail::create($this->toDeathDetailsArray($data, $id));
+        }
     }
 
-    public function toPersonalInfoArry(array $data)
+    public function toPersonalInfoArray(array $data)
     {
         return [
             "first_name" => $data["first_name"],

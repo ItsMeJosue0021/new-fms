@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Casket;
 use App\Models\Hearse;
 use App\Models\Informant;
+use App\Models\ServiceRequest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -40,5 +41,10 @@ class Service extends Model
     public function hearse()
     {
         return $this->belongsTo(Hearse::class);
+    }
+
+    public function serviceRequest()
+    {
+        return $this->hasOne(ServiceRequest::class);
     }
 }

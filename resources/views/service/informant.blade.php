@@ -13,7 +13,7 @@
                             <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
                             <input type="text" name="first_name" placeholder="First name"
                             class="active:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            value="{{ old('first_name') ?? ($informant->first_name ?? '') }}">
+                            value="{{ old('first_name') ?? ($service->informant->first_name ?? '') }}">
                             @error('first_name')
                                 <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
                             @enderror
@@ -23,7 +23,7 @@
                             <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Middle Name</label>
                             <input type="text" name="middle_name" placeholder="Middle name"
                             class="active:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            value="{{ old('middle_name') ?? ($informant->middle_name ?? '') }}">
+                            value="{{ old('middle_name') ?? ($service->informant->middle_name ?? '') }}">
                             @error('middle_name')
                                 <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
                             @enderror
@@ -33,7 +33,7 @@
                             <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
                             <input type="text" name="last_name" placeholder="Last name"
                             class="active:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            value="{{ old('last_name') ?? ($informant->last_name ?? '') }}">
+                            value="{{ old('last_name') ?? ($service->informant->last_name ?? '') }}">
                             @error('last_name')
                                 <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
                             @enderror
@@ -45,7 +45,7 @@
                         <div class="w-full flex flex-col">
                             <label for="dobInput" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Date of Birth</label>
                             <input type="date" name="dob" placeholder="Date of Birth" id="dobInput" class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            value="{{ old('dob') ?? ($informant->dob ?? '') }}" />
+                            value="{{ old('dob') ?? ($service->informant->dob ?? '') }}" />
                             @error('dob')
                                 <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
                             @enderror
@@ -54,7 +54,7 @@
                         <div class="w-full flex flex-col">
                             <label for="ageInput" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Age</label>
                             <input type="text" name="age" placeholder="Age" id="ageInput" class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            value="{{ old('age') ?? ($informant->age ?? '') }}" />
+                            value="{{ old('age') ?? ($service->informant->age ?? '') }}" />
                             @error('age')
                                 <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
                             @enderror
@@ -65,14 +65,14 @@
                             <select name="occupation" id="occupation" class="active:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
                                 <option value="" selected disabled>choose an occupation</option>
                                 @foreach ($jobs as $job)
-                                <option value="{{ $job->name }}" {{ (old('occupation') ?? ($informant->occupation ?? '')) == $job->name ? 'selected' : '' }}>{{ $job->name }}</option>
+                                <option value="{{ $job->name }}" {{ (old('occupation') ?? ($service->informant->occupation ?? '')) == $job->name ? 'selected' : '' }}>{{ $job->name }}</option>
                                 @endforeach
                                 <option value="Other" >Other (Specify Below)</option>
                             </select>
                                 <input type="text" id="otherOccupation" name="other_occupation" placeholder="Specify Occupation"
                                 class="mt-2 active:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 style="display: none;"
-                                value="{{ old('otherOccupation') ?? ($informant->occupation ?? '') }}">
+                                value="{{ old('otherOccupation') ?? ($service->informant->occupation ?? '') }}">
                             @error('occupation')
                                 <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
                             @enderror
@@ -96,14 +96,14 @@
                         <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Address</label>
                         <input type="text" name="address" placeholder="Address"
                         class="active:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        value="{{ old('address') ?? ($informant->address ?? '') }}">
+                        value="{{ old('address') ?? ($service->informant->address ?? '') }}">
                         @error('address')
                             <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
                         @enderror
                     </div>
 
                     <div class="flex items-center space-x-4 py-1">
-                        <a class="nav-button text-sm px-6 py-2 rounded-md bg-gray-200 hover:bg-gray-300 hover:text-gray-700 cursor-pointer"
+                        <a href="{{ route('services.deceased', $service->id) }}" class="nav-button text-sm px-6 py-2 rounded-md bg-gray-200 hover:bg-gray-300 hover:text-gray-700 cursor-pointer"
 
                         >Back</a>
                         <a class="nav-button text-sm px-6 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white cursor-pointer" data-next="contact-info">Next</a>
@@ -117,7 +117,7 @@
                             <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Telephone Number</label>
                             <input type="number" name="telephone" placeholder="Telephone number"
                             class="phone active:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            value="{{ old('telephone') ?? ($informant->telephone ?? '') }}">
+                            value="{{ old('telephone') ?? ($service->informant->telephone ?? '') }}">
                             @error('telephone')
                                 <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
                             @enderror
@@ -127,7 +127,7 @@
                             <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Cellphone Number</label>
                             <input type="number" name="mobilephone" placeholder="Cellphone Number"
                             class="phone active:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            value="{{ old('mobilephone') ?? ($informant->mobilephone ?? '') }}">
+                            value="{{ old('mobilephone') ?? ($service->informant->mobilephone ?? '') }}">
                             @error('mobilephone')
                                 <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
                             @enderror
@@ -155,15 +155,15 @@
                         <select name="relationship_to_deceased" id="relationship_to_deceased" class="active:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
                             <option value="" selected disabled>Choose your relationship</option>
                             @foreach ($relationships as $relationship)
-                            <option value="{{ $relationship->name }}" {{ (old('relationship_to_deceased') ?? ($informant->relationship_to_deceased ?? '')) == $relationship->name ? 'selected' : '' }}>{{ $relationship->name }}</option>
+                            <option value="{{ $relationship->name }}" {{ (old('relationship_to_deceased') ?? ($service->informant->relationship_to_deceased ?? '')) == $relationship->name ? 'selected' : '' }}>{{ $relationship->name }}</option>
                             @endforeach
                             <option value="Other" >Other (Specify Below)</option>
                         </select>
                             <input type="text" id="otherRelationship" name="other_relationship_to_deceased" placeholder="Specify your Relationship"
                             class="mt-2 active:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             style="display: none;"
-                            value="{{ old('relationship_to_deceased') ?? ($informant->relationship_to_deceased ?? '') }}">
-                        @error('relationshipt_to_deceased')
+                            value="{{ old('relationship_to_deceased') ?? ($service->informant->relationship_to_deceased ?? '') }}">
+                        @error('relationship_to_deceased')
                             <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
                         @enderror
 

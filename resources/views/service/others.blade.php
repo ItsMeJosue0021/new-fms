@@ -19,7 +19,7 @@
                         </div>
                         <div class="flex items-center space-x-4">
                             <a class="nav-button text-sm px-6 py-2 rounded-md bg-gray-200 hover:bg-gray-300 hover:text-gray-700 cursor-pointer"
-
+                            href="{{ route('services.informant', $service->id) }}"
                             >Back</a>
                             <button type="submit" class=" text-sm px-6 py-2 rounded-md bg-blue-700 hover:bg-blue-800 text-white cursor-pointer">Save and Proceed</button>
                         </div>

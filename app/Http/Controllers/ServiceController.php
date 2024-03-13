@@ -138,6 +138,12 @@ class ServiceController extends Controller
         ]);
     }
 
+    public function message($serviceId) {
+        return view('service.message', [
+            'service' => $this->serviceService->getServiceById($serviceId)
+        ]);
+    }
+
     /**
      * Cancelation of Service
      */
