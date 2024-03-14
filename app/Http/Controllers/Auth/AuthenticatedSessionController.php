@@ -59,7 +59,7 @@ class AuthenticatedSessionController extends Controller
         if ($userRole == 'admin') {
             $url = route('admin.dashboard');
         } elseif ($userRole == 'customer') {
-            $url = route('/');
+            $url = route('home');
         } else {
             $url = route('unauthorized-access');
         }
