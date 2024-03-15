@@ -31,11 +31,11 @@ class AuthenticatedSessionController extends Controller
 
         $url = $this->checkUserRole();
 
-        $request->session()->put('url.intended', $url);
+        if ($request->session()->has('url.intended')) {
+            return redirect()->intended($request->session()->get('url.intended'));
+        }
 
-        return redirect()->intended($url);
-
-        // return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect()->to($url);
     }
 
     /**

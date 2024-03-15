@@ -24,9 +24,9 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 
 Route::get('/services/type', [ServiceTypeController::class, 'index'])->name('services.type');
@@ -86,6 +86,15 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('/admin', function () {
         return view('admin-dashboard');
     })->name('admin.dashboard');
+
+    Route::prefix('requests')->group(function () {
+        Route::controller(ServiceRequestController::class)->group(function () {
+            Route::get('', 'index')->name('requests.index');
+            Route::get('/{serviceRequestId}/approve', 'approve')->name('requests.approve');
+            Route::get('/{serviceRequestId}/reject', 'reject')->name('requests.reject');
+        });
+    });
+
 
 });
 

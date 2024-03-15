@@ -12,6 +12,13 @@ class ServiceRequestController extends Controller
     public function __construct(ServiceRequestService $serviceRequestService) {
         $this->serviceRequestService = $serviceRequestService;
     }
+
+    public function index() {
+        return view('requests.index', [
+            'requests' => $this->serviceRequestService->getAllServiceRequests()
+        ]);
+    }
+
     public function store($serviceId) {
         $this->serviceRequestService->createServiceRequest($serviceId);
         return redirect()->route('services.message', $serviceId);

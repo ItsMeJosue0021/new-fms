@@ -10,6 +10,10 @@ class ServiceRequestServiceImpl implements ServiceRequestService {
         return ServiceRequest::create($this->toServiceRequestArray($serviceId));
     }
 
+    public function getAllServiceRequests() {
+        return ServiceRequest::latest()->paginate(5);
+    }
+
     public function toServiceRequestArray($serviceId) {
 
         $user_id = auth()->user()->id;
