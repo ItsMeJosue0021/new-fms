@@ -57,7 +57,7 @@ class AuthenticatedSessionController extends Controller
         $userRole = auth()->user()->role->name;
 
         if ($userRole == 'admin') {
-            $url = route('admin.dashboard');
+            $url = route('requests.index');
         } elseif ($userRole == 'customer') {
             $url = route('home');
         } else {

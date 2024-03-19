@@ -7,7 +7,7 @@ use App\Services\CasketService;
 class CasketServiceImpl implements CasketService {
 
     public function getCaskets() {
-        return Casket::orderBy('price', 'desc')->paginate(10);
+        return Casket::orderBy('price', 'desc')->filter(Request(['search']))->paginate(6);
     }
 }
 

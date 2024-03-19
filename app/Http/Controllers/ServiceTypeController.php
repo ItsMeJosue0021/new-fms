@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 
 class ServiceTypeController extends Controller
 {
-    public function index()
+    public function index($casketId = null)
     {
-        return view('service.service-type');
+        return view('service.service-type', [
+            'casketId' => $casketId
+        ]);
     }
 }

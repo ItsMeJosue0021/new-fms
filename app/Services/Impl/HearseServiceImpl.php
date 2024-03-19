@@ -8,7 +8,7 @@ use App\Services\HearseService;
 class HearseServiceImpl implements HearseService {
 
     public function getHearses() {
-        return Hearse::paginate(10);
+        return Hearse::filter(Request(['search']))->paginate(6);
     }
 }
 

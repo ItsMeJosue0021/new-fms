@@ -7,7 +7,7 @@
                     and for us to provide you the best service, may we request you to select the service you need.</p>
             </div>
             <div class="flex items-start justify-center space-x-6">
-                <form action="{{ route('services.store') }}" method="POST">
+                <form action="{{ route('services.store', $casketId ? ['casketId' => $casketId] : []) }}" method="POST">
                     @csrf
                     <input type="hidden" name="service_type" value="Memorial Services">
                     <button type="submit" class="w-96 flex items-center justify-start space-x-4 p-8 rounded-lg border border-gray-300 relative overflow-hidden group hover:ring-4 hover:ring-blue-200 hover:border-blue-700 cursor-pointer hover:bg-gray-50">

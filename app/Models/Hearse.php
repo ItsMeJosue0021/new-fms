@@ -26,4 +26,12 @@ class Hearse extends Model
     {
         return $this->hasMany(HearseImage::class);
     }
+
+    public function scopeFilter($query, array $filters)
+    {
+        if ($filters['search'] ?? false) {
+            $query->where('name', 'like', '%' . request('search') . '%')
+            ->orWhere('description', 'like', '%' . request('search') . '%');
+        }
+    }
 }

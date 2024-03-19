@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DeceasedController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InformantController;
 use App\Http\Controllers\ServiceRequestController;
 use Illuminate\Support\Facades\Route;
@@ -20,20 +21,20 @@ use App\Http\Controllers\UnauthorizedAcceeController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [HomeController::class,'home'])->name('home');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::get('/services/type', [ServiceTypeController::class, 'index'])->name('services.type');
+Route::get('/services/type/{casketId?}', [ServiceTypeController::class, 'index'])->name('services.type');
 
-Route::post('/services/create', [ServiceController::class, 'createService'])->name('services.store');
+Route::post('/services/create/{casketId?}', [ServiceController::class, 'store'])->name('services.store');
 
 Route::get('/caskets', [ServiceController::class, 'selctedCasket'])->name('services.caskte');
+
+Route::get('/home/casket/{caskedId}', [HomeController::class, 'selectCasket'])->name('home.select-casket');
 
 
 Route::middleware('auth')->group(function () {

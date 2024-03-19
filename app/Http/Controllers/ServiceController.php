@@ -49,13 +49,18 @@ class ServiceController extends Controller
     /**
      * Creation of Service
      */
-    public function createService(CreateServiceRequest $request)
+    public function store(CreateServiceRequest $request, $casketId = null)
     {
 
         $service = $this->serviceService->saveService($request->validated());
         if (!$service) {
             return redirect()->back()->with('error', 'Something went wrong, Please try again.');
         }
+
+        if ($casketId) {
+            $this->serviceService->setCasket($service->id, $casketId);
+        }
+
         return redirect()->route('services.inclusions', $service->id)
         ->with(['message', 'Service has been created.']);
     }

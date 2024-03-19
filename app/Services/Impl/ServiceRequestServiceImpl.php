@@ -11,7 +11,7 @@ class ServiceRequestServiceImpl implements ServiceRequestService {
     }
 
     public function getAllServiceRequests() {
-        return ServiceRequest::latest()->paginate(5);
+        return ServiceRequest::latest()->paginate(2);
     }
 
     public function toServiceRequestArray($serviceId) {
