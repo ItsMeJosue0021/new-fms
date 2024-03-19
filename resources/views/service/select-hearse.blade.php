@@ -2,13 +2,13 @@
     <div class="z-0">
         <div class="max-w-[1400px] px-4 mx-auto ">
             <div class="flex flex-col space-y-4 relative mb-12">
-                <x-stepper/>
+                <x-stepper :page="$page" :service="$service" />
             </div>
 
             <div class="w-full flex items-center justify-between mb-10">
                 <h2 class="mb-2 text-2xl font-semibold text-gray-900 dark:text-white">Please Select a Hearse</h2>
 
-                <form action="{{ route('services.hearses', $serviceId) }}" class="w-full flex items-center max-w-lg">
+                <form action="{{ route('services.hearses', $service->id) }}" class="w-full flex items-center max-w-lg">
                     <label for="voice-search" class="sr-only">Search</label>
                     <div class="relative w-full">
                         <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -27,7 +27,7 @@
             </div>
             <div class="flex flex-wrap -m-4">
                 @foreach ($hearses as $hearse)
-                    <x-hearse-card :hearse="$hearse" :serviceId="$serviceId"/>
+                    <x-hearse-card :hearse="$hearse" :service="$service"/>
                 @endforeach
             </div>
         </div>

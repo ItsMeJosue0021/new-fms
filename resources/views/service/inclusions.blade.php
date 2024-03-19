@@ -6,7 +6,7 @@
                 <div class="absolute w-full h-full flex items-center justify-center z-0">
                     <x-candle-svg />
                 </div>
-                <x-stepper/>
+                <x-stepper :page="$page" :service="$service" />
                 <div class="w-full z-10">
                     <h2 class="mb-2 text-2xl font-semibold text-gray-900 dark:text-white">Package Inclusions</h2>
                     <ul class="w-full space-y-1 text-gray-500 list-inside dark:text-gray-400">

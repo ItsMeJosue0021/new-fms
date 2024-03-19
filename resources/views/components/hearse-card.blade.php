@@ -48,7 +48,7 @@
             <p class="leading-6 mb-3 text-sm">{{ $hearse->description }}</p>
 
             <div class="flex items-center justify-between z-50">
-                <a href="{{ route('services.hearses-select', ['serviceId' => $serviceId, 'hearse' => $hearse->id]) }}" class="text-indigo-500 inline-flex text-sm items-center md:mb-2 lg:mb-0">Select and proceed
+                <a href="{{ route('services.hearses-select', ['serviceId' => $service->id, 'hearse' => $hearse->id]) }}" class="text-indigo-500 inline-flex text-sm items-center md:mb-2 lg:mb-0">Select and proceed
                     <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M5 12h14"></path>
                         <path d="M12 5l7 7-7 7"></path>

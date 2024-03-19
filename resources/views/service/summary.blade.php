@@ -1,7 +1,7 @@
 <x-customer>
     <div>
         <div class="max-w-[1400px] px-4 mx-auto ">
-            <x-stepper/>
+            <x-stepper :page="$page" :service="$service" />
             <div>
                 <div class="pb-4">
                     <a href="{{ route('services.other-services', $service->id) }}" class="px-6 py-2 rounded text-gray-800 bg-gray-100 hover:bg-gray-300 cursor-pointer">Back</a>

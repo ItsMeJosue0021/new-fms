@@ -72,7 +72,7 @@ class ServiceController extends Controller
     {
         try {
             $service = $this->serviceService->getServiceById($serviceId);
-            return view('service.inclusions', ['service' => $service]);
+            return view('service.inclusions', ['service' => $service, 'page' => 'inclusions']);
         } catch (ServiceNotFoundException $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -85,7 +85,8 @@ class ServiceController extends Controller
     {
         return view('service.select-hearse', [
             'hearses' => $this->hearseService->getHearses(),
-            'serviceId' => $serviceId
+            'service' => $this->serviceService->getServiceById($serviceId),
+            'page' => 'inclusions'
         ]);
     }
 
@@ -96,7 +97,8 @@ class ServiceController extends Controller
     {
         return view('service.select-casket', [
             'caskets' => $this->casketService->getCaskets(),
-            'serviceId' => $serviceId
+            'service' => $this->serviceService->getServiceById($serviceId),
+            'page' => 'inclusions'
         ]);
     }
 
@@ -109,7 +111,8 @@ class ServiceController extends Controller
             'service' => $this->serviceService->getServiceById($serviceId),
             'jobs' => $this->jobService->getJobs(),
             'religions' => $this->religionService->getReligions(),
-            'causes'=> $this->deathCauseService->getDeathCauses()
+            'causes'=> $this->deathCauseService->getDeathCauses(),
+            'page' => 'deceased'
         ]);
 
     }
@@ -123,6 +126,7 @@ class ServiceController extends Controller
             'service' => $this->serviceService->getServiceById($serviceId),
             'jobs' => $this->jobService->getJobs(),
             'relationships' => $this->relationshipService->getAllRelationships(),
+            'page' => 'informant'
         ]);
     }
 
@@ -133,6 +137,7 @@ class ServiceController extends Controller
     {
         return view('service.others', [
             'service' => $this->serviceService->getServiceById($serviceId),
+            'page' => 'other'
         ]);
     }
 
@@ -140,6 +145,7 @@ class ServiceController extends Controller
     {
         return view('service.summary', [
             'service' => $this->serviceService->getServiceById($serviceId),
+            'page' => 'summary'
         ]);
     }
 

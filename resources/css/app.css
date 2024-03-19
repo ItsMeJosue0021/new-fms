@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Imperial+Script&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.imperial-script-regular {
+    font-family: "Imperial Script", cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+

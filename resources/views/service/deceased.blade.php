@@ -1,7 +1,7 @@
 <x-customer>
     <div>
         <div class="max-w-[1400px] px-4 mx-auto ">
-            <x-stepper/>
+            <x-stepper :page="$page" :service="$service"/>
 
             <div>
                 <h2 class="mb-6 text-2xl font-semibold text-gray-900 dark:text-white">Deceased Information</h2>

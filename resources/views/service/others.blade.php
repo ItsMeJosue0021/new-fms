@@ -1,7 +1,7 @@
 <x-customer>
     <div>
         <div class="max-w-[1400px] px-4 mx-auto ">
-            <x-stepper/>
+            <x-stepper :page="$page" :service="$service" />
 
             <div>
                 <form action="{{ route('services.save-other-services', $service->id) }}" method="POST"
