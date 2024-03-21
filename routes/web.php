@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CasketController;
 use App\Http\Controllers\DeceasedController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InformantController;
@@ -96,6 +97,19 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
             Route::get('/{serviceRequestId}', 'show')->name('requests.show');
             Route::get('/{serviceRequestId}/reject', 'reject')->name('requests.reject');
         });
+    });
+
+    Route::prefix('caskets')->group(function () {
+        Route::controller(CasketController::class)->group(function () {
+            Route::get('', 'index')->name('caskets.index');
+            Route::get('/create', 'create')->name('caskets.create');
+            Route::post('/store', 'store')->name('caskets.store');
+            Route::get('/{casketId}', 'show')->name('caskets.show');
+            Route::get('/{casketId}/edit', 'edit')->name('caskets.edit');
+            Route::patch('/{casketId}', 'update')->name('caskets.update');
+            Route::delete('/{casketId}', 'destroy')->name('caskets.destroy');
+        });
+
     });
 
 

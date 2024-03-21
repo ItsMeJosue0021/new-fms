@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\JobService;
+use App\Services\FileService;
 use App\Services\UserService;
 use App\Services\CasketService;
 use App\Services\HearseService;
@@ -14,6 +15,7 @@ use App\Services\InformantService;
 use App\Services\DeathCauseService;
 use App\Services\Impl\JobServiceImpl;
 use App\Services\RelationshipService;
+use App\Services\Impl\FileServiceImpl;
 use App\Services\Impl\UserServiceImpl;
 use App\Services\ServiceRequestService;
 use Illuminate\Support\ServiceProvider;
@@ -47,6 +49,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(RelationshipService::class, RelationshipServiceImpl::class);
         $this->app->bind(InformantService::class, InformantServiceImpl::class);
         $this->app->bind(ServiceRequestService::class, ServiceRequestServiceImpl::class);
+        $this->app->bind(FileService::class, FileServiceImpl::class);
     }
 
     /**
