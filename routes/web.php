@@ -90,8 +90,10 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
     Route::prefix('requests')->group(function () {
         Route::controller(ServiceRequestController::class)->group(function () {
-            Route::get('', 'index')->name('requests.index');
-            Route::get('/{serviceRequestId}/approve', 'approve')->name('requests.approve');
+            Route::get('/pending', 'index')->name('requests.index');
+            Route::get('/confirmed', 'confirmedRequest')->name('requests.confirmed');
+            Route::get('/confirmed/{serviceRequestId}', 'confirmedRequestShow')->name('requests.confirmed-show');
+            Route::get('/{serviceRequestId}', 'show')->name('requests.show');
             Route::get('/{serviceRequestId}/reject', 'reject')->name('requests.reject');
         });
     });

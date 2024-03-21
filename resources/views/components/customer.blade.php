@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Tores Escaro Funeral Services') }}</title>
+    <title>Tores Escaro Funeral Services</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
