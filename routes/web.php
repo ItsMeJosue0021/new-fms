@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CasketController;
 use App\Http\Controllers\DeceasedController;
+use App\Http\Controllers\HearseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InformantController;
 use App\Http\Controllers\ServiceRequestController;
@@ -106,8 +107,23 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
             Route::post('/store', 'store')->name('caskets.store');
             Route::get('/{casketId}', 'show')->name('caskets.show');
             Route::get('/{casketId}/edit', 'edit')->name('caskets.edit');
-            Route::patch('/{casketId}', 'update')->name('caskets.update');
-            Route::delete('/{casketId}', 'destroy')->name('caskets.destroy');
+            Route::put('/{casketId}', 'update')->name('caskets.update');
+            // Route::delete('/{casketId}', 'destroy')->name('caskets.destroy');
+            Route::get('/image/{imageId}', 'deleteCasketImage')->name('caskets.delete-image');
+
+        });
+
+    });
+
+    Route::prefix('hearses')->group(function () {
+        Route::controller(HearseController::class)->group(function () {
+            Route::get('', 'index')->name('hearses.index');
+            Route::get('/create', 'create')->name('hearses.create');
+            Route::post('/store', 'store')->name('hearses.store');
+            Route::get('/{hearse}', 'show')->name('hearses.show');
+            Route::get('/{hearse}/edit', 'edit')->name('hearses.edit');
+            Route::patch('/{hearse}', 'update')->name('hearses.update');
+            Route::delete('/{hearse}', 'destroy')->name('hearses.destroy');
         });
 
     });

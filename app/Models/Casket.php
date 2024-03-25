@@ -24,7 +24,7 @@ class Casket extends Model
         return $this->hasOne(Service::class);
     }
 
-    public function casketImage()
+    public function casketImages()
     {
         return $this->hasMany(CasketImage::class);
     }

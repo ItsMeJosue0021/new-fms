@@ -13,7 +13,7 @@ class ServiceRequestServiceImpl implements ServiceRequestService {
     }
 
     public function getAllServiceRequests() {
-        return ServiceRequest::latest()->paginate(2);
+        return ServiceRequest::where('status', 'pending')->latest()->paginate(2);
     }
 
     public function getServiceRequestById($id) {

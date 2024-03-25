@@ -1,34 +1,19 @@
 <x-admin>
     <div>
         <div class="flex pb-4 mt-20">
-            <a href="{{ route('caskets.index') }}" class="px-6 py-2 rounded text-gray-800 bg-white hover:bg-gray-100 cursor-pointer">Back</a>
+            <a href="{{ route('hearses.index') }}" class="px-6 py-2 rounded text-gray-800 bg-white hover:bg-gray-100 cursor-pointer">Back</a>
         </div>
         <div class="flex p-2">
-            <h1 class="text-lg bg-medium">Add New Casket</h1>
+            <h1 class="text-lg bg-medium">Add New Hearses</h1>
         </div>
         <div class="p-5 rounded-lg bg-white ">
-            <form method="POST" enctype="multipart/form-data" action="{{ route('caskets.store') }}" class="flex flex-col w-full">
+            <form method="POST" enctype="multipart/form-data" action="{{ route('hearses.store') }}" class="flex flex-col w-full">
                 @csrf
                 <div class="flex space-x-4">
                     <div class="flex flex-col space-y-2 w-full">
                         <label for="name" class="text-sm font-semibold">Name</label>
                         <input id="name" name="name" type="text" placeholder="Product name" class="text-sm rounded-md border border-gray-200"/>
                         @error('name')
-                            <p class="text-red-500 text-xs">{{$message}}</p>
-                        @enderror
-                    </div>
-                    <div class="flex flex-col space-y-2 w-full">
-                        <label for="price" class="text-sm font-semibold">Price</label>
-                        <input id="price" name="price" type="number" placeholder="0.00" class="text-sm rounded-md border border-gray-200 w-full"/>
-                        @error('price')
-                            <p class="text-red-500 text-xs">{{$message}}</p>
-                        @enderror
-                    </div>
-
-                    <div class="flex flex-col space-y-2 w-full">
-                        <label for="quantity" class="text-sm font-semibold">Stock</label>
-                        <input id="quantity" name="quantity" type="number" placeholder="0" class="text-sm rounded-md border border-gray-200 w-full"/>
-                        @error('quantity')
                             <p class="text-red-500 text-xs">{{$message}}</p>
                         @enderror
                     </div>

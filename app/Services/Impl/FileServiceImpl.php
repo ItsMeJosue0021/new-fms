@@ -7,7 +7,7 @@ use App\Services\FileService;
 class FileServiceImpl implements FileService {
 
     public function saveImage($image, $path) {
-        $image->store($path, 'public');
+        return $image->store($path, 'public');
     }
 }
 

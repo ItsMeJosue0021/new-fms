@@ -29,6 +29,9 @@
                     <x-casket-card :casket="$casket" :service="$service" />
                 @endforeach
             </div>
+            <div class="w-full py-5">
+                {{ $caskets->links() }}
+            </div>
         </div>
 
         <div id="imageModal" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 ">

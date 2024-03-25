@@ -22,7 +22,7 @@ class Hearse extends Model
         return $this->hasOne(Service::class);
     }
 
-    public function hearseImage()
+    public function hearseImages()
     {
         return $this->hasMany(HearseImage::class);
     }

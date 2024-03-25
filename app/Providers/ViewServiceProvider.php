@@ -23,7 +23,7 @@ class ViewServiceProvider extends ServiceProvider
     {
         // Using class based composers...
         View::composer('components.admin', function ($view) {
-            $count = ServiceRequest::where('created_at', '>=', now()->subDay())->count();
+            $count = ServiceRequest::orWhere('created_at', '>=', now()->subDay())->orWhere('status', 'pending')->count();
             $view->with('serviceRequestCount', $count);
         });
     }
