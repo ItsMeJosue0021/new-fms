@@ -25,9 +25,7 @@ use App\Http\Controllers\UnauthorizedAcceeController;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
 
 
 Route::get('/services/type/{casketId?}', [ServiceTypeController::class, 'index'])->name('services.type');
@@ -37,6 +35,8 @@ Route::post('/services/create/{casketId?}', [ServiceController::class, 'store'])
 Route::get('/caskets', [ServiceController::class, 'selctedCasket'])->name('services.caskte');
 
 Route::get('/home/casket/{caskedId}', [HomeController::class, 'selectCasket'])->name('home.select-casket');
+
+Route::get('/unauthorized-access', [UnauthorizedAcceeController::class, 'unauthorizedAccess'])->name('unauthorized-access');
 
 
 Route::middleware('auth')->group(function () {
@@ -82,7 +82,6 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::get('/unauthorized-access', [UnauthorizedAcceeController::class, 'unauthorizedAccess'])->name('unauthorized-access');
 
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
@@ -110,9 +109,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
             Route::put('/{casketId}', 'update')->name('caskets.update');
             Route::delete('/{casketId}', 'delete')->name('caskets.delete');
             Route::get('/image/{imageId}', 'deleteCasketImage')->name('caskets.delete-image');
-
         });
-
     });
 
     Route::prefix('hearses')->group(function () {
@@ -126,7 +123,6 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
             Route::delete('/{hearse}', 'delete')->name('hearses.delete');
             Route::get('/image/{imageId}', 'deleteHearseImage')->name('hearses.delete-image');
         });
-
     });
 
 

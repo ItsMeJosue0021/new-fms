@@ -19,6 +19,10 @@ class HomeController extends Controller
         ]);
     }
 
+    public function about() {
+        return view('home.about');
+    }
+
     public function selectCasket($casketId) {
         return redirect()->route('services.type', ['casketId' => $casketId]);
     }
