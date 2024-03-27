@@ -3,6 +3,7 @@
 namespace App\Services\Impl;
 use App\Models\Casket;
 use App\Models\Hearse;
+use App\Models\HearseImage;
 use App\Services\FileService;
 use App\Services\HearseService;
 
@@ -18,9 +19,33 @@ class HearseServiceImpl implements HearseService {
         return Hearse::latest()->filter(Request(['search']))->paginate(8);
     }
 
+    public function getHearseById($id) {
+        return Hearse::findOrFail($id);
+    }
+
     public function createHearse(array $data) {
         $hearse = Hearse::create($this->toHearseArray($data));
-        $this->storeHearseImages($data['images'], $hearse);
+
+        if (!empty($data['images'])) {
+            $this->storeHearseImages($data['images'], $hearse);
+        }
+    }
+
+    public function updateHearse(array $data, $id) {
+        $hearse = Hearse::findOrFail($id);
+        $hearse->update($this->toHearseArray($data));
+
+        if (!empty($data['images'])) {
+            $this->storeHearseImages($data['images'], $hearse);
+        }
+    }
+
+    public function deleteHearseImageById($id) {
+        return HearseImage::findOrFail($id)->delete();
+    }
+
+    public function deleteHearse($id) {
+        return Hearse::findOrFail($id)->delete();
     }
 
     public function toHearseArray(array $data): array {

@@ -23,7 +23,7 @@ use App\Http\Controllers\UnauthorizedAcceeController;
 |
 */
 
-Route::get('/', [HomeController::class,'home'])->name('home');
+Route::get('/', [HomeController::class, 'home'])->name('home');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -108,7 +108,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
             Route::get('/{casketId}', 'show')->name('caskets.show');
             Route::get('/{casketId}/edit', 'edit')->name('caskets.edit');
             Route::put('/{casketId}', 'update')->name('caskets.update');
-            // Route::delete('/{casketId}', 'destroy')->name('caskets.destroy');
+            Route::delete('/{casketId}', 'delete')->name('caskets.delete');
             Route::get('/image/{imageId}', 'deleteCasketImage')->name('caskets.delete-image');
 
         });
@@ -122,8 +122,9 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
             Route::post('/store', 'store')->name('hearses.store');
             Route::get('/{hearse}', 'show')->name('hearses.show');
             Route::get('/{hearse}/edit', 'edit')->name('hearses.edit');
-            Route::patch('/{hearse}', 'update')->name('hearses.update');
-            Route::delete('/{hearse}', 'destroy')->name('hearses.destroy');
+            Route::put('/{hearse}', 'update')->name('hearses.update');
+            Route::delete('/{hearse}', 'delete')->name('hearses.delete');
+            Route::get('/image/{imageId}', 'deleteHearseImage')->name('hearses.delete-image');
         });
 
     });
@@ -139,4 +140,4 @@ Route::group(['middleware' => ['auth', 'role:customer']], function () {
 
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

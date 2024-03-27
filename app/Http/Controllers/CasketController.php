@@ -41,12 +41,12 @@ class CasketController extends Controller
     }
 
     public function update(UpdateCasketRequest $request, $casket) {
-        // try {
+        try {
             $this->casketService->updateCasket($request->validated(), $casket);
             return redirect()->back()->with('success', 'Casket has been updated');
-        // } catch (\Exception $e) {
-        //     return redirect()->back()->with('error', 'Something went wrong while trying to update casket');
-        // }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong while trying to update casket');
+        }
     }
 
     public function deleteCasketImage($casket) {
@@ -55,6 +55,15 @@ class CasketController extends Controller
             return redirect()->back()->with('success', 'Image has been deleted');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Something went wrong while trying to delete image');
+        }
+    }
+
+    public function delete($casket) {
+        try {
+            $this->casketService->deleteHearse($casket);
+            return redirect()->back()->with('success', 'Image has been deleted');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong while trying to delete hearse');
         }
     }
 

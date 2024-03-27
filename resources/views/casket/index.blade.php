@@ -57,16 +57,15 @@
                                         </button>
                                         <div id="{{ 'apple-imac-' . $casket->id . '-dropdown' }}" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                             <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="{{ 'apple-imac-' . $casket->id . '-dropdown-button'}}">
-                                                {{-- <li>
-                                                    <a href="{{ route('caskets.show', $casket->id) }}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
-                                                </li> --}}
                                                 <li>
                                                     <a  href="{{ route('caskets.edit', $casket->id) }}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
                                                 </li>
                                             </ul>
-                                            <div class="py-1">
-                                                <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
-                                            </div>
+                                            <form action="{{ route('caskets.delete', $casket->id) }}" method="POST" class="py-1">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>

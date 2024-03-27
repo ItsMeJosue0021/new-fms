@@ -9,4 +9,5 @@ interface CasketService {
     public function storeCasketImages($images, $casket);
     public function updateCasket(array $data, $id);
     public function deleteCasketImageById($id);
+    public function deleteHearse($id);
 }

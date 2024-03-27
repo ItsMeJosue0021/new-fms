@@ -24,7 +24,27 @@ class CasketServiceImpl implements CasketService {
 
     public function storeCasket(array $data) {
         $casket =  Casket::create($this->toCasketArray($data));
-        $this->storeCasketImages($data['images'], $casket);
+
+        if (!empty($data['images'])) {
+            $this->storeCasketImages($data['images'], $casket);
+        }
+    }
+
+    public function updateCasket(array $data, $id) {
+        $casket = Casket::findOrFail($id);
+        $casket->update($this->toCasketArray($data));
+
+        if (!empty($data['images'])) {
+            $this->storeCasketImages($data['images'], $casket);
+        }
+    }
+
+    public function deleteCasketImageById($casket) {
+        return CasketImage::findOrFail($casket)->delete();
+    }
+
+    public function deleteHearse($casket) {
+        return Casket::findOrFail($casket)->delete();
     }
 
     public function toCasketArray(array $data): array {
@@ -44,20 +64,6 @@ class CasketServiceImpl implements CasketService {
             ]);
         }
     }
-
-    public function updateCasket(array $data, $id) {
-        $casket = Casket::findOrFail($id);
-        $casket->update($this->toCasketArray($data));
-
-        if (!empty($data['images'])) {
-            $this->storeCasketImages($data['images'], $casket);
-        }
-    }
-
-    public function deleteCasketImageById($casket) {
-        return CasketImage::findOrFail($casket)->delete();
-    }
-
 
 }
 
