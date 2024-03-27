@@ -23,6 +23,20 @@ class HomeController extends Controller
         return view('home.about');
     }
 
+    public function contact() {
+        return view('home.contact');
+    }
+
+    public function announcements() {
+        return view('home.announcements');
+    }
+
+    public function caskets() {
+        return view('home.caskets', [
+            'caskets' => $this->casketService->getCaskets()
+        ]);
+    }
+
     public function selectCasket($casketId) {
         return redirect()->route('services.type', ['casketId' => $casketId]);
     }
