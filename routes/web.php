@@ -32,7 +32,7 @@ Route::controller(HomeController::class)->group(function () {
 });
 
 
-Route::get('/services/type/{casketId?}', [ServiceTypeController::class, 'index'])->name('services.type');
+Route::get('/services/choose-type/{casketId?}', [ServiceTypeController::class, 'index'])->name('services.type');
 
 Route::post('/services/create/{casketId?}', [ServiceController::class, 'store'])->name('services.store');
 
@@ -84,23 +84,39 @@ Route::middleware('auth')->group(function () {
         });
     });
 
+    Route::get('/service-request/{request}/{code}', [ServiceRequestController::class, 'QRview'])->name('qrview');
+
 });
 
 
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
-    Route::get('/admin', function () {
-        return view('admin-dashboard');
-    })->name('admin.dashboard');
+    // Route::get('/admin', function () {
+    //     return view('admin-dashboard');
+    // })->name('admin.dashboard');
 
-    Route::prefix('requests')->group(function () {
-        Route::controller(ServiceRequestController::class)->group(function () {
+    // Route::prefix('requests')->group(function () {
+    //     Route::controller(ServiceRequestController::class)->group(function () {
+    //         Route::get('/pending', 'index')->name('requests.index');
+    //         Route::get('/confirmed', 'confirmedRequest')->name('requests.confirmed');
+    //         Route::get('/confirmed/{serviceRequestId}', 'confirmedRequestShow')->name('requests.confirmed-show');
+    //         Route::get('/{serviceRequestId}', 'show')->name('requests.show');
+    //         Route::get('/{serviceRequestId}/reject', 'reject')->name('requests.reject');
+    //     });
+    // });
+
+    Route::controller(ServiceRequestController::class)->group(function () {
+       Route::prefix('requests')->group(function () {
             Route::get('/pending', 'index')->name('requests.index');
             Route::get('/confirmed', 'confirmedRequest')->name('requests.confirmed');
             Route::get('/confirmed/{serviceRequestId}', 'confirmedRequestShow')->name('requests.confirmed-show');
             Route::get('/{serviceRequestId}', 'show')->name('requests.show');
             Route::get('/{serviceRequestId}/reject', 'reject')->name('requests.reject');
-        });
+       });
+
+       Route::prefix('customer')->group(function () {
+            Route::get('/requests', 'customerRequests')->name('customer.requests');
+       });
     });
 
     Route::prefix('caskets')->group(function () {
@@ -134,9 +150,13 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
 Route::group(['middleware' => ['auth', 'role:customer']], function () {
 
-    Route::get('/customer', function () {
-        return view('customer-dashboard');
-    })->name('customer.dashboard');
+    Route::controller(ServiceRequestController::class)->group(function () {
+        Route::prefix('customer')->group(function () {
+            Route::get('/requests', 'customerRequests')->name('customer.requests');
+            Route::get('/requests/{request}', 'showCustomerRequest')->name('customer.requests-show');
+            Route::get('/requests/{request}/cancel', 'cancel')->name('customer.requests-cancel');
+        });
+     });
 
 });
 

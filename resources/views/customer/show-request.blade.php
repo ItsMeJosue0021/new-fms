@@ -1,11 +1,10 @@
-<x-guest-layout>
+<x-customer>
     <div>
-        <div class="max-w-[1400px] px-4 mx-auto ">
-            <x-stepper :page="$page" :service="$service" />
-            <div>
-                <div class="pb-4">
-                    <a href="{{ route('services.other-services', $service->id) }}" class="px-6 py-2 rounded text-gray-800 bg-gray-100 hover:bg-gray-300 cursor-pointer">Back</a>
-                </div>
+        <div class="mt-24">
+            <div class="flex pb-4">
+                <a href="{{ route('customer.requests') }}" class="px-6 py-2 rounded text-gray-800 bg-white hover:bg-gray-100 cursor-pointer">Back</a>
+            </div>
+            <div class=" bg-white p-6 rounded-b-md">
                 <div class="w-full z-10">
                     <h2 class="mb-2 text-2xl font-semibold text-gray-900 dark:text-white">Package Inclusions</h2>
                     <ul class="w-full space-y-1 text-gray-500 list-inside dark:text-gray-400">
@@ -41,7 +40,7 @@
                                     </svg>
                                     Casket
                                 </div>
-                                <span class="text-sm text-gray-800">{{ $service->casket->name }}</span>
+                                <span class="text-sm text-gray-800">{{ $service->casket->name ?? '' }}</span>
                             </div>
                         </li>
                         <li class="flex items-center py-2 border-b border-gray-100">
@@ -52,7 +51,7 @@
                                     </svg>
                                     Hearse for Interment
                                 </div>
-                                <span class="text-sm text-gray-800">{{ $service->hearse->name }}</span>
+                                <span class="text-sm text-gray-800">{{ $service->hearse->name ?? '' }}</span>
                             </div>
                         </li>
                         <li class="flex items-center py-2 border-b border-gray-100">
@@ -61,7 +60,7 @@
                             </svg>
                             <div class="w-full flex items-center space-x-2 text-gray-800">
                                 <span>Hot and Cold water despencer with</span>
-                                <span>{{ $service->water }}</span>
+                                <span>{{ $service->water ?? '' }}</span>
                                 <span>Gallons of Water</span>
                             </div>
                         </li>
@@ -76,74 +75,74 @@
 
                 <div class="py-6">
                     <h2 class="mb-2 text-2xl font-semibold text-gray-900 dark:text-white">Deceased's Information</h2>
-                    <div class="w-full flex flex-col space-y-4 rounded-lg overflow-hidden">
+                    <div class="w-full flex flex-col space-y-4 bg-white rounded-lg overflow-hidden">
                         <div class="mb-4">
                             <h3 class="text-lg font-semibold mb-4 border-b border-gray-100">Personal Information</h3>
                             <ul class="flex items-start justify-between space-x-20">
                                 <div class="w-full flex flex-col space-y-2">
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">First Name:</span>
-                                        <span>{{ $service->deceased->first_name}}</span>
+                                        <span>{{ $service->deceased->first_name ?? ''}}</span>
                                     </li>
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Middle Name:</span>
-                                        <span>{{ $service->deceased->middle_name}}</span>
+                                        <span>{{ $service->deceased->middle_name ?? ''}}</span>
                                     </li>
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Last Name:</span>
-                                        <span>{{ $service->deceased->last_name}}</span>
+                                        <span>{{ $service->deceased->last_name ?? ''}}</span>
                                     </li>
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Birthday:</span>
-                                        <span>{{ $service->deceased->dob}}</span>
+                                        <span>{{ $service->deceased->dob ?? ''}}</span>
                                     </li>
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Age:</span>
-                                        <span>{{ $service->deceased->age}}</span>
+                                        <span>{{ $service->deceased->age ?? ''}}</span>
                                     </li>
                                 </div>
                                 <div class="w-full flex flex-col space-y-2">
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Sex:</span>
-                                        <span>{{ $service->deceased->sex}}</span>
+                                        <span>{{ $service->deceased->sex ?? ''}}</span>
                                     </li>
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Height:</span>
-                                        <span>{{ $service->deceased->height}}</span>
+                                        <span>{{ $service->deceased->height ?? ''}}</span>
                                     </li>
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Weight:</span>
-                                        <span>{{ $service->deceased->weight}}</span>
+                                        <span>{{ $service->deceased->weight ?? ''}}</span>
                                     </li>
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Occupation:</span>
-                                        <span>{{ $service->deceased->occupation}}</span>
+                                        <span>{{ $service->deceased->occupation ?? ''}}</span>
                                     </li>
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Citizenship:</span>
-                                        <span>{{ $service->deceased->citizenship}}</span>
+                                        <span>{{ $service->deceased->citizenship ?? ''}}</span>
                                     </li>
                                 </div>
                                 <div class="w-full flex flex-col space-y-2">
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Religion:</span>
-                                        <span>{{ $service->deceased->religion}}</span>
+                                        <span>{{ $service->deceased->religion ?? ''}}</span>
                                     </li>
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Civil Status:</span>
-                                        <span>{{ $service->deceased->civil_status}}</span>
+                                        <span>{{ $service->deceased->civil_status ?? ''}}</span>
                                     </li>
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Father's Name:</span>
-                                        <span>{{ $service->deceased->fathers_name}}</span>
+                                        <span>{{ $service->deceased->fathers_name ?? ''}}</span>
                                     </li>
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Mother's Name:</span>
-                                        <span>{{ $service->deceased->mother_maiden_name}}</span>
+                                        <span>{{ $service->deceased->mother_maiden_name ?? ''}}</span>
                                     </li>
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Birth Place:</span>
-                                        <span>{{ $service->deceased->birth_place}}</span>
+                                        <span>{{ $service->deceased->birth_place ?? ''}}</span>
                                     </li>
                                 </div>
                             </ul>
@@ -155,59 +154,59 @@
                                 <div class="w-full flex flex-col space-y-2">
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Lot/Blok:</span>
-                                        <span>{{ $service->deceased->deceasedAddress->lot_block}}</span>
+                                        <span>{{ $service->deceased->deceasedAddress->lot_block ?? ''}}</span>
                                     </li>
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Street:</span>
-                                        <span>{{ $service->deceased->deceasedAddress->street}}</span>
+                                        <span>{{ $service->deceased->deceasedAddress->street ?? ''}}</span>
                                     </li>
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Baranggay:</span>
-                                        <span>{{ $service->deceased->deceasedAddress->brgy}}</span>
+                                        <span>{{ $service->deceased->deceasedAddress->brgy ?? ''}}</span>
                                     </li>
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">City/Municipality:</span>
-                                        <span>{{ $service->deceased->deceasedAddress->city}}</span>
+                                        <span>{{ $service->deceased->deceasedAddress->city ?? ''}}</span>
                                     </li>
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Province:</span>
-                                        <span>{{ $service->deceased->deceasedAddress->province}}</span>
+                                        <span>{{ $service->deceased->deceasedAddress->province ?? ''}}</span>
                                     </li>
                                 </div>
                                 <div class="w-full flex flex-col space-y-2">
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Time of Death:</span>
-                                        <span>{{ $service->deceased->deathDetail->death_time}}</span>
+                                        <span>{{ $service->deceased->deathDetail->death_time ?? ''}}</span>
                                     </li>
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Date of Death:</span>
-                                        <span>{{ $service->deceased->deathDetail->death_date}}</span>
+                                        <span>{{ $service->deceased->deathDetail->death_date ?? ''}}</span>
                                     </li>
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Cause of Death:</span>
-                                        <span>{{ $service->deceased->deathDetail->death_cause}}</span>
+                                        <span>{{ $service->deceased->deathDetail->death_cause ?? ''}}</span>
                                     </li>
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Place of Death:</span>
-                                        <span>{{ $service->deceased->deathDetail->death_place}}</span>
+                                        <span>{{ $service->deceased->deathDetail->death_place ?? ''}}</span>
                                     </li>
                                     <li class="w-full flex items-start justify-between border-b border-dashed border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Address of Cementery:</span>
-                                        <span>{{ $service->deceased->deathDetail->cementery_address }}</span>
+                                        <span>{{ $service->deceased->deathDetail->cementery_address ?? ''}}</span>
                                     </li>
                                 </div>
                                 <div class="w-full flex flex-col space-y-2">
                                     <li class="w-full flex items-start justify-between border-b border-dashed border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Viewing Place:</span>
-                                        <span>{{ $service->deceased->deathDetail->viewing_place}}</span>
+                                        <span>{{ $service->deceased->deathDetail->viewing_place ?? ''}}</span>
                                     </li>
                                     <li class="w-full flex items-start justify-between border-b border-dashed border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Interment Time:</span>
-                                        <span>{{ $service->deceased->deathDetail->internment_time}}</span>
+                                        <span>{{ $service->deceased->deathDetail->internment_time ?? ''}}</span>
                                     </li>
                                     <li class="w-full flex items-start justify-between border-b border-dashed border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
                                         <span class="font-medium">Interment Date:</span>
-                                        <span>{{ $service->deceased->deathDetail->internment_date}}</span>
+                                        <span>{{ $service->deceased->deathDetail->internment_date ?? ''}}</span>
                                     </li>
                                 </div>
                             </ul>
@@ -224,25 +223,26 @@
                                 <div id="animation-carousel" class="relative w-full" data-carousel="static">
                                     <!-- Carousel wrapper -->
                                     <div class="relative lg:h-48 md:h-36 overflow-hidden z-0">
-                                        @if (count($service->hearse->hearseImages) > 0)
-                                            @foreach ($service->hearse->hearseImages as $image)
-                                                <div class="hidden duration-200 ease-linear" data-carousel-item>
-                                                    <img src="{{ asset('storage/' . $image->image) }}" alt="{{ $service->hearse->name }}" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer">
-                                                </div>
-                                            @endforeach
-                                        @else
-                                            <div class="hidden duration-200 ease-linear" data-carousel-item>
-                                                <img src="https://placehold.co/600x400/000000/FFF" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
-                                            </div>
-
-                                            <div class="hidden duration-200 ease-linear" data-carousel-item>
-                                                <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
-                                            </div>
-
-                                            <div class="hidden duration-200 ease-linear" data-carousel-item="active">
-                                                <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
-                                            </div>
-                                        @endif
+                                        <!-- Item 1 -->
+                                        <div class="hidden duration-200 ease-linear" data-carousel-item>
+                                            <img src="https://placehold.co/600x400/000000/FFF" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
+                                        </div>
+                                        <!-- Item 2 -->
+                                        <div class="hidden duration-200 ease-linear" data-carousel-item>
+                                            <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
+                                        </div>
+                                        <!-- Item 3 -->
+                                        <div class="hidden duration-200 ease-linear" data-carousel-item="active">
+                                            <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
+                                        </div>
+                                        <!-- Item 4 -->
+                                        <div class="hidden duration-200 ease-linear" data-carousel-item>
+                                            <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
+                                        </div>
+                                        <!-- Item 5 -->
+                                        <div class="hidden duration-200 ease-linear" data-carousel-item>
+                                            <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
+                                        </div>
                                     </div>
                                     <!-- Slider controls -->
                                     <button type="button" class="z-0 absolute top-0 start-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
@@ -263,12 +263,12 @@
                                     </button>
                                 </div>
                                 <div class="p-4">
-                                    <h1 class="title-font text-lg font-medium text-gray-900 ">{{ $service->casket->name }}</h1>
-                                    <p class="leading-6 mb-3 text-sm">{{ $service->casket->description }}</p>
+                                    <h1 class="title-font text-lg font-medium text-gray-900 ">{{ $service->casket->name ?? ''}}</h1>
+                                    <p class="leading-6 mb-3 text-sm">{{ $service->casket->description ?? ''}}</p>
 
                                     <div class="flex items-center justify-between z-50">
 
-                                        <span class="leading-6 font-medium text-base">&#x20B1; {{ $service->casket->price }}</span>
+                                        <span class="leading-6 font-medium text-base">&#x20B1; {{ $service->casket->price ?? ''}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -279,25 +279,26 @@
                                 <div id="animation-carousel" class="relative w-full" data-carousel="static">
                                     <!-- Carousel wrapper -->
                                     <div class="relative lg:h-48 md:h-36 overflow-hidden z-0">
-                                        @if (count($service->casket->casketImages) > 0)
-                                            @foreach ($service->casket->casketImages as $image)
-                                                <div class="hidden duration-200 ease-linear" data-carousel-item>
-                                                    <img src="{{ asset('storage/' . $image->image) }}" alt="{{ $service->casket->name }}" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer">
-                                                </div>
-                                            @endforeach
-                                        @else
-                                            <div class="hidden duration-200 ease-linear" data-carousel-item>
-                                                <img src="https://placehold.co/600x400/000000/FFF" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
-                                            </div>
-
-                                            <div class="hidden duration-200 ease-linear" data-carousel-item>
-                                                <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
-                                            </div>
-
-                                            <div class="hidden duration-200 ease-linear" data-carousel-item="active">
-                                                <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
-                                            </div>
-                                        @endif
+                                        <!-- Item 1 -->
+                                        <div class="hidden duration-200 ease-linear" data-carousel-item>
+                                            <img src="https://placehold.co/600x400/000000/FFF" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
+                                        </div>
+                                        <!-- Item 2 -->
+                                        <div class="hidden duration-200 ease-linear" data-carousel-item>
+                                            <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
+                                        </div>
+                                        <!-- Item 3 -->
+                                        <div class="hidden duration-200 ease-linear" data-carousel-item="active">
+                                            <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
+                                        </div>
+                                        <!-- Item 4 -->
+                                        <div class="hidden duration-200 ease-linear" data-carousel-item>
+                                            <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
+                                        </div>
+                                        <!-- Item 5 -->
+                                        <div class="hidden duration-200 ease-linear" data-carousel-item>
+                                            <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
+                                        </div>
                                     </div>
                                     <!-- Slider controls -->
                                     <button type="button" class="z-0 absolute top-0 start-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
@@ -318,30 +319,31 @@
                                     </button>
                                 </div>
                                 <div class="p-4">
-                                    <h1 class="title-font text-lg font-medium text-gray-900 ">{{ $service->casket->name }}</h1>
-                                    <p class="leading-6 mb-3 text-sm">{{ $service->casket->description }}</p>
+                                    <h1 class="title-font text-lg font-medium text-gray-900 ">{{ $service->casket->name ?? '' }}</h1>
+                                    <p class="leading-6 mb-3 text-sm">{{ $service->casket->description ?? '' }}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <form action="{{ route('services.request-store', $service->id) }}" method="POST" class="mb-6 flex flex-col space-y-4">
-                    @csrf
+                <div class="mb-6 flex flex-col space-y-4">
                     <div class="border border-dashed border-gray-500 bg-gray-50 p-4">
                         <li class="w-full flex items-start justify-between cursor-pointer font-medium">
                             <span>Total:</span>
-                            <span>&#x20B1;{{ $service->casket->price}}</span>
+                            <span>&#x20B1;{{ $service->casket->price ?? ''}}</span>
                         </li>
                     </div>
-                    <button class="px-6 text-sm py-2 rounded-md text-white bg-blue-700 hover:bg-blue-800 cursor-pointer">Send Request</button>
-                </form>
+                    @if ($service->status == 'pending')
+                        <a href="{{ route('customer.requests-cancel', $request->id) }}" class="px-6 text-sm py-2 rounded-md text-white text-center bg-red-600 hover:bg-red-800 cursor-pointer">Cancel Request</a>
+                    @endif
+                </div>
             </div>
         </div>
-        <div id="imageModal" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 ">
+        <div id="imageModal" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 z-50 ">
             <div class="w-full h-full flex items-center justify-center">
                 <div id="modalContent" class="max-w-2xl mx-auto">
                     <img id="modalImage" src="" alt="Modal Image" class="w-full h-full rounded">
-                    <button id="closeModal" class="absolute top-6 right-6 text-white cursor-pointer">
+                    <button id="closeModal" class="absolute top-6 right-6 text-white cursor-pointer ">
                         <i class="bx bx-x text-3xl"></i>
                     </button>
                 </div>
@@ -380,4 +382,4 @@
             document.getElementById('closeModal').addEventListener('click', closeModal);
         });
     </script>
-</x-guest-layout>
+</x-customer>

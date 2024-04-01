@@ -1,4 +1,4 @@
-<x-customer>
+<x-guest-layout>
     <div>
         <div class="max-w-[1400px] px-4 mx-auto ">
             <x-stepper :page="$page" :service="$service" />

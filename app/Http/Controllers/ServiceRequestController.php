@@ -47,6 +47,47 @@ class ServiceRequestController extends Controller
         try {
             $request = $this->serviceRequestService->getServiceRequestById($id);
             return view('requests.confirmed-show', [
+                'request' => $request,
+                'service' => $request->service
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return redirect()->back()->with('error', 'Service request not found');
+        }
+    }
+
+    public function customerRequests() {
+        return view('customer.requests', [
+            'requests' => $this->serviceRequestService->getServiceRequestsByCustomer(auth()->user()->id)
+        ]);
+    }
+
+    public function showCustomerRequest($id) {
+        try {
+            $request = $this->serviceRequestService->getServiceRequestById($id);
+            return view('customer.show-request', [
+            'request' => $request,
+            'service' => $request->service
+        ]);
+        } catch (ModelNotFoundException $e) {
+            return redirect()->back()->with('error', 'Service request not found');
+        }
+    }
+
+    public function cancel($id) {
+        try {
+            $this->serviceRequestService->cancelServiceRequest($id);
+            return redirect()->route('customer.requests')->with('success', 'Service request has been cancelled');
+        } catch (ModelNotFoundException $e) {
+            return redirect()->back()->with('error', 'Service request not found');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function QRview($id) {
+        try {
+            $request = $this->serviceRequestService->getServiceRequestById($id);
+            return view('requests.qrview', [
             'request' => $request,
             'service' => $request->service
         ]);

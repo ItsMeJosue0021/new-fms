@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SetOtherServiceRequest;
+use Illuminate\Support\Str;
 use App\Services\JobService;
 use App\Services\CasketService;
 use App\Services\HearseService;
@@ -13,7 +13,9 @@ use App\Services\RelationshipService;
 use App\Exceptions\CasketNotFoundException;
 use App\Exceptions\HearseNotFoundException;
 use App\Http\Requests\CreateServiceRequest;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Exceptions\ServiceNotFoundException;
+use App\Http\Requests\SetOtherServiceRequest;
 use App\Http\Requests\SetGallonOfWaterRequest;
 
 class ServiceController extends Controller
@@ -150,8 +152,12 @@ class ServiceController extends Controller
     }
 
     public function message($serviceId) {
+        $service = $this->serviceService->getServiceById($serviceId);
+        $url = route('qrview', [$service->serviceRequest->id, Str::random(10)]);
+        $qrCode = QrCode::format('png')->size(250)->generate($url);
         return view('service.message', [
-            'service' => $this->serviceService->getServiceById($serviceId)
+            'service' => $this->serviceService->getServiceById($serviceId),
+            'qrcode' => $qrCode
         ]);
     }
 

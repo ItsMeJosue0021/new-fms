@@ -1,4 +1,4 @@
-<x-customer>
+<x-guest-layout>
     <div>
         <div class="max-w-[1400px] px-4 mx-auto ">
             <x-stepper :page="$page" :service="$service" />
@@ -151,7 +151,7 @@
                     </script>
 
                     <div class="w-full flex flex-col">
-                        <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Occupation</label>
+                        <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Relationship to the Deceased</label>
                         <select name="relationship_to_deceased" id="relationship_to_deceased" class="active:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
                             <option value="" selected disabled>Choose your relationship</option>
                             @foreach ($relationships as $relationship)
@@ -228,4 +228,4 @@
             }
         });
     </script>
-</x-customer>
+</x-guest-layout>

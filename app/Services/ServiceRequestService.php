@@ -8,5 +8,7 @@ interface ServiceRequestService {
     public function getServiceRequestById($id);
     public function createServiceRequest($serviceId);
     public function getConfirmedServiceRequests();
+    public function getServiceRequestsByCustomer($id);
+    public function cancelServiceRequest($id);
 
 }

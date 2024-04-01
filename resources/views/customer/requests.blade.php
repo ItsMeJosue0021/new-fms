@@ -1,17 +1,15 @@
-<x-admin>
+<x-customer>
     <section class=" mt-20">
         <div class="w-full">
             <div class="flex py-2">
-                <h1 class="text-lg bg-medium">Current Request</h1>
+                <h1 class="text-lg bg-medium">Your Requested Services</h1>
             </div>
-            <!-- Start coding here -->
-            <div class="bg-white dark:bg-gray-800 relative shadow sm:rounded-lg ">
+            <div class="bg-white dark:bg-gray-800 relative shadow sm:rounded-lg">
                 <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-
                     <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                     </div>
                 </div>
-                <div class="overflow-x-auto">
+                <div class="overflow-x-auto ">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
@@ -32,7 +30,7 @@
                                     <td class="px-4 py-3">{{ $request->created_at ? $request->created_at->format('g:i A') : 'N/A' }}</td>
                                     <td class="px-4 py-3">{{ $request->service->service_type ?? 'N/A' }}</td>
                                     <td class="px-4 py-3">
-                                        <span class="bg-red-700 text-red-100 text-sm font-medium me-2 px-2.5 py-1 rounded dark:bg-red-900 dark:text-red-300">{{ $request->status ?? 'N/A' }}</span>
+                                        <span class="{{ $request->status == 'pending' ? 'bg-orange-500' : ($request->status == 'confirmed' ? 'bg-green-500' : 'bg-red-700') }} text-red-100 text-sm font-medium me-2 px-2.5 py-1 rounded dark:text-red-300">{{ $request->status ?? 'N/A' }}</span>
                                     </td>
                                     <td class="px-4 py-3">&#x20B1; {{ isset($request->service->casket->price) ? number_format($request->service->casket->price, 2, '.', ',') : '00.00' }}</td>
                                     <td class="px-4 py-3 flex items-center justify-end">
@@ -44,7 +42,7 @@
                                         <div id="{{ 'apple-imac-' . $request->id . '-dropdown' }}" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                             <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="{{ 'apple-imac-' . $request->id . '-dropdown-button'}}">
                                                 <li>
-                                                    <a href="{{ route('requests.show', $request->id) }}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
+                                                    <a href="{{ route('customer.requests-show', $request->id) }}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
                                                 </li>
                                                 <li>
                                                     <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
@@ -68,4 +66,4 @@
             </div>
         </div>
     </section>
-</x-admin>
+</x-customer>

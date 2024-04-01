@@ -1,4 +1,4 @@
-<x-customer>
+<x-guest-layout>
     <div>
         <div class="max-w-[1400px] px-4 mx-auto ">
             <form action="{{ route('services.save-inclusions', $service->id) }}" method="POST" class="flex flex-col space-y-4 relative">

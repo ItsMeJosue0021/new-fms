@@ -1,7 +1,7 @@
-<x-customer>
+<x-guest-layout>
     <section>
         <div class="w-full max-w-[1400px] px-4 mx-auto flex flex-col items-center justify-center space-y-8">
-            <div class="w-1/2 flex flex-col items-center justify-center mt-20 space-y-4">
+            <div class="w-1/2 flex flex-col items-center justify-center mt-40 space-y-4">
                 <h1 class="text-3xl text-center font-bold text-gray-800">Please select the service you require</h1>
                 <p class="text-base text-center text-gray-600 ">As it is our objective to ease your burden and assist you in this time of bereavement,
                     and for us to provide you the best service, may we request you to select the service you need.</p>
@@ -33,4 +33,4 @@
             </div>
         </div>
     </section>
-</x-customer>
+</x-guest-layout>

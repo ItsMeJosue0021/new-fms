@@ -2,10 +2,8 @@
 
 namespace App\Services\Impl;
 
-use App\Exceptions\ServiceRequestNotFoundException;
 use App\Models\ServiceRequest;
 use App\Services\ServiceRequestService;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ServiceRequestServiceImpl implements ServiceRequestService {
     public function createServiceRequest($serviceId) {
@@ -33,5 +31,22 @@ class ServiceRequestServiceImpl implements ServiceRequestService {
 
     public function getConfirmedServiceRequests() {
         return ServiceRequest::where('status', 'confirmed')->paginate(10);
+    }
+
+    public function getServiceRequestsByCustomer($id) {
+        return ServiceRequest::where('user_id', $id)->latest()->paginate(10);
+    }
+
+    public function cancelServiceRequest($id) {
+        $serviceRequest = ServiceRequest::findOrFail($id);
+
+        if ($serviceRequest->status === 'confirmed') {
+            throw new \Exception('Cannot cancel a confirmed or completed service request');
+        }
+
+        return $serviceRequest->update([
+            'status' => 'cancelled'
+        ]);
+
     }
 }
