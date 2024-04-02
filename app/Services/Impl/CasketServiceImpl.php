@@ -15,7 +15,7 @@ class CasketServiceImpl implements CasketService {
     }
 
     public function getCaskets() {
-        return Casket::orderBy('price', 'desc')->filter(Request(['search']))->paginate(8);
+        return Casket::orderBy('price', 'desc')->filter(Request(['search']))->paginate(7);
     }
 
     public function getCasketById($id) {

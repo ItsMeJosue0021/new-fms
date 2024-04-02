@@ -31,7 +31,9 @@
                             <tr>
                                 <th scope="col" class="px-4 py-3">Name</th>
                                 <th scope="col" class="px-4 py-3">Description</th>
+                                <th scope="col" class="px-4 py-3">Image</th>
                                 <th scope="col" class="px-4 py-3">Date Added</th>
+                                <th scope="col" class="px-4 py-3">Time Added</th>
                                 <th scope="col" class="px-4 py-3">Last Update</th>
                                 <th scope="col" class="px-4 py-3">
                                     <span class="sr-only">Actions</span>
@@ -42,8 +44,18 @@
                             @foreach ($hearses as $hearse)
                                 <tr class="border-b dark:border-gray-700">
                                     <td class="px-4 py-3">{{ $hearse->name ?? 'N/A' }}</td>
-                                    <td class="px-4 py-3">{{ $hearse->description ?? 'N/A' }}</td>
+                                    <td class="px-4 py-3 max-w-96">{{ $hearse->description ?? 'N/A' }}</td>
+                                    <td class="px-4 py-3">
+                                        @if ($hearse->hearseImages->first() && $hearse->hearseImages->first()->image)
+                                            <img src="{{ asset('storage/' . $hearse->hearseImages->first()->image) }}" alt="" class="w-14 h-14 zoomable-image cursor-pointer">
+                                        @else
+                                            <div class="h-14 w-14 flex items-center justify-center">
+                                                <span class="text-lg text-gray-00">....</span>
+                                            </div>
+                                        @endif
+                                    </td>
                                     <td class="px-4 py-3">{{ $hearse->created_at ? $hearse->created_at->format('F d, Y') : 'N/A' }}</td>
+                                    <td class="px-4 py-3">{{ $hearse->created_at ? $hearse->created_at->format('h:i:s A') : 'N/A' }}</td>
                                     <td class="px-4 py-3">{{ $hearse->updated_at ? $hearse->updated_at->format('F d, Y') : 'N/A' }}</td>
                                     <td class="px-4 py-3 flex items-center justify-end">
                                         <button id="{{ 'apple-imac-' . $hearse->id . '-dropdown-button'}}" data-dropdown-toggle="{{ 'apple-imac-' . $hearse->id . '-dropdown' }}" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
@@ -76,5 +88,47 @@
                 </nav>
             </div>
         </div>
+        <div id="imageModal" class="hidden z-50 fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 ">
+            <div class="w-full h-full flex items-center justify-center">
+                <div id="modalContent" class="max-w-2xl mx-auto">
+                    <img id="modalImage" src="" alt="Modal Image" class="w-full h-full rounded">
+                    <button id="closeModal" class="absolute top-6 right-6 text-white cursor-pointer">
+                        <i class="bx bx-x text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <script>
+            function openModal(imageSrc) {
+                document.getElementById('modalImage').src = imageSrc;
+                document.getElementById('imageModal').classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                document.getElementsByTagName('header')[0].style.zIndex = '0';
+            }
+
+            function closeModal() {
+                document.getElementById('imageModal').classList.add('hidden');
+                document.body.style.overflow = 'auto';
+                document.getElementsByTagName('header')[0].style.zIndex = '40';
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var images = document.querySelectorAll('.zoomable-image');
+
+                images.forEach(function (image) {
+                    image.addEventListener('click', function () {
+                        openModal(image.src);
+                    });
+                });
+
+                document.getElementById('imageModal').addEventListener('click', function (event) {
+                    if (event.target.id === 'imageModal') {
+                        closeModal();
+                    }
+                });
+
+                document.getElementById('closeModal').addEventListener('click', closeModal);
+            });
+        </script>
     </section>
 </x-admin>

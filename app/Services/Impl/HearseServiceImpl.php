@@ -16,7 +16,7 @@ class HearseServiceImpl implements HearseService {
     }
 
     public function getHearses() {
-        return Hearse::latest()->filter(Request(['search']))->paginate(8);
+        return Hearse::latest()->filter(Request(['search']))->paginate(7);
     }
 
     public function getHearseById($id) {
