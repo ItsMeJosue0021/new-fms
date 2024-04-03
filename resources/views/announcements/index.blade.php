@@ -46,9 +46,14 @@
                                     <td class="px-4 py-3">{{ $announcement->title ?? 'N/A' }}</td>
                                     <td class="px-4 py-3 max-w-96">{{ $announcement->content ?? 'N/A' }}</td>
                                     <td class="px-4 py-3 flex space-x-2 items-center max-w-80 overflow-x-auto scroll-container">
-                                        @foreach ($announcement->announcementImages as $image)
-                                        <img src="{{ asset('storage/' . $image->image) }}" alt="" class="w-14 h-14 zoomable-image cursor-pointer">
-                                        @endforeach
+                                        @if ($announcement->announcementImages->isEmpty())
+                                            <span class="text-lg text-gray-700">...</span>
+                                        @else
+                                            @foreach ($announcement->announcementImages as $image)
+                                                <img src="{{ asset('storage/' . $image->image) }}" alt="" class="w-14 h-14 zoomable-image cursor-pointer">
+                                            @endforeach
+                                        @endif
+
                                     </td>
                                     <td class="px-4 py-3">{{ $announcement->created_at ? $announcement->created_at->format('F d, Y') : 'N/A' }}</td>
                                     <td class="px-4 py-3">{{ $announcement->created_at ? $announcement->created_at->format('h:i:s A') : 'N/A' }}</td>

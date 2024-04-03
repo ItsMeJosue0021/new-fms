@@ -7,7 +7,11 @@ use App\Services\ServiceRequestService;
 
 class ServiceRequestServiceImpl implements ServiceRequestService {
     public function createServiceRequest($serviceId) {
-        return ServiceRequest::create($this->toServiceRequestArray($serviceId));
+        if (ServiceRequest::where('service_id', $serviceId)->where('user_id', auth()->user()->id)->exists()) {
+            throw new \Exception('Service request already exists');
+        } else {
+            return ServiceRequest::create($this->toServiceRequestArray($serviceId));
+        }
     }
 
     public function getAllServiceRequests() {
@@ -48,5 +52,31 @@ class ServiceRequestServiceImpl implements ServiceRequestService {
             'status' => 'cancelled'
         ]);
 
+    }
+
+    public function confirmRequest(array $data, $id) {
+        $request = ServiceRequest::findOrFail($id);
+        return $request->update($this->toPaymentInfoArray($data, $request));
+    }
+
+    public function toPaymentInfoArray(array $data, $request) {
+        return [
+            'status' => 'confirmed',
+            'payment_status' => 'Paid',
+            'payment_method' => $data['payment_method'],
+            'total_amount' => $this->calculatePaidAmmount($data['discount_amount'], $request),
+            'discount_amount' => $data['discount_amount'],
+            'recieved_amount' => $data['recieved_amount'],
+            'payment_reference' => $data['payment_reference'],
+            'paid_by' => $data['first_name'] . ' ' . $data['last_name']
+        ];
+    }
+
+    public function calculatePaidAmmount($discount_amount, $request) {
+        if ($discount_amount) {
+            return $request->service->casket->price - $discount_amount;
+        } else {
+            return $request->service->casket->price;
+        }
     }
 }

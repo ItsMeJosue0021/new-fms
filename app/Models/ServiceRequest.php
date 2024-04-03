@@ -14,6 +14,12 @@ class ServiceRequest extends Model
         'service_id',
         'user_id',
         'status',
+        'payment_status',
+        'payment_method',
+        'total_amount',
+        'discount_amount',
+        'recieved_amount',
+        'paid_by'
     ];
 
     public function service()

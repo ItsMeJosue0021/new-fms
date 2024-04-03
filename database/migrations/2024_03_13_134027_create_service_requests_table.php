@@ -18,6 +18,13 @@ return new class extends Migration
             $table->foreignIdFor(Service::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(User::class)->constrained();
             $table->string('status');
+            $table->string('payment_status')->default('Unpaid');
+            $table->string('payment_method')->nullable();
+            $table->string('total_amount')->nullable();
+            $table->string('discount_amount')->nullable();
+            $table->string('recieved_amount')->nullable();
+            $table->string('payment_reference')->nullable();
+            $table->string('paid_by')->nullable();
             $table->timestamps();
         });
     }

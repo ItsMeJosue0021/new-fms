@@ -113,6 +113,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
             Route::get('/confirmed', 'confirmedRequest')->name('requests.confirmed');
             Route::get('/confirmed/{serviceRequestId}', 'confirmedRequestShow')->name('requests.confirmed-show');
             Route::get('/{serviceRequestId}', 'show')->name('requests.show');
+            Route::post('/{serviceRequestId}/confirm', 'confirm')->name('requests.confirm');
             Route::get('/{serviceRequestId}/reject', 'reject')->name('requests.reject');
        });
 

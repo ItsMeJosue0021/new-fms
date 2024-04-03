@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\ServiceRequestService;
 use App\Http\Requests\StoreServiceRequest;
+use App\Http\Requests\StorePaymentInforRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ServiceRequestController extends Controller
@@ -33,8 +34,12 @@ class ServiceRequestController extends Controller
     }
 
     public function store($serviceId) {
-        $this->serviceRequestService->createServiceRequest($serviceId);
-        return redirect()->route('services.message', $serviceId);
+        try {
+            $this->serviceRequestService->createServiceRequest($serviceId);
+            return redirect()->route('services.message', $serviceId);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     public function confirmedRequest() {
@@ -94,5 +99,17 @@ class ServiceRequestController extends Controller
         } catch (ModelNotFoundException $e) {
             return redirect()->back()->with('error', 'Service request not found');
         }
+    }
+
+    public function confirm(StorePaymentInforRequest $request, $requestId) {
+        // dd($request->all());
+        // try {
+            $this->serviceRequestService->confirmRequest($request->validated(), $requestId);
+            return redirect()->route('requests.index')->with('success', 'Service request has been confirmed');
+        // } catch (ModelNotFoundException $e) {
+        //     return redirect()->back()->with('error', 'Service request not found');
+        // } catch (\Exception $e) {
+        //     return redirect()->back()->with('error', 'Something went wrong while trying to confirm the service request');
+        // }
     }
 }
