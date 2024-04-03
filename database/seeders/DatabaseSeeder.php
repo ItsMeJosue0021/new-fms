@@ -12,6 +12,7 @@ use Database\Seeders\CasketSeeder;
 use Database\Seeders\HearseSeeder;
 use Database\Seeders\ReligionSeeder;
 use Database\Seeders\DeathCauseSeeder;
+use Database\Seeders\AnnouncementSeeder;
 use Database\Seeders\InformantRelationshipSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -29,5 +30,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ReligionSeeder::class);
         $this->call(DeathCauseSeeder::class);
         $this->call(InformantRelationshipSeeder::class);
+        $this->call(AnnouncementSeeder::class);
     }
 }

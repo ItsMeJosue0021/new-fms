@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\CasketService;
+use App\Services\AnnouncementService;
 
 class HomeController extends Controller
 {
     private $casketService;
+    private $announcementService;
 
-    public function __construct(CasketService $casketService) {
+    public function __construct(CasketService $casketService, AnnouncementService $announcementService) {
         $this->casketService = $casketService;
+        $this->announcementService = $announcementService;
     }
 
     public function home() {
@@ -28,7 +31,15 @@ class HomeController extends Controller
     }
 
     public function announcements() {
-        return view('home.announcements');
+        return view('home.announcements', [
+            'announcements' => $this->announcementService->getAnnoucements()
+        ]);
+    }
+
+    public function showAnnouncement($id) {
+        return view('home.show-announcement', [
+            'announcement' => $this->announcementService->getAnnoucementById($id)
+        ]);
     }
 
     public function caskets() {

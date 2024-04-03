@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\CasketController;
-use App\Http\Controllers\DeceasedController;
-use App\Http\Controllers\HearseController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\InformantController;
-use App\Http\Controllers\ServiceRequestController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CasketController;
+use App\Http\Controllers\HearseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\DeceasedController;
+use App\Http\Controllers\InformantController;
 use App\Http\Controllers\ServiceTypeController;
+use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\ServiceRequestController;
 use App\Http\Controllers\UnauthorizedAcceeController;
 
 /*
@@ -27,7 +28,8 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'home')->name('home');
     Route::get('/about', 'about')->name('about');
     Route::get('/contact', 'contact')->name('contact');
-    Route::get('/announcements', 'announcements')->name('announcements');
+    Route::get('/announcements/latest', 'announcements')->name('announcements');
+    Route::get('/announcements/{announcement}/5fIhAl4ugkdK', 'showAnnouncement')->name('announcements.home-show');
     Route::get('/home/caskets', 'caskets')->name('caskets');
 });
 
@@ -142,6 +144,19 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
             Route::put('/{hearse}', 'update')->name('hearses.update');
             Route::delete('/{hearse}', 'delete')->name('hearses.delete');
             Route::get('/image/{imageId}', 'deleteHearseImage')->name('hearses.delete-image');
+        });
+    });
+
+    Route::prefix('announcements')->group(function () {
+        Route::controller(AnnouncementController::class)->group(function () {
+            Route::get('', 'index')->name('announcements.index');
+            Route::get('/create', 'create')->name('announcements.create');
+            Route::post('/store', 'store')->name('announcements.store');
+            Route::get('/{announcement}', 'show')->name('announcements.show');
+            Route::get('/{announcement}/edit', 'edit')->name('announcements.edit');
+            Route::put('/{announcement}', 'update')->name('announcements.update');
+            Route::delete('/{announcement}', 'delete')->name('announcements.delete');
+            Route::get('/image/{imageId}', 'deleteAnnouncementImage')->name('announcements.delete-image');
         });
     });
 
