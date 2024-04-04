@@ -16,6 +16,7 @@ class ServiceRequest extends Model
         'status',
         'payment_status',
         'payment_method',
+        'payment_reference',
         'total_amount',
         'discount_amount',
         'recieved_amount',

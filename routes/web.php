@@ -7,6 +7,7 @@ use App\Http\Controllers\HearseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\DeceasedController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InformantController;
 use App\Http\Controllers\ServiceTypeController;
 use App\Http\Controllers\AnnouncementController;
@@ -93,19 +94,7 @@ Route::middleware('auth')->group(function () {
 
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
-    // Route::get('/admin', function () {
-    //     return view('admin-dashboard');
-    // })->name('admin.dashboard');
-
-    // Route::prefix('requests')->group(function () {
-    //     Route::controller(ServiceRequestController::class)->group(function () {
-    //         Route::get('/pending', 'index')->name('requests.index');
-    //         Route::get('/confirmed', 'confirmedRequest')->name('requests.confirmed');
-    //         Route::get('/confirmed/{serviceRequestId}', 'confirmedRequestShow')->name('requests.confirmed-show');
-    //         Route::get('/{serviceRequestId}', 'show')->name('requests.show');
-    //         Route::get('/{serviceRequestId}/reject', 'reject')->name('requests.reject');
-    //     });
-    // });
+    Route::get('/dashboard', [DashboardController::class, 'admin'])->name('admin.dashboard');
 
     Route::controller(ServiceRequestController::class)->group(function () {
        Route::prefix('requests')->group(function () {
