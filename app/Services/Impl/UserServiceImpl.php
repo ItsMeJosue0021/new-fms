@@ -19,4 +19,8 @@ class UserServiceImpl implements UserService {
         ];
     }
 
+    public function updateEmail($email, $user_id) {
+        return User::findOrFail($user_id)->update(['email' => $email]);
+    }
+
 }

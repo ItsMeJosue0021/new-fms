@@ -32,7 +32,7 @@
                                     <td class="px-4 py-3">{{ $request->created_at ? $request->created_at->format('g:i A') : 'N/A' }}</td>
                                     <td class="px-4 py-3">{{ $request->service->service_type ?? 'N/A' }}</td>
                                     <td class="px-4 py-3">
-                                        <span class="bg-red-700 text-red-100 text-sm font-medium me-2 px-2.5 py-1 rounded dark:bg-red-900 dark:text-red-300">{{ $request->status ?? 'N/A' }}</span>
+                                        <span class="bg-red-50 text-red-700 text-sm font-medium me-2 px-2.5 py-1 rounded">{{ $request->status ?? 'N/A' }}</span>
                                     </td>
                                     <td class="px-4 py-3">&#x20B1; {{ isset($request->service->casket->price) ? number_format($request->service->casket->price, 2, '.', ',') : '00.00' }}</td>
                                     <td class="px-4 py-3 flex items-center justify-end">

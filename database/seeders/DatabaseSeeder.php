@@ -31,5 +31,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DeathCauseSeeder::class);
         $this->call(InformantRelationshipSeeder::class);
         $this->call(AnnouncementSeeder::class);
+        $this->call(ServiceRequestSeeder::class);
     }
+
 }

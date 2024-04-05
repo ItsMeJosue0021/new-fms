@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ServiceRequest;
 use App\Services\ServiceRequestService;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\StorePaymentInforRequest;
@@ -103,13 +104,32 @@ class ServiceRequestController extends Controller
 
     public function confirm(StorePaymentInforRequest $request, $requestId) {
         // dd($request->all());
-        // try {
+        try {
             $this->serviceRequestService->confirmRequest($request->validated(), $requestId);
             return redirect()->route('requests.index')->with('success', 'Service request has been confirmed');
-        // } catch (ModelNotFoundException $e) {
-        //     return redirect()->back()->with('error', 'Service request not found');
-        // } catch (\Exception $e) {
-        //     return redirect()->back()->with('error', 'Something went wrong while trying to confirm the service request');
-        // }
+        } catch (ModelNotFoundException $e) {
+            return redirect()->back()->with('error', 'Service request not found');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong while trying to confirm the service request');
+        }
+    }
+
+    public function completed() {
+
+        $confirmedRequests = ServiceRequest::where('status', 'confirmed')->get();
+
+        foreach ($confirmedRequests as $confirmedRequest) {
+            $today = date("Y-m-d H:i:s");
+            $internment_datetime = $confirmedRequest->service->deceased->deathDetail->internment_date . ' ' . $confirmedRequest->service->deceased->deathDetail->internment_time;
+            if (strtotime($internment_datetime) < strtotime($today)) {
+                $confirmedRequest->update([
+                    'status' => 'completed'
+                ]);
+            }
+        }
+
+        return view('requests.completed', [
+            'requests' => $this->serviceRequestService->getCompletedServiceRequest()
+        ]);
     }
 }

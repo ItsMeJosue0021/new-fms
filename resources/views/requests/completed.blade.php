@@ -47,7 +47,7 @@
                                     <td class="px-4 py-3">{{ $request->created_at ? $request->created_at->format('g:i A') : 'N/A' }}</td>
                                     <td class="px-4 py-3">{{ $request->service->service_type ?? 'N/A' }}</td>
                                     <td class="px-4 py-3">
-                                        <span class="bg-green-100 text-green-700 text-sm font-medium me-2 px-2.5 py-1 rounded ">{{ $request->status ?? 'N/A' }}</span>
+                                        <span class="bg-blue-50 text-blue-700 text-sm font-medium me-2 px-2.5 py-1 rounded ">{{ $request->status ?? 'N/A' }}</span>
                                     </td>
                                     <td class="px-4 py-3">&#x20B1; {{ isset($request->service->casket->price) ? number_format($request->service->casket->price, 2, '.', ',') : '00.00' }}</td>
                                     <td class="px-4 py-3">&#x20B1; {{ isset($request->discount_amount) ? number_format($request->discount_amount, 2, '.', ',') : '00.00' }}</td>

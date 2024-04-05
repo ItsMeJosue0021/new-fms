@@ -2,22 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use App\Services\UserService;
+use App\Services\ProfileService;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
+    private $userService;
+    private $profileService;
+
+    public function __construct(UserService $userService, ProfileService $profileService)
+    {
+        $this->userService = $userService;
+        $this->profileService = $profileService;
+    }
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    public function editUserProfile(): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
+        return view('profile.user', [
+            'user' => auth()->user()
+        ]);
+    }
+
+    public function editAdminProfile(): View {
+        return view('profile.admin', [
+            'user' => auth()->user()
         ]);
     }
 
@@ -26,15 +42,15 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        // try {
+            $user_id = auth()->user()->id;
+            $data = $request->validated();
+            $this->userService->updateEmail($data['email'], $user_id);
+            $this->profileService->updateProfile($data, $user_id);
+            return redirect()->back()->with('success', 'Profile has been updated.');
+        // } catch (\Exception $e) {
+        //     return redirect()->back()->with('error', 'Something went wrong while trying to update you profile. Please try again.');
+        // }
     }
 
     /**

@@ -81,8 +81,9 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('/profile')->group(function () {
         Route::controller(ProfileController::class)->group(function () {
-            Route::get('', 'edit')->name('profile.edit');
-            Route::patch('', 'update')->name('profile.update');
+            Route::get('8hdjDFJ9s', 'editUserProfile')->name('profile.edit-user');
+            Route::get('', 'editAdminProfile')->name('profile.edit-admin');
+            Route::put('/{userId}/JY65gJS0h}', 'update')->name('profile.update');
             Route::delete('', 'destroy')->name('profile.destroy');
         });
     });
@@ -100,6 +101,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
        Route::prefix('requests')->group(function () {
             Route::get('/pending', 'index')->name('requests.index');
             Route::get('/confirmed', 'confirmedRequest')->name('requests.confirmed');
+            Route::get('/completed', 'completed')->name('requests.completed');
             Route::get('/confirmed/{serviceRequestId}', 'confirmedRequestShow')->name('requests.confirmed-show');
             Route::get('/{serviceRequestId}', 'show')->name('requests.show');
             Route::post('/{serviceRequestId}/confirm', 'confirm')->name('requests.confirm');

@@ -79,4 +79,8 @@ class ServiceRequestServiceImpl implements ServiceRequestService {
             return $request->service->casket->price;
         }
     }
+
+    public function getCompletedServiceRequest() {
+        return ServiceRequest::latest()->where('status', 'completed')->paginate(10);
+    }
 }
