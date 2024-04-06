@@ -223,26 +223,25 @@
                                 <div id="animation-carousel" class="relative w-full" data-carousel="static">
                                     <!-- Carousel wrapper -->
                                     <div class="relative lg:h-48 md:h-36 overflow-hidden z-0">
-                                        <!-- Item 1 -->
-                                        <div class="hidden duration-200 ease-linear" data-carousel-item>
-                                            <img src="https://placehold.co/600x400/000000/FFF" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
-                                        </div>
-                                        <!-- Item 2 -->
-                                        <div class="hidden duration-200 ease-linear" data-carousel-item>
-                                            <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
-                                        </div>
-                                        <!-- Item 3 -->
-                                        <div class="hidden duration-200 ease-linear" data-carousel-item="active">
-                                            <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
-                                        </div>
-                                        <!-- Item 4 -->
-                                        <div class="hidden duration-200 ease-linear" data-carousel-item>
-                                            <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
-                                        </div>
-                                        <!-- Item 5 -->
-                                        <div class="hidden duration-200 ease-linear" data-carousel-item>
-                                            <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
-                                        </div>
+                                        @if (count($service->casket->casketImages) > 0)
+                                            @foreach ($service->casket->casketImages as $image)
+                                                <div class="hidden duration-200 ease-linear" data-carousel-item>
+                                                    <img src="{{ asset('storage/' . $image->image) }}" alt="{{ $service->casket->name }}" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer">
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            <div class="hidden duration-200 ease-linear" data-carousel-item>
+                                                <img src="https://placehold.co/600x400/000000/FFF" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
+                                            </div>
+
+                                            <div class="hidden duration-200 ease-linear" data-carousel-item>
+                                                <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
+                                            </div>
+
+                                            <div class="hidden duration-200 ease-linear" data-carousel-item="active">
+                                                <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
+                                            </div>
+                                        @endif
                                     </div>
                                     <!-- Slider controls -->
                                     <button type="button" class="z-0 absolute top-0 start-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
@@ -263,12 +262,12 @@
                                     </button>
                                 </div>
                                 <div class="p-4">
-                                    <h1 class="title-font text-lg font-medium text-gray-900 ">{{ $service->casket->name ?? ''}}</h1>
-                                    <p class="leading-6 mb-3 text-sm">{{ $service->casket->description ?? ''}}</p>
+                                    <h1 class="title-font text-lg font-medium text-gray-900 ">{{ $service->casket->name }}</h1>
+                                    <p class="leading-6 mb-3 text-sm">{{ $service->casket->description }}</p>
 
                                     <div class="flex items-center justify-between z-50">
 
-                                        <span class="leading-6 font-medium text-base">&#x20B1; {{ $service->casket->price ?? ''}}</span>
+                                        <span class="leading-6 font-medium text-base">&#x20B1; {{ $service->casket->price }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -279,26 +278,25 @@
                                 <div id="animation-carousel" class="relative w-full" data-carousel="static">
                                     <!-- Carousel wrapper -->
                                     <div class="relative lg:h-48 md:h-36 overflow-hidden z-0">
-                                        <!-- Item 1 -->
-                                        <div class="hidden duration-200 ease-linear" data-carousel-item>
-                                            <img src="https://placehold.co/600x400/000000/FFF" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
-                                        </div>
-                                        <!-- Item 2 -->
-                                        <div class="hidden duration-200 ease-linear" data-carousel-item>
-                                            <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
-                                        </div>
-                                        <!-- Item 3 -->
-                                        <div class="hidden duration-200 ease-linear" data-carousel-item="active">
-                                            <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
-                                        </div>
-                                        <!-- Item 4 -->
-                                        <div class="hidden duration-200 ease-linear" data-carousel-item>
-                                            <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
-                                        </div>
-                                        <!-- Item 5 -->
-                                        <div class="hidden duration-200 ease-linear" data-carousel-item>
-                                            <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
-                                        </div>
+                                        @if (count($service->hearse->hearseImages) > 0)
+                                            @foreach ($service->hearse->hearseImages as $image)
+                                                <div class="hidden duration-200 ease-linear" data-carousel-item>
+                                                    <img src="{{ asset('storage/' . $image->image) }}" alt="{{ $service->hearse->name }}" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer">
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            <div class="hidden duration-200 ease-linear" data-carousel-item>
+                                                <img src="https://placehold.co/600x400/000000/FFF" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
+                                            </div>
+
+                                            <div class="hidden duration-200 ease-linear" data-carousel-item>
+                                                <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
+                                            </div>
+
+                                            <div class="hidden duration-200 ease-linear" data-carousel-item="active">
+                                                <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
+                                            </div>
+                                        @endif
                                     </div>
                                     <!-- Slider controls -->
                                     <button type="button" class="z-0 absolute top-0 start-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
@@ -319,8 +317,8 @@
                                     </button>
                                 </div>
                                 <div class="p-4">
-                                    <h1 class="title-font text-lg font-medium text-gray-900 ">{{ $service->casket->name ?? '' }}</h1>
-                                    <p class="leading-6 mb-3 text-sm">{{ $service->casket->description ?? '' }}</p>
+                                    <h1 class="title-font text-lg font-medium text-gray-900 ">{{ $service->hearse->name }}</h1>
+                                    <p class="leading-6 mb-3 text-sm">{{ $service->hearse->description }}</p>
                                 </div>
                             </div>
                         </div>
