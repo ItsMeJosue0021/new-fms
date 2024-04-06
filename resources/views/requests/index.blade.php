@@ -46,13 +46,13 @@
                                                 <li>
                                                     <a href="{{ route('requests.show', $request->id) }}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Process</a>
                                                 </li>
-                                                <li>
+                                                {{-- <li>
                                                     <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                                </li>
+                                                </li> --}}
                                             </ul>
-                                            <div class="py-1">
+                                            {{-- <div class="py-1">
                                                 <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </td>
                                 </tr>

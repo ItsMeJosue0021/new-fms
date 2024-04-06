@@ -106,7 +106,7 @@ class ServiceRequestController extends Controller
         // dd($request->all());
         try {
             $this->serviceRequestService->confirmRequest($request->validated(), $requestId);
-            return redirect()->route('requests.index')->with('success', 'Service request has been confirmed');
+            return redirect()->route('requests.receipt', $requestId)->with('success', 'Service request has been confirmed');
         } catch (ModelNotFoundException $e) {
             return redirect()->back()->with('error', 'Service request not found');
         } catch (\Exception $e) {
@@ -130,6 +130,14 @@ class ServiceRequestController extends Controller
 
         return view('requests.completed', [
             'requests' => $this->serviceRequestService->getCompletedServiceRequest()
+        ]);
+    }
+
+    public function receipt($requestId) {
+            $request = $this->serviceRequestService->getServiceRequestById($requestId);
+            return view('requests.receipt', [
+            'request' => $request,
+            'service' => $request->service
         ]);
     }
 }

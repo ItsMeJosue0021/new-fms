@@ -106,6 +106,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
             Route::get('/{serviceRequestId}', 'show')->name('requests.show');
             Route::post('/{serviceRequestId}/confirm', 'confirm')->name('requests.confirm');
             Route::get('/{serviceRequestId}/reject', 'reject')->name('requests.reject');
+            Route::get('/{serviceRequestId}/receipt', 'receipt')->name('requests.receipt');
        });
 
        Route::prefix('customer')->group(function () {

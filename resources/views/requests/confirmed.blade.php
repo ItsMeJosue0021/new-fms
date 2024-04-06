@@ -5,7 +5,7 @@
                 <h1 class="text-lg bg-medium">Confirmed Request</h1>
             </div>
             <!-- Start coding here -->
-            <div class="bg-white dark:bg-gray-800 relative shadow sm:rounded-lg overflow-hidden">
+            <div class="bg-white dark:bg-gray-800 relative shadow sm:rounded-lg">
                 <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                     {{-- <div class="w-full md:w-1/2">
                         <form class="flex items-center">
@@ -64,12 +64,12 @@
                                                     <a href="{{ route('requests.confirmed-show', $request->id) }}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
+                                                    <a href="{{ route('requests.receipt', $request->id) }}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Download Receipt</a>
                                                 </li>
                                             </ul>
-                                            <div class="py-1">
+                                            {{-- <div class="py-1">
                                                 <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </td>
                                 </tr>

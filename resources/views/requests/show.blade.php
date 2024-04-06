@@ -346,10 +346,10 @@
                                         <input id="bordered-checkbox-1" type="checkbox" name="payment_method" value="Cash" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="bordered-checkbox-1" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cash</label>
                                     </div>
-                                    <div class="w-fit flex items-center px-4 border border-gray-200 rounded dark:border-gray-700">
+                                    {{-- <div class="w-fit flex items-center px-4 border border-gray-200 rounded dark:border-gray-700">
                                         <input id="bordered-checkbox-1" type="checkbox" name="payment_method" value="E-Wallet" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="bordered-checkbox-1" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">E-Wallet</label>
-                                    </div>
+                                    </div> --}}
                                     <div class="w-fit flex items-center px-4 border border-gray-200 rounded dark:border-gray-700">
                                         <input id="bordered-checkbox-1" type="checkbox" name="payment_method" value="Card" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="bordered-checkbox-1" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Card</label>
@@ -359,7 +359,7 @@
 
                             <div class="flex items-start space-x-6">
                                 <div class="w-full">
-                                    <label for="discount_amount" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Discount Amount</label>
+                                    <label for="discount_amount" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Discount (SENIOR, PWD, OTHERS..)</label>
                                     <input type="number" name="discount_amount" id="discount_amount" placeholder="0.00" class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 </div>
                                 <div class="w-full">
@@ -373,7 +373,7 @@
                             </div>
 
                             <div>
-                                <span class="w-full border-b border-gray-300 py-1 block mb-1 text-sm font-medium text-gray-900 dark:text-white">Paid By</span>
+                                <span class="w-full  border-gray-300 py-1 block mb-1 text-sm font-medium text-gray-900 dark:text-white">Paid By</span>
                                 <div class="flex items-start space-x-6">
                                     <div class="w-full">
                                         <label for="first_name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
@@ -386,8 +386,8 @@
                                 </div>
                             </div>
                         </div>
-                        <li class="w-full flex items-start px-2 py-1 justify-between cursor-pointer font-medium border-b border-dashed border-gray-500">
-                            <span>Total:</span>
+                        <li class="w-full flex items-start px-2 py-1 justify-between cursor-pointer font-medium border border-dashed border-gray-500">
+                            <span>Total Due:</span>
                             <span>&#x20B1;{{ $service->casket->price ?? ''}}</span>
                         </li>
                     </div>
