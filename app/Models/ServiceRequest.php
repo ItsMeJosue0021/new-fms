@@ -20,7 +20,9 @@ class ServiceRequest extends Model
         'total_amount',
         'discount_amount',
         'recieved_amount',
-        'paid_by'
+        'gl',
+        'paid_by',
+        'payment_date'
     ];
 
     public function service()

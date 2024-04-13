@@ -64,20 +64,28 @@ class ServiceRequestServiceImpl implements ServiceRequestService {
             'status' => 'confirmed',
             'payment_status' => 'Paid',
             'payment_method' => $data['payment_method'],
-            'total_amount' => $this->calculatePaidAmmount($data['discount_amount'], $request),
+            'total_amount' => $this->calculatePaidAmmount($request, $data['discount_amount'], $data['gl']),
             'discount_amount' => $data['discount_amount'],
             'recieved_amount' => $data['recieved_amount'],
+            'gl' => $data['gl'],
             'payment_reference' => $data['payment_reference'],
-            'paid_by' => $data['first_name'] . ' ' . $data['last_name']
+            'paid_by' => $data['first_name'] . ' ' . $data['last_name'],
+            'payment_date' => today()
         ];
     }
 
-    public function calculatePaidAmmount($discount_amount, $request) {
-        if ($discount_amount) {
-            return $request->service->casket->price - $discount_amount;
-        } else {
-            return $request->service->casket->price;
-        }
+    // public function calculatePaidAmmount($discount_amount, $gl, $request) {
+    //     if ($discount_amount) {
+    //         return $request->service->casket->price - $discount_amount;
+    //     } else {
+    //         return $request->service->casket->price;
+    //     }
+    // }
+
+    public function calculatePaidAmmount($request, $discount_amount = 0, $gl = 0) {
+        $total_amount = $request->service->casket->price;
+        $total_discounts = $discount_amount + $gl;
+        return $total_amount - $total_discounts;
     }
 
     public function getCompletedServiceRequest() {

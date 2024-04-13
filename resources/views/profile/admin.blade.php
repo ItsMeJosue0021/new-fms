@@ -6,9 +6,12 @@
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Update your profile information
                     </h1>
-                    <form class="space-y-4 md:space-y-6" action="{{ route('profile.update', $user->id) }}" method="POST">
+                    <form class="space-y-4 md:space-y-6" action="{{ route('profile.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+                        <div class="">
+
+                        </div>
                         <div class="flex items-start space-x-4">
                             <div class="w-full">
                                 <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name</label>

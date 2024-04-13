@@ -26,8 +26,9 @@ class StorePaymentInforRequest extends FormRequest
             'payment_reference' => 'nullable',
             'discount_amount' => 'nullable',
             'recieved_amount' => 'required',
+            'gl' => 'nullable',
             'first_name' => 'required',
-            'last_name' => 'required'
+            'last_name' => 'required',
         ];
     }
 }

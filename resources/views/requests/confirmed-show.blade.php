@@ -324,16 +324,34 @@
                         </div>
                     </div>
                 </div>
-                <form action="{{ route('services.request-store', $service->id) }}" method="POST" class="mb-6 flex flex-col space-y-4">
-                    @csrf
-                    <div class="border border-dashed border-gray-500 bg-gray-50 p-4">
-                        <li class="w-full flex items-start justify-between cursor-pointer font-medium">
-                            <span>Total:</span>
-                            <span>&#x20B1;{{ $service->casket->price ?? ''}}</span>
+                <div class="mb-6 flex flex-col space-y-4">
+                    <div class="flex flex-col space-y-2 border border-gray-300 bg-gray-50 p-4 py-6">
+                        <h2 class="text-lg font-semibold ">Payment Details</h2>
+                        <li class="w-full flex items-start justify-between cursor-pointer font-medium border-b border-dashed border-gray-300">
+                            <span>Total Amount:</span>
+                            <span>₱{{ $service->casket->price ? number_format($service->casket->price, 2) : '' }}</span>
                         </li>
+                        <li class="w-full flex items-start justify-between cursor-pointer font-medium border-b border-dashed border-gray-300">
+                            <span>Discount:</span>
+                            <span>₱{{ $request->discount_amount ? number_format($request->discount_amount, 2) : '' }}</span>
+                        </li>
+                        <li class="w-full flex items-start justify-between cursor-pointer font-medium border-b border-dashed border-gray-300">
+                            <span>Recieved Amount:</span>
+                            <span>₱{{ $request->recieved_amount ? number_format($request->recieved_amount, 2) : '' }}</span>
+                        </li>
+                        <li class="w-full flex items-start justify-between cursor-pointer font-medium border-b border-dashed border-gray-300">
+                            <span>Payment Method</span>
+                            <span>{{ $request->payment_method ?? '' }}</span>
+                        </li>
+                        <li class="w-full flex items-start justify-between cursor-pointer font-medium border-b border-dashed border-gray-300">
+                            <span>Payment Reference</span>
+                            <span>{{ $request->payment_reference ?? 'N/A' }}</span>
+                        </li>
+                        <div class="flex items-start pt-2">
+                            <a href="{{ route('requests.receipt', $request->id) }}" class="text-sm text-white rounded-md bg-blue-600 hover:bg-blue-700 py-2 px-3">Download Receipt</a>
+                        </div>
                     </div>
-                    {{-- <button class="px-6 text-sm py-2 rounded-md text-white bg-blue-700 hover:bg-blue-800 cursor-pointer">Confirm Request</button> --}}
-                </form>
+                </div>
             </div>
         </div>
         <div id="imageModal" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 z-50">

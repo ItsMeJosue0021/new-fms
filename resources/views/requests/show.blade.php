@@ -344,29 +344,48 @@
                                         <input id="bordered-checkbox-1" type="checkbox" name="payment_method" value="Cash" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="bordered-checkbox-1" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cash</label>
                                     </div>
-                                    {{-- <div class="w-fit flex items-center px-4 border border-gray-200 rounded dark:border-gray-700">
+                                    <div class="w-fit flex items-center px-4 border border-gray-200 rounded dark:border-gray-700">
                                         <input id="bordered-checkbox-1" type="checkbox" name="payment_method" value="E-Wallet" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="bordered-checkbox-1" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">E-Wallet</label>
-                                    </div> --}}
+                                    </div>
                                     <div class="w-fit flex items-center px-4 border border-gray-200 rounded dark:border-gray-700">
                                         <input id="bordered-checkbox-1" type="checkbox" name="payment_method" value="Card" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="bordered-checkbox-1" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Card</label>
                                     </div>
                                 </div>
+                                @error('payment_method')
+                                    <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="flex items-start space-x-6">
                                 <div class="w-full">
                                     <label for="discount_amount" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Discount (SENIOR, PWD, OTHERS..)</label>
                                     <input type="number" name="discount_amount" id="discount_amount" placeholder="0.00" class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    @error('discount_amount')
+                                        <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="w-full">
+                                    <label for="gl" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">GL (CSWD, DSWD)</label>
+                                    <input type="number" name="gl" id="gl" placeholder="0.00" class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    @error('gl')
+                                        <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="w-full">
                                     <label for="recieved_amount" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Recieved Amount</label>
                                     <input type="number" name="recieved_amount" id="recieved_amount" placeholder="0.00" class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    @error('recieved_amount')
+                                        <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="w-full">
                                     <label for="payment_reference" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Payment Reference Number</label>
                                     <input type="text" name="payment_reference" id="payment_reference" placeholder="Payment Reference Number.." class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    @error('payment_reference')
+                                        <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -376,10 +395,16 @@
                                     <div class="w-full">
                                         <label for="first_name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
                                         <input type="text" name="first_name" id="first_name" placeholder="First name.." class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        @error('first_name')
+                                            <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="w-full">
                                         <label for="last_name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
                                         <input type="text" name="last_name" id="last_name" placeholder="Last name.." class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        @error('last_name')
+                                            <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>

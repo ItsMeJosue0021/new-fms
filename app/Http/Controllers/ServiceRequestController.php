@@ -133,6 +133,18 @@ class ServiceRequestController extends Controller
         ]);
     }
 
+    public function completedRequestShow($id) {
+        try {
+            $request = $this->serviceRequestService->getServiceRequestById($id);
+            return view('requests.completed-show', [
+                'request' => $request,
+                'service' => $request->service
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return redirect()->back()->with('error', 'Service request not found');
+        }
+    }
+
     public function receipt($requestId) {
             $request = $this->serviceRequestService->getServiceRequestById($requestId);
             return view('requests.receipt', [

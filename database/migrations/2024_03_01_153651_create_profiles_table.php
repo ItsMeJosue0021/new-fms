@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('age')->nullable();
             $table->string('sex')->nullable();
             $table->string('contact_number')->nullable();
+            $table->string('image')->nullable();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

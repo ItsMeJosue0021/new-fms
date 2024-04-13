@@ -44,32 +44,32 @@
                                 <span>GROSS AMOUNT OF SERVICE</span>
                                 <div class="w-40 flex items-center justify-between">
                                     <span>PHP</span>
-                                    <span class="w-28 border-b border-gray-500 text-center h-5">{{ $service->casket->price ?? '' }}</span>
+                                    <span class="w-28 border-b border-gray-500 text-start h-5">₱ {{ $service->casket->price ? number_format($service->casket->price, 2) : ' 00.00' }}</span>
                                 </div>
                             </div>
                             <div class="w-full flex items-start justify-between">
                                 <span>DISCOUNT (SENIOR, PWD, OTHERS)</span>
                                 <div class="w-40 flex items-center justify-between">
                                     <span>PHP</span>
-                                    <span class="w-28 border-b border-gray-500 text-center h-5">{{ $request->discount_amount ?? '' }}</span>
+                                    <span class="w-28 border-b border-gray-500 text-start h-5">₱ {{ $request->discount_amount ? number_format($request->discount_amount, 2) : ' 00.00' }}</span>
                                 </div>
                             </div>
                             <div class="w-full flex items-start justify-between">
                                 <span>GL (CSWD, DSWD)</span>
                                 <div class="w-40 flex items-center justify-between">
                                     <span>PHP</span>
-                                    <span class="w-28 border-b border-gray-500 text-center h-5"></span>
+                                    <span class="w-28 border-b border-gray-500 text-start h-5">₱ {{ $request->gl ? number_format($request->gl, 2) : ' 00.00' }}</span>
                                 </div>
                             </div>
                             <div class="w-full flex items-start justify-between">
                                 <span>NET AMOUNT OF SERVICE</span>
                                 <div class="w-40 flex items-center justify-between">
                                     <span>PHP</span>
-                                    <span class="w-28 border-b border-gray-500 text-center h-5">{{ $request->total_amount ?? '' }}</span>
+                                    <span class="w-28 border-b border-gray-500 text-start h-5">₱ {{ $request->total_amount ? number_format($request->total_amount, 2) : ' 00.00' }}</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="w-[700px] flex flex-col items-center justify-center font-bold">
+                        {{-- <div class="w-[700px] flex flex-col items-center justify-center font-bold">
                             <div class="w-full flex items-start justify-start pt-4">
                                 <span class="">OTHER SERVICES</span>
                             </div>
@@ -101,13 +101,13 @@
                                     <span class="w-28 border-b border-gray-500 text-center h-5"></span>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="w-[700px] flex flex-col items-center justify-center font-bold">
                             <div class="w-full flex items-start justify-between py-6">
                                 <span class="underline">GRAND TOTAL</span>
                                 <div class="w-40 flex item-start justify-between">
                                     <span>PHP</span>
-                                    <span class="w-28 border-b border-gray-500 text-center h-5">{{ $request->total_amount ?? '' }}</span>
+                                    <span class="w-28 border-b border-gray-500 text-start h-5">₱ {{ $request->total_amount ? number_format($request->total_amount, 2) : ' 00.00' }}</span>
                                 </div>
                             </div>
                         </div>
@@ -158,7 +158,7 @@
                                     <svg class="w-3 h-3 me-2 text-gray-500 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Z"/>
                                     </svg>
-                                    Hot & Cold-Water Dispenser with <span class="underline px-2">0</span> gallons of water
+                                    Hot & Cold-Water Dispenser with <span class="underline px-2">{{ $service->water }}</span> gallons of water
                                 </li>
                                 <li class="flex items-center">
                                     <svg class="w-3 h-3 me-2 text-gray-500 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -192,18 +192,17 @@
                                 <span class="italic">CONFORME</span>
                             </div>
                             <div class="w-full flex items-start justify-between">
-                                <div class="italic border-t border-gray-500 px-6">
-                                    SIGNATURE OVER PRINTED NAME OF CLIENT
+                                <div class="flex flex-col items-center justify-center">
+                                    <span class="text-base uppercase">
+                                        {{ $request->paid_by ?? '' }}
+                                    </span>
+                                    <div class="italic border-t border-gray-500 px-6">
+                                        SIGNATURE OVER PRINTED NAME OF CLIENT
+                                    </div>
                                 </div>
 
-
                                 <div class="flex flex-col items-center justify-center">
-                                    @php
-                                        use Carbon\Carbon;
-                                    @endphp
-
-                                        {{-- {{ Carbon::now()->format('Y-m-d') }} --}}
-
+                                    <span> {{ $request->payment_date ?? '' }} </span>
                                     <div class="italic border-t border-gray-500 px-10">
                                         DATE
                                     </div>

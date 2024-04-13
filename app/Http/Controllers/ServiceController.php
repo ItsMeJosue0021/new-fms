@@ -143,6 +143,14 @@ class ServiceController extends Controller
         ]);
     }
 
+    public function paymentTerms($serviceId)
+    {
+        return view('service.payment-terms', [
+            'service' => $this->serviceService->getServiceById($serviceId),
+            'page' => 'payment_terms'
+        ]);
+    }
+
     public function summary($serviceId)
     {
         return view('service.summary', [
@@ -238,10 +246,10 @@ class ServiceController extends Controller
         try {
             $otherServices = $request->validated();
             if ($otherServices['others'] === null) {
-                return redirect()->route('services.summary', $serviceId);
+                return redirect()->route('services.payment-terms', $serviceId);
             }
             $this->serviceService->setOtherServices($serviceId, $otherServices);
-            return redirect()->route('services.summary', $serviceId);
+            return redirect()->route('services.payment-terms', $serviceId);
         } catch (ServiceNotFoundException $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }

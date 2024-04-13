@@ -29,14 +29,16 @@ class ServiceRequestSeeder extends Seeder
             DB::table('service_requests')->insert([
                 'service_id' => 1,
                 'user_id' => 1,
-                'status' => 'confirmed',
+                'status' => 'completed',
                 'payment_status' => 'Paid',
                 'payment_method' => 'Cash',
                 'total_amount' => rand(1000, 30000),
                 'discount_amount' => rand(500, 2500),
                 'recieved_amount' => rand(1000, 30000),
+                'gl' => rand(10000, 99999),
                 'payment_reference' => 'REF' . rand(10000, 99999),
-                'paid_by' => Str::random(8),
+                'paid_by' => 'Mark Bautista',
+                'payment_date' => $randomDate,
                 'created_at' => $randomDate
             ]);
         }

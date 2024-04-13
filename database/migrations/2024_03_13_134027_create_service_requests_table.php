@@ -23,8 +23,10 @@ return new class extends Migration
             $table->string('total_amount')->nullable();
             $table->string('discount_amount')->nullable();
             $table->string('recieved_amount')->nullable();
+            $table->string('gl')->nullable();
             $table->string('payment_reference')->nullable();
             $table->string('paid_by')->nullable();
+            $table->date('payment_date')->nullable();
             $table->timestamps();
         });
     }
