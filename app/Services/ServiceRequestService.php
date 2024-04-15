@@ -12,4 +12,5 @@ interface ServiceRequestService {
     public function cancelServiceRequest($id);
     public function confirmRequest(array $data, $id);
     public function getCompletedServiceRequest();
+    public function markAsCompleted($id);
 }

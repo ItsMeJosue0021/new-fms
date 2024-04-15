@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Service;
+use App\Models\Feedback;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -58,6 +59,11 @@ class ServiceRequest extends Model
     public function isCompleted()
     {
         return $this->status === 'completed';
+    }
+
+    public function feedback()
+    {
+        return $this->hasOne(Feedback::class);
     }
 
     public function scopeFilter($query, array $filters)

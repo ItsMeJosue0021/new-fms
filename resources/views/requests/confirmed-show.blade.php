@@ -267,7 +267,7 @@
 
                                     <div class="flex items-center justify-between z-50">
 
-                                        <span class="leading-6 font-medium text-base">&#x20B1; {{ $service->casket->price }}</span>
+                                        <span class="leading-6 font-medium text-base">₱{{ $service->casket->price ? number_format($service->casket->price, 2) : '' }}</span>
                                     </div>
                                 </div>
                             </div>

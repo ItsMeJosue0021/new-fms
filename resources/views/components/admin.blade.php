@@ -40,9 +40,14 @@
         <div class="flex items-center">
             <div class="flex items-center ms-3">
               <div>
-                <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
-                  <span class="sr-only">Open user menu</span>
-                  <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+                <button type="button" class="flex text-sm bg-gray-50 border border-gray-200 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                    <span class="sr-only">Open user menu</span>
+                    @if (Auth::user()->profile)
+                        <img class="w-10 h-10 rounded-full object-cover object-center" src="{{ asset('storage/' . optional(Auth::user()->profile)->image) ?? '' }}"
+                        alt="user photo">
+                    @else
+                        <i class='w-full h-full bx bxs-user-circle text-5xl text-gray-200'></i>
+                    @endif
                 </button>
               </div>
               <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
@@ -135,6 +140,14 @@
                     <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
                 </svg>
                 <span class="flex-1 ms-3 whitespace-nowrap">Announcements</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('feedback.index') }}" class="flex items-center p-2  rounded-lg dark:text-white {{ Request::is('*feedbacks*') ? 'bg-blue-50 text-blue-600' : 'text-gray-900'}} hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <svg class="{{ Request::is('*feedbacks*') ? 'text-blue-600' : 'text-gray-500'}} flex-shrink-0 w-5 h-5 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                    <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
+                </svg>
+                <span class="flex-1 ms-3 whitespace-nowrap">Feedbacks</span>
                 </a>
             </li>
             <li>

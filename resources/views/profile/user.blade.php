@@ -3,12 +3,61 @@
         <div class="flex flex-col items-start justify-start space-y-5 mt-20 py-8 mx-auto md:h-screen lg:py-0">
             <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0  xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div class="p-6 space-y-4 md:space-y-6">
-                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                    <h2 class="text-xl font-medium leading-tight tracking-tight text-gray-900  dark:text-white">
                         Update your profile information
-                    </h1>
-                    <form class="space-y-4 md:space-y-6" action="{{ route('profile.update', $user->id) }}" method="POST">
+                    </h2>
+                    <form class="space-y-4 md:space-y-6" action="{{ route('profile.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+                        <div class="h-64 relative  border-gray-200 rounded-t-lg">
+                            <div class="rounded-t-lg h-3/4 bg-gray-100"></div>
+                            <label for="dropzone-file"
+                                class="flex flex-col items-center justify-center absolute top-4 left-1/2 transform -translate-x-1/2 rounded-full w-56 h-56 bg-gray-200 border border-dashed  cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-300 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                <div id="description" class="hidden flex flex-col items-center justify-center pt-5 pb-6">
+                                    <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                    </svg>
+                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
+                                            class="font-semibold">Click
+                                            to upload</span> or drag and drop</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG or GIF</p>
+                                </div>
+                                <img id="image-preview" src="#" alt="Preview"
+                                    class="hidden w-full h-full rounded-full" />
+                                <img id="db-cover-photo" src="{{ $user->profile ? asset('storage/' . $user->profile->image) : ''}}"
+                                    alt="Image" class="w-full h-full rounded-full" />
+                                <input id="dropzone-file" type="file" name="image" class="hidden"
+                                    accept="image/png, image/jpeg, image/gif" onchange="previewCoverPhoto(this)" />
+                            </label>
+                            <script>
+                                function previewCoverPhoto(input) {
+                                    var imagePreview = document.getElementById('image-preview');
+                                    var dbCoverPhoto = document.getElementById('db-cover-photo');
+                                    var description = document.getElementById('description');
+
+                                    if (input.files && input.files[0]) {
+                                        var reader = new FileReader();
+
+                                        reader.onload = function(e) {
+                                            imagePreview.src = e.target.result;
+                                            imagePreview.classList.remove('hidden');
+                                            dbCoverPhoto.classList.add('hidden');
+                                            description.classList.add('hidden');
+                                        };
+
+                                        reader.readAsDataURL(input.files[0]);
+                                    } else {
+                                        imagePreview.src = '';
+                                        imagePreview.classList.add('hidden');
+                                        description.classList.add('hidden');
+                                        dbCoverPhoto.classList.add('hidden');
+                                    }
+                                }
+                            </script>
+                        </div>
                         <div class="flex items-start space-x-4">
                             <div class="w-full">
                                 <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name</label>

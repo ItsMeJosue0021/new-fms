@@ -1,6 +1,6 @@
 <x-guest-layout>
     <div>
-        <div class="max-w-[1400px] px-4 mx-auto ">
+        <div class="max-w-[1200px] px-4 mx-auto ">
             <form action="{{ route('services.save-inclusions', $service->id) }}" method="POST" class="flex flex-col space-y-4 relative">
                 @csrf
                 <div class="absolute w-full h-full flex items-center justify-center z-0">

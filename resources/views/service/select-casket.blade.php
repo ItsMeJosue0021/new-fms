@@ -1,6 +1,6 @@
 <x-guest-layout>
     <div class="z-0">
-        <div class="max-w-[1400px] px-4 mx-auto ">
+        <div class="max-w-[1200px] px-4 mx-auto ">
             <div class="flex flex-col space-y-4 relative mb-12">
                 <x-stepper :page="$page" :service="$service" />
             </div>

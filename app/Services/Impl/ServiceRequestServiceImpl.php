@@ -15,7 +15,7 @@ class ServiceRequestServiceImpl implements ServiceRequestService {
     }
 
     public function getAllServiceRequests() {
-        return ServiceRequest::where('status', 'pending')->latest()->paginate(2);
+        return ServiceRequest::where('status', 'pending')->latest()->paginate(9);
     }
 
     public function getServiceRequestById($id) {
@@ -74,14 +74,6 @@ class ServiceRequestServiceImpl implements ServiceRequestService {
         ];
     }
 
-    // public function calculatePaidAmmount($discount_amount, $gl, $request) {
-    //     if ($discount_amount) {
-    //         return $request->service->casket->price - $discount_amount;
-    //     } else {
-    //         return $request->service->casket->price;
-    //     }
-    // }
-
     public function calculatePaidAmmount($request, $discount_amount = 0, $gl = 0) {
         $total_amount = $request->service->casket->price;
         $total_discounts = $discount_amount + $gl;
@@ -90,5 +82,12 @@ class ServiceRequestServiceImpl implements ServiceRequestService {
 
     public function getCompletedServiceRequest() {
         return ServiceRequest::latest()->where('status', 'completed')->paginate(10);
+    }
+
+    public function markAsCompleted($id) {
+        $serviceRequest = ServiceRequest::findOrFail($id);
+        return $serviceRequest->update([
+            'status' => 'completed'
+        ]);
     }
 }

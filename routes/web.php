@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FeedbackController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CasketController;
@@ -43,7 +44,7 @@ Route::get('/caskets', [ServiceController::class, 'selctedCasket'])->name('servi
 
 Route::get('/home/casket/{caskedId}', [HomeController::class, 'selectCasket'])->name('home.select-casket');
 
-Route::get('/unauthorized-access', [UnauthorizedAcceeController::class, 'unauthorizedAccess'])->name('unauthorized-access');
+Route::get('/404', [UnauthorizedAcceeController::class, 'unauthorizedAccess'])->name('unauthorized-access');
 
 
 Route::middleware('auth')->group(function () {
@@ -91,6 +92,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/service-request/{request}/{code}', [ServiceRequestController::class, 'QRview'])->name('qrview');
 
+    Route::get('requests/{serviceRequestId}/T1uV3w6Y/receipt', [ServiceRequestController::class, 'receipt'])->name('requests.receipt');
+
 });
 
 
@@ -99,21 +102,21 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('/dashboard', [DashboardController::class, 'admin'])->name('admin.dashboard');
 
     Route::controller(ServiceRequestController::class)->group(function () {
-       Route::prefix('requests')->group(function () {
+        Route::prefix('requests')->group(function () {
             Route::get('/pending', 'index')->name('requests.index');
             Route::get('/confirmed', 'confirmedRequest')->name('requests.confirmed');
             Route::get('/completed', 'completed')->name('requests.completed');
-            Route::get('/confirmed/{serviceRequestId}', 'confirmedRequestShow')->name('requests.confirmed-show');
-            Route::get('/completed/{serviceRequestId}', 'completedRequestShow')->name('requests.completed-show');
-            Route::get('/{serviceRequestId}', 'show')->name('requests.show');
-            Route::post('/{serviceRequestId}/confirm', 'confirm')->name('requests.confirm');
-            Route::get('/{serviceRequestId}/reject', 'reject')->name('requests.reject');
-            Route::get('/{serviceRequestId}/receipt', 'receipt')->name('requests.receipt');
-       });
+            Route::get('/confirmed/{serviceRequestId}/aB3dE9Z2', 'confirmedRequestShow')->name('requests.confirmed-show');
+            Route::get('/completed/{serviceRequestId}/4fT6rD1u', 'completedRequestShow')->name('requests.completed-show');
+            Route::get('/{serviceRequestId}/H7kL2v9Q', 'show')->name('requests.show');
+            Route::post('/{serviceRequestId}/M3nV5j7R/confirm', 'confirm')->name('requests.confirm');
+            Route::get('/{serviceRequestId}/y2G6hK8l/reject', 'reject')->name('requests.reject');
+            Route::get('/{serviceRequestId}/E3gH6j9K/complete', 'markAsCompleted')->name('requests.complete');
+        });
 
-       Route::prefix('customer')->group(function () {
+        Route::prefix('customer')->group(function () {
             Route::get('/requests', 'customerRequests')->name('customer.requests');
-       });
+        });
     });
 
     Route::prefix('caskets')->group(function () {
@@ -155,6 +158,13 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
         });
     });
 
+    Route::controller(FeedbackController::class)->group(function () {
+        Route::get('/feedbacks', 'index')->name('feedback.index');
+        Route::get('/feedbacks/{feedback}/visible', 'visible')->name('feedback.visible');
+        Route::get('/feedbacks/{feedback}/hide', 'hidden')->name('feedback.hidden');
+        Route::delete('/feedbacks/{feedback}', 'delete')->name('feedback.delete');
+    });
+
 
 });
 
@@ -166,7 +176,11 @@ Route::group(['middleware' => ['auth', 'role:customer']], function () {
             Route::get('/requests/{request}', 'showCustomerRequest')->name('customer.requests-show');
             Route::get('/requests/{request}/cancel', 'cancel')->name('customer.requests-cancel');
         });
-     });
+    });
+
+    Route::controller(FeedbackController::class)->group(function () {
+        Route::post('/feedback/{service_request_id}/save', 'store')->name('feedback.store');
+    });
 
 });
 

@@ -1,10 +1,94 @@
 <x-customer>
     <div>
-        <div class="mt-24">
-            <div class="flex pb-4">
-                <a href="{{ route('customer.requests') }}" class="px-6 py-2 rounded text-gray-800 bg-white hover:bg-gray-100 cursor-pointer">Back</a>
+        <div class="mt-24 relative">
+            <div class="flex pb-4 z-30">
+                <a href="{{ route('customer.requests') }}" class="px-6 py-2 rounded text-gray-800 bg-gray-100 hover:bg-gray-200 cursor-pointer">Back</a>
             </div>
-            <div class=" bg-white p-6 rounded-b-md">
+            @if ($service->serviceRequest->status == 'completed' && !$service->serviceRequest->feedback)
+                <div id="feedback-cntr" class="w-full md:w-1/2 shadow-xl absolute top-5 right-0 mb-5 rounded-lg bg-white min-h-40">
+                    <div id="alert-border-2" class="flex items-center p-4 rounded-t-lg text-green-800 border-t-4 border-green-300 bg-green-50 dark:bg-gray-800 dark:border-green-800" role="alert">
+                        <svg class="w-6 h-6 me-2 text-green-500 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                        </svg>
+                        <div class="ms-3 text-sm font-medium">
+                        Your service request has been completed! Please feel free to send us a feedback about our services so we can continue to serve better.
+                        </div>
+                        <div class="flex h-full">
+                            <i id="close-btn" class='bx bx-x text-3xl cursor-pointer rounded-full px-1 hover:bg-green-100'></i>
+                        </div>
+                    </div>
+                    <form action="{{ route('feedback.store', $request->id) }}" method="POST" class="p-4">
+                        @csrf
+                        <input type="hidden" name="stars" id="startInput">
+                        <div class="flex flex-col space-y-1">
+                            <label for="">Say something about our service..</label>
+                            <textarea name="content" id="" cols="30" rows="10" class="h-32 rounded-lg border border-gray-300"></textarea>
+                        </div>
+                        <div class="flex items-start justify-between pt-2">
+                            <div id="stars" class="flex items-center">
+                                <svg class="cursor-pointer star w-5 h-5 text-gray-300 ms-" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                </svg>
+                                <svg class="cursor-pointer star w-5 h-5 text-gray-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                </svg>
+                                <svg class="cursor-pointer star w-5 h-5 text-gray-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                </svg>
+                                <svg class="cursor-pointer star w-5 h-5 text-gray-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                </svg>
+                                <svg class="cursor-pointer star w-5 h-5 text-gray-300 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                                    <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+                                </svg>
+
+                                <script>
+                                    // Initialize rating to 0
+                                    let rating = 0;
+
+                                    // Get all stars
+                                    const stars = document.querySelectorAll('.star');
+                                    const starstInput = document.getElementById('startInput');
+
+                                    // Add click event listener to each star
+                                    stars.forEach((star, index) => {
+                                        star.addEventListener('click', () => {
+                                            // Check if this star has already been clicked
+                                            if (star.classList.contains('text-yellow-300')) {
+                                                // If so, unselect it and all stars to its right
+                                                for (let i = index; i < stars.length; i++) {
+                                                    stars[i].classList.remove('text-yellow-300');
+                                                    stars[i].classList.add('text-gray-300');
+                                                }
+
+                                                // Set rating to index
+                                                rating = index;
+                                            } else {
+                                                // If not, select it and all stars to its left
+                                                for (let i = 0; i <= index; i++) {
+                                                    stars[i].classList.remove('text-gray-300');
+                                                    stars[i].classList.add('text-yellow-300');
+                                                }
+
+                                                // Set rating to index + 1
+                                                rating = index + 1;
+                                            }
+
+                                            starstInput.value = rating;
+
+                                            // Now you can save `rating` to your database
+                                            console.log('Rating:', rating);
+                                        });
+                                    });
+                                </script>
+                            </div>
+                            <button class="py-2 px-8 bg-blue-600 hover:bg-blue-700 rounded-md text-white text-sm">Send</button>
+                        </div>
+                    </form>
+                </div>
+            @endif
+
+            <div class=" bg-white p-6 rounded-b-md shadow">
                 <div class="w-full z-10">
                     <h2 class="mb-2 text-2xl font-semibold text-gray-900 dark:text-white">Package Inclusions</h2>
                     <ul class="w-full space-y-1 text-gray-500 list-inside dark:text-gray-400">
@@ -325,12 +409,41 @@
                     </div>
                 </div>
                 <div class="mb-6 flex flex-col space-y-4">
-                    <div class="border border-dashed border-gray-500 bg-gray-50 p-4">
+                    {{-- <div class="border border-dashed border-gray-500 bg-gray-50 p-4">
                         <li class="w-full flex items-start justify-between cursor-pointer font-medium">
                             <span>Total:</span>
                             <span>&#x20B1;{{ $service->casket->price ?? ''}}</span>
                         </li>
-                    </div>
+                    </div> --}}
+                    <div class="mb-6 flex flex-col space-y-4">
+                        <div class="flex flex-col space-y-2 border border-gray-300 bg-gray-50 p-4 py-6">
+                            <h2 class="text-lg font-semibold ">Payment Details</h2>
+                            <li class="w-full flex items-start justify-between cursor-pointer font-medium border-b border-dashed border-gray-300">
+                                <span>Total Amount:</span>
+                                <span>₱{{ $service->casket->price ? number_format($service->casket->price, 2) : '0.00' }}</span>
+                            </li>
+                            @if ($service->serviceRequest->status == 'confirmed' || $service->serviceRequest->status == 'completed')
+                                <li class="w-full flex items-start justify-between cursor-pointer font-medium border-b border-dashed border-gray-300">
+                                    <span>Discount:</span>
+                                    <span>₱{{ $request->discount_amount ? number_format($request->discount_amount, 2) : '0.00' }}</span>
+                                </li>
+                                <li class="w-full flex items-start justify-between cursor-pointer font-medium border-b border-dashed border-gray-300">
+                                    <span>Recieved Amount:</span>
+                                    <span>₱{{ $request->recieved_amount ? number_format($request->recieved_amount, 2) : '0.00' }}</span>
+                                </li>
+                                <li class="w-full flex items-start justify-between cursor-pointer font-medium border-b border-dashed border-gray-300">
+                                    <span>Payment Method</span>
+                                    <span>{{ $request->payment_method ?? '' }}</span>
+                                </li>
+                                <li class="w-full flex items-start justify-between cursor-pointer font-medium border-b border-dashed border-gray-300">
+                                    <span>Payment Reference</span>
+                                    <span>{{ $request->payment_reference ?? 'N/A' }}</span>
+                                </li>
+                                <div class="flex items-start pt-2">
+                                    <a href="{{ route('requests.receipt', $request->id) }}" class="text-sm text-white rounded-md bg-blue-600 hover:bg-blue-700 py-2 px-3">Download Receipt</a>
+                                </div>
+                            @endif
+                        </div>
                     @if ($service->status == 'pending')
                         <a href="{{ route('customer.requests-cancel', $request->id) }}" class="px-6 text-sm py-2 rounded-md text-white text-center bg-red-600 hover:bg-red-800 cursor-pointer">Cancel Request</a>
                     @endif
@@ -378,6 +491,10 @@
             });
 
             document.getElementById('closeModal').addEventListener('click', closeModal);
+        });
+
+        document.getElementById('close-btn').addEventListener('click', function () {
+            document.getElementById('feedback-cntr').classList.add('hidden');
         });
     </script>
 </x-customer>

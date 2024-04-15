@@ -17,11 +17,17 @@ class Profile extends Model
         'age',
         'sex',
         'contact_number',
+        'image',
         'user_id'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function fullName()
+    {
+        return "{$this->first_name} {$this->last_name}";
     }
 }

@@ -152,4 +152,15 @@ class ServiceRequestController extends Controller
             'service' => $request->service
         ]);
     }
+
+    public function markAsCompleted($requestId) {
+        try {
+            $this->serviceRequestService->markAsCompleted($requestId);
+            return redirect()->back()->with('success', 'Service request has been marked as completed');
+        } catch (ModelNotFoundException $e) {
+            return redirect()->back()->with('error', 'Service request not found');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong while trying to mark the service request as completed');
+        }
+    }
 }

@@ -1,7 +1,7 @@
 <x-guest-layout>
-    <div class="max-w-[1400px] px-4 mx-auto ">
+    <div class="max-w-[1200px] px-4 mx-auto ">
         <x-stepper :page="$page" :service="$service" />
-        <div class="max-w-[1400px] mx-auto p-4 min-h-[600px] h-auto flex items-center justify-center">
+        <div class="max-w-[1200px] mx-auto p-4 min-h-[600px] h-auto flex items-start justify-center mt-14">
             <div class="w-full flex flex-col items-center justify-center h-full">
                 <h2 class="text-4xl font-semibold text-blue-600 mb-4 text-center">Payment Terms</h2>
                 <div class="w-full flex flex-col items-center justify-start pt-3 text-center">

@@ -4,10 +4,18 @@ namespace App\Services\Impl;
 
 use App\Models\User;
 use App\Models\Profile;
+use App\Services\FileService;
 use App\Services\ProfileService;
 
 class ProfileServiceImpl implements ProfileService
 {
+    private $fileService;
+
+    public function __construct(FileService $fileService)
+    {
+        $this->fileService = $fileService;
+    }
+
     public function saveProfile(array $profile, $user_id)
     {
         return Profile::create($this->toProfileArray($profile, $user_id));
@@ -31,6 +39,7 @@ class ProfileServiceImpl implements ProfileService
             'age' => $data['age'] ?? null,
             'sex' => $data['sex'] ?? null,
             'contact_number' => $data['contact_number'] ?? null,
+            'image' => $data['image'] ? $this->fileService->saveImage($data['image'], 'profiles') : null,
             'user_id' => $user_id,
         ];
     }
@@ -43,6 +52,7 @@ class ProfileServiceImpl implements ProfileService
             'age' => $data['age'],
             'sex' => $data['sex'],
             'contact_number' => $data['contact_number'],
+            'image' => $data['image'] ? $this->fileService->saveImage($data['image'], 'profiles') : null,
         ];
     }
 

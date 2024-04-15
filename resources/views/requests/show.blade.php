@@ -275,7 +275,7 @@
 
                                     <div class="flex items-center justify-between z-50">
 
-                                        <span class="leading-6 font-medium text-base">&#x20B1; {{ $service->casket->price }}</span>
+                                        <span class="leading-6 font-medium text-base">₱{{ $service->casket->price ? number_format($service->casket->price, 2) : '' }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -411,7 +411,7 @@
                         </div>
                         <li class="w-full flex items-start px-2 py-1 justify-between cursor-pointer font-medium border border-dashed border-gray-500">
                             <span>Total Due:</span>
-                            <span>&#x20B1;{{ $service->casket->price ?? ''}}</span>
+                            <span>₱{{ $service->casket->price ? number_format($service->casket->price, 2) : '' }}</span>
                         </li>
                     </div>
                     <button class="px-6 text-sm py-2 rounded-md text-white bg-blue-700 hover:bg-blue-800 cursor-pointer">Confirm Request</button>

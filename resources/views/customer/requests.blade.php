@@ -30,7 +30,7 @@
                                     <td class="px-4 py-3">{{ $request->created_at ? $request->created_at->format('g:i A') : 'N/A' }}</td>
                                     <td class="px-4 py-3">{{ $request->service->service_type ?? 'N/A' }}</td>
                                     <td class="px-4 py-3">
-                                        <span class="{{ $request->status == 'pending' ? 'bg-orange-500' : ($request->status == 'confirmed' ? 'bg-green-500' : 'bg-red-700') }} text-red-100 text-sm font-medium me-2 px-2.5 py-1 rounded dark:text-red-300">{{ $request->status ?? 'N/A' }}</span>
+                                        <span class="{{ $request->status == 'pending' ? 'bg-red-50 text-red-700' : ($request->status == 'confirmed' ? 'bg-green-50 text-green-700' : ($request->status == 'completed' ? 'bg-blue-50 text-blue-700' : 'bg-gray-50 text-gray-700')) }} text-sm font-medium me-2 px-2.5 py-1 rounded dark:text-red-300">{{ $request->status ?? 'N/A' }}</span>
                                     </td>
                                     <td class="px-4 py-3">&#x20B1; {{ isset($request->service->casket->price) ? number_format($request->service->casket->price, 2, '.', ',') : '00.00' }}</td>
                                     <td class="px-4 py-3 flex items-center justify-end">
@@ -43,9 +43,6 @@
                                             <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="{{ 'apple-imac-' . $request->id . '-dropdown-button'}}">
                                                 <li>
                                                     <a href="{{ route('customer.requests-show', $request->id) }}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
                                                 </li>
                                             </ul>
                                             <div class="py-1">

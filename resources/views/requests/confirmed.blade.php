@@ -64,6 +64,9 @@
                                                     <a href="{{ route('requests.confirmed-show', $request->id) }}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
                                                 </li>
                                                 <li>
+                                                    <a href="{{ route('requests.complete', $request->id) }}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mark as Completed</a>
+                                                </li>
+                                                <li>
                                                     <a href="{{ route('requests.receipt', $request->id) }}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Download Receipt</a>
                                                 </li>
                                             </ul>

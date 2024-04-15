@@ -1,6 +1,6 @@
 <x-guest-layout>
     <div>
-        <div class="max-w-[1400px] mx-auto p-4 min-h-[600px] h-auto flex items-center justify-center">
+        <div class="max-w-[1200px] mx-auto p-4 min-h-[600px] h-auto flex items-center justify-center">
             <div class="w-full mt-14 flex flex-col items-center justify-center h-full">
                 <h2 class="text-8xl font-semibold text-blue-600 mb-4 text-center imperial-script-regular">Our Deepest Condolences</h2>
                 <p class="text-gray-700 text-base leading-relaxed text-center w-[70%]">
