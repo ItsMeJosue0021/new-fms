@@ -8,6 +8,14 @@ use App\Http\Requests\StoreFeedbackRequest;
 
 class FeedbackController extends Controller
 {
+
+    public function visibleFeedbacks() {
+        return view('feedback.index', [
+            'feedbacks' => Feedback::where('show_on_website', true)->latest()->paginate(9)
+        ]);
+    }
+
+
     public function store(StoreFeedbackRequest $request, $service_request_id)
     {
         try {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Feedback;
 use Illuminate\Http\Request;
 use App\Services\CasketService;
 use App\Services\AnnouncementService;
@@ -18,7 +19,8 @@ class HomeController extends Controller
 
     public function home() {
         return view('welcome', [
-            'caskets' => $this->casketService->getCaskets()
+            'caskets' => $this->casketService->getCaskets(),
+            'feedbacks' => Feedback::where('show_on_website', true)->latest()->paginate(9)
         ]);
     }
 

@@ -129,6 +129,36 @@
                 <div class="pt-6">
                     {{ $caskets->links() }}
                 </div>
+
+                @if (count($feedbacks) > 0)
+                    <section class="text-gray-600 body-font">
+                        <div class="container px-5 py-24 mx-auto">
+                            <div class="flex flex-wrap w-full mb-20 flex-col items-center text-center">
+                                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">What our clients say about us</h1>
+                                <p class="lg:w-1/2 w-full leading-relaxed text-gray-500">Here are some of the testimonies and feedbacks from our previous clients.</p>
+                            </div>
+
+                            @foreach ($feedbacks as $feedback)
+                                <div class="flex flex-wrap -m-4">
+                                    <div class="xl:w-1/3 md:w-1/2 p-4">
+                                        <div class="border border-gray-300 p-4 rounded-lg">
+                                            <h2 class="text-lg text-gray-900 font-medium title-font mb-2">{{ $feedback->name }}</h2>
+                                            <p class="leading-relaxed text-base">{{ $feedback->content }}</p>
+                                            <div class="flex items-center space-x-1 pt-2">
+                                                @for($i = 0; $i < $feedback->stars; $i++)
+                                                    <svg class="w-4 h-4 text-yellow-400" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M10 12.928l-4.243 2.485a1 1 0 01-1.451-1.054l.82-4.773-3.423-3.334a1 1 0 01.554-1.705l4.77-.694 2.13-4.315a1 1 0 011.789 0l2.13 4.315 4.77.694a1 1 0 01.554 1.705l-3.423 3.334.82 4.773a1 1 0 01-1.451 1.054L10 12.928z" />
+                                                    </svg>
+                                                @endfor
+                                                <span class="text-gray-500 text-sm dark:text-gray-400 font-semibold">({{ $feedback->stars }}/5)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </section>
+                @endif
             </div>
 
             <div id="imageModal" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 ">
