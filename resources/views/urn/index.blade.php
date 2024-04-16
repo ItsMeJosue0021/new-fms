@@ -2,12 +2,12 @@
     <section class=" mt-20">
         <div class="w-full">
             <div class="flex py-2">
-                <h1 class="text-lg bg-medium">Hearses</h1>
+                <h1 class="text-lg bg-medium">Urns</h1>
             </div>
             <!-- Start coding here -->
-            <div class="bg-white dark:bg-gray-800 relative shadow sm:rounded-lg">
+            <div class="bg-white dark:bg-gray-800 relative shadow sm:rounded-lg ">
                 <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-                    <div class="w-full md:w-1/2">
+                    {{-- <div class="w-full md:w-1/2">
                         <form action="{{ route('hearses.index') }}" method="GET" class="flex items-center">
                             <label for="simple-search" class="sr-only">Search</label>
                             <div class="relative w-full">
@@ -20,9 +20,9 @@
                             </div>
                             <button class="ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Search</button>
                         </form>
-                    </div>
+                    </div> --}}
                     <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                        <a href="{{ route('hearses.create') }}" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add New</a>
+                        <a href="{{ route('urns.create') }}" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add New</a>
                     </div>
                 </div>
                 <div class="overflow-x-auto">
@@ -34,7 +34,6 @@
                                 <th scope="col" class="px-4 py-3">Image</th>
                                 {{-- <th scope="col" class="px-4 py-3">Status</th> --}}
                                 <th scope="col" class="px-4 py-3">Date Added</th>
-                                <th scope="col" class="px-4 py-3">Time Added</th>
                                 <th scope="col" class="px-4 py-3">Last Update</th>
                                 <th scope="col" class="px-4 py-3">
                                     <span class="sr-only">Actions</span>
@@ -42,59 +41,38 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($hearses as $hearse)
+                            @foreach ($urns as $urn)
                                 <tr class="border-b dark:border-gray-700">
-                                    <td class="px-4 py-3">{{ $hearse->name ?? 'N/A' }}</td>
-                                    <td class="px-4 py-3 max-w-96">{{ $hearse->description ?? 'N/A' }}</td>
+                                    <td class="px-4 py-3">{{ $urn->name ?? 'N/A' }}</td>
+                                    <td class="px-4 py-3 max-w-96">{{ $urn->description ?? 'N/A' }}</td>
                                     <td class="px-4 py-3">
-                                        @if ($hearse->hearseImages->first() && $hearse->hearseImages->first()->image)
-                                            <img src="{{ asset('storage/' . $hearse->hearseImages->first()->image) }}" alt="" class="w-14 h-14 zoomable-image cursor-pointer">
+                                        @if ($urn->image)
+                                            <img src="{{ asset('storage/' . $urn->image) }}" alt="urn image" class="w-14 h-14 zoomable-image cursor-pointer">
                                         @else
                                             <div class="h-14 w-14 flex items-center justify-center">
                                                 <span class="text-lg text-gray-700">....</span>
                                             </div>
                                         @endif
                                     </td>
-                                    {{-- <td class="px-4 py-3 flex items-center justify-between">
-                                        <span class="{{ $hearse->status == 'In Use' ? 'text-red-500' : 'text-blue-600' }}">{{ $hearse->status }}</span>
-                                        <button id="{{ 'imac-' . $hearse->id . '-dropdown-button'}}" data-dropdown-toggle="{{ 'imac-' . $hearse->id . '-dropdown' }}" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
-                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
-                                            </svg>
-                                        </button>
-                                        <div id="{{ 'imac-' . $hearse->id . '-dropdown' }}" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="{{ 'imac-' . $hearse->id . '-dropdown-button'}}">
-                                                <li>
-                                                    <a href="{{ route('hearses.edit', $hearse->id) }}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                                </li>
-                                            </ul>
-                                            <form class="py-1" action="{{ route('hearses.delete', $hearse->id) }}" method="POST">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</button>
-                                            </form>
-                                        </div>
-                                    </td> --}}
-                                    <td class="px-4 py-3">{{ $hearse->created_at ? $hearse->created_at->format('F d, Y') : 'N/A' }}</td>
-                                    <td class="px-4 py-3">{{ $hearse->created_at ? $hearse->created_at->format('h:i:s A') : 'N/A' }}</td>
-                                    <td class="px-4 py-3">{{ $hearse->updated_at ? $hearse->updated_at->format('F d, Y') : 'N/A' }}</td>
+                                    <td class="px-4 py-3">{{ $urn->created_at ? $urn->created_at->format('F d, Y') : 'N/A' }}</td>
+                                    <td class="px-4 py-3">{{ $urn->updated_at ? $urn->updated_at->format('F d, Y') : 'N/A' }}</td>
                                     <td class="px-4 py-3 flex items-center justify-end">
-                                        <button id="{{ 'apple-imac-' . $hearse->id . '-dropdown-button'}}" data-dropdown-toggle="{{ 'apple-imac-' . $hearse->id . '-dropdown' }}" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
+                                        <button id="{{ 'apple-imac-' . $urn->id . '-dropdown-button'}}" data-dropdown-toggle="{{ 'apple-imac-' . $urn->id . '-dropdown' }}" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
                                             <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
                                             </svg>
                                         </button>
-                                        <div id="{{ 'apple-imac-' . $hearse->id . '-dropdown' }}" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="{{ 'apple-imac-' . $hearse->id . '-dropdown-button'}}">
+                                        <div id="{{ 'apple-imac-' . $urn->id . '-dropdown' }}" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="{{ 'apple-imac-' . $urn->id . '-dropdown-button'}}">
                                                 <li>
-                                                    <a href="{{ route('hearses.edit', $hearse->id) }}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
+                                                    <a href="{{ route('urns.edit', $urn->id) }}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
                                                 </li>
                                             </ul>
-                                            <form class="py-1" action="{{ route('hearses.delete', $hearse->id) }}" method="POST">
+                                            {{-- <form class="py-1" action="{{ route('urns.delete', $urn->id) }}" method="POST">
                                                 @method('DELETE')
                                                 @csrf
                                                 <button href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</button>
-                                            </form>
+                                            </form> --}}
                                         </div>
                                     </td>
                                 </tr>
@@ -104,7 +82,7 @@
                 </div>
                 <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4" aria-label="Table navigation">
                     <div class="w-full">
-                        {{ $hearses->links() }}
+                        {{ $urns->links() }}
                     </div>
                 </nav>
             </div>

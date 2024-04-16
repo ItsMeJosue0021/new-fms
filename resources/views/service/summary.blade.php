@@ -372,7 +372,11 @@
                     <div class="border border-dashed border-gray-500 bg-gray-50 p-4">
                         <li class="w-full flex items-start justify-between cursor-pointer font-medium">
                             <span>Total:</span>
-                            <span>₱{{ $service->casket->price ? number_format($service->casket->price, 2) : '' }}</span>
+                            @if ($service->service_type === 'Memorial Services')
+                                <span>₱{{ $service->casket->price ? number_format($service->casket->price, 2) : '0.00' }}</span>
+                            @else
+                                <span>₱{{ $service->urn->price ? number_format($service->urn->price, 2) : '0.00' }}</span>
+                            @endif
                         </li>
                     </div>
                     <button class="px-6 text-sm py-2 rounded-md text-white bg-blue-700 hover:bg-blue-800 cursor-pointer">Send Request</button>

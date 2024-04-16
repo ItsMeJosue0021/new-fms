@@ -34,7 +34,7 @@ class ProfileServiceImpl implements ProfileService
     private function toProfileArray($data, $user_id)
     {
         if (isset($data['image'])) {
-            $image = $data['image'];
+            $image = $this->fileService->saveImage($data['image'], 'profile');
         } else {
             $image = null;
         }
@@ -54,7 +54,7 @@ class ProfileServiceImpl implements ProfileService
     public function toUpdateProfileArray(array $data)
     {
         if (isset($data['image'])) {
-            $image = $data['image'];
+            $image = $this->fileService->saveImage($data['image'], 'profile');
         } else {
             $image = null;
         }

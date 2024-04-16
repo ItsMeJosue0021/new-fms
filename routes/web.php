@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\UrnController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CasketController;
@@ -165,6 +166,18 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
         Route::delete('/feedbacks/{feedback}', 'delete')->name('feedback.delete');
     });
 
+    Route::controller(UrnController::class)->group(function () {
+        Route::prefix('urns')->group(function () {
+            Route::get('', 'index')->name('urns.index');
+            Route::get('/create', 'create')->name('urns.create');
+            Route::post('/store', 'store')->name('urns.store');
+            // Route::get('/{urn}', 'show')->name('urns.show');
+            Route::get('/{urn}/edit', 'edit')->name('urns.edit');
+            Route::put('/{urn}', 'update')->name('urns.update');
+            Route::delete('/{urn}', 'delete')->name('urns.delete');
+            Route::get('/image/{imageId}', 'deleteUrnImage')->name('urns.delete-image');
+        });
+    });
 
 });
 
