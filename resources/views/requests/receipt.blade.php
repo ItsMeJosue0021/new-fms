@@ -20,9 +20,14 @@
 <body>
     <div class="w-full max-w-[900px] px-4 mx-auto">
         <div class="mt-20 main-cntr">
-            <div class="py-4 flex items-center justify-end space-x-4 remove-on-print">
-                <button id="save" class="py-2 px-4 rounded text-sm bg-blue-600 hover:bg-blue-700 text-white">Download</button>
-                <button onclick="printData()" class="py-2 px-4 rounded text-sm bg-white hover:bg-blue-700 text-blue-600 hover:text-white border border-blue-600 hover:border-blue-700">Print</button>
+            <div class="py-4 flex items-center justify-between space-x-4 remove-on-print">
+                <div class="flex">
+                    <a href="{{ url()->previous() }}" class="px-6 py-2 rounded text-gray-800 bg-gray-50 hover:bg-gray-100 border border-gray-100 cursor-pointer">Back</a>
+                </div>
+                <div>
+                    <button id="save" class="py-2 px-4 rounded text-sm bg-blue-600 hover:bg-blue-700 text-white">Download</button>
+                    <button onclick="printData()" class="py-2 px-4 rounded text-sm bg-white hover:bg-blue-700 text-blue-600 hover:text-white border border-blue-600 hover:border-blue-700">Print</button>
+                </div>
             </div>
             <a href="" id="save_to_image">
                 <div class="p-8 py-16 border border-gray-200 cntr text-sm">
