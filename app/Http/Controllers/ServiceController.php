@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Urn;
 use Illuminate\Support\Str;
 use App\Services\JobService;
 use App\Services\CasketService;
@@ -61,6 +62,10 @@ class ServiceController extends Controller
 
         if ($casketId) {
             $this->serviceService->setCasket($service->id, $casketId);
+        }
+
+        if ($service->service_type == 'Cremation Services') {
+            $this->serviceService->setUrn($service->id, Urn::first()->id);
         }
 
         return redirect()->route('services.inclusions', $service->id)
@@ -190,8 +195,11 @@ class ServiceController extends Controller
         try {
             $this->serviceService->setGallonsOfWater($request->validated(), $serviceId);
 
-            if (!$this->serviceService->casketIsSet($serviceId)) {
-                return redirect()->route('services.inclusions', $serviceId)->with('warning', 'Please Select a Casket.');
+            $service = $this->serviceService->getServiceById($serviceId);
+            if ($service == 'Memorial Services') {
+                if (!$this->serviceService->casketIsSet($serviceId)) {
+                    return redirect()->route('services.inclusions', $serviceId)->with('warning', 'Please Select a Casket.');
+                }
             }
 
             if (!$this->serviceService->hearseIsSet($serviceId)) {

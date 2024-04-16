@@ -2,6 +2,7 @@
 
 namespace App\Services\Impl;
 
+use App\Models\Urn;
 use App\Models\Casket;
 use App\Models\Hearse;
 use App\Models\Service;
@@ -12,6 +13,7 @@ use App\Exceptions\CasketNotFoundException;
 use App\Exceptions\HearseNotFoundException;
 use App\Exceptions\ServiceNotFoundException;
 use App\Http\Requests\SetGallonOfWaterRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ServiceServiceImpl implements ServiceService
 {
@@ -139,6 +141,20 @@ class ServiceServiceImpl implements ServiceService
         }
 
         return $service->update(['others' => $data['others']]);
+    }
+
+    public function setUrn($serviceId, $urnId) {
+        $service = Service::find($serviceId);
+        if (!$service) {
+            throw new ServiceNotFoundException($this->serviceNotBeFoundMessage);
+        }
+
+        $urn = Urn::find($urnId);
+        if (!$urn) {
+            throw new ModelNotFoundException('Urn can not be found');
+        }
+
+        return $service->update(['urn_id' => $urnId]);
     }
 
 

@@ -35,24 +35,44 @@
                             Flowers
                         </li>
                         {{-- {{ $service->casket_id ? 'text-green-500 dark:text-green-400' : 'text-gray-500 dark:text-gray-400' }} --}}
-                        <li class="flex items-center py-2 border-b border-gray-100">
-                            <div class="w-full flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <svg class="w-3.5 h-3.5 me-2 text-gray-600 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Z"/>
-                                    </svg>
-                                    Casket
+                        @if ($service->service_type === 'Memorial Services')
+                            <li class="flex items-center py-2 border-b border-gray-100">
+                                <div class="w-full flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <svg class="w-3.5 h-3.5 me-2 text-gray-600 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Z"/>
+                                        </svg>
+                                        Casket
+                                    </div>
+                                    <div class="flex items-center space-x-16">
+                                        @if ($service->casket_id)
+                                            <span class="text-sm">{{ $service->casket->name }}</span>
+                                        @else
+                                            <span class="text-red-500 text-sm">No Casket Selected</span>
+                                        @endif
+                                        <a href="{{ route('services.caskets', $service->id) }}" class="text-blue-700">Select Casket</a>
+                                    </div>
                                 </div>
-                                <div class="flex items-center space-x-16">
-                                    @if ($service->casket_id)
-                                        <span class="text-sm">{{ $service->casket->name }}</span>
-                                    @else
-                                        <span class="text-red-500 text-sm">No Casket Selected</span>
-                                    @endif
-                                    <a href="{{ route('services.caskets', $service->id) }}" class="text-blue-700">Select Casket</a>
+                            </li>
+                        @else
+                            <li class="flex items-center py-2 border-b border-gray-100">
+                                <div class="w-full flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <svg class="w-3.5 h-3.5 me-2 text-gray-600 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Z"/>
+                                        </svg>
+                                        Urn
+                                    </div>
+                                    <div class="flex items-center space-x-16">
+                                        @if ($service->urn_id)
+                                            <span class="text-sm">{{ $service->urn->name }}</span>
+                                        @else
+                                            <span class="text-red-500 text-sm">No Casket Selected</span>
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
+                        @endif
                         <li class="flex items-center py-2 border-b border-gray-100">
                             <div class="w-full flex items-center justify-between">
                                 <div class="flex items-center">

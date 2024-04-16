@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Urn;
 use App\Models\Casket;
 use App\Models\Hearse;
 use App\Models\Informant;
@@ -18,6 +19,7 @@ class Service extends Model
         'informant_id',
         'casket_id',
         'hearse_id',
+        'urn_id',
         'water',
         'service_type',
         'others',
@@ -46,5 +48,10 @@ class Service extends Model
     public function serviceRequest()
     {
         return $this->hasOne(ServiceRequest::class);
+    }
+
+    public function urn()
+    {
+        return $this->belongsTo(Urn::class);
     }
 }

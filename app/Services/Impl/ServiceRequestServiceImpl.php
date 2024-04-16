@@ -60,11 +60,18 @@ class ServiceRequestServiceImpl implements ServiceRequestService {
     }
 
     public function toPaymentInfoArray(array $data, $request) {
+
+        if ($request->service->service_type === 'Memorial Services') {
+            $total_amount = $this->calculatePaidAmmountMS($request, $data['discount_amount'], $data['gl']);
+        } else {
+            $total_amount = $this->calculatePaidAmmountCS($request, $data['discount_amount'], $data['gl']);
+        }
+
         return [
             'status' => 'confirmed',
             'payment_status' => 'Paid',
             'payment_method' => $data['payment_method'],
-            'total_amount' => $this->calculatePaidAmmount($request, $data['discount_amount'], $data['gl']),
+            'total_amount' => $total_amount,
             'discount_amount' => $data['discount_amount'],
             'recieved_amount' => $data['recieved_amount'],
             'gl' => $data['gl'],
@@ -74,8 +81,14 @@ class ServiceRequestServiceImpl implements ServiceRequestService {
         ];
     }
 
-    public function calculatePaidAmmount($request, $discount_amount = 0, $gl = 0) {
+    public function calculatePaidAmmountMS($request, $discount_amount = 0, $gl = 0) {
         $total_amount = $request->service->casket->price;
+        $total_discounts = $discount_amount + $gl;
+        return $total_amount - $total_discounts;
+    }
+
+    public function calculatePaidAmmountCS($request, $discount_amount = 0, $gl = 0) {
+        $total_amount = $request->service->urn->price;
         $total_discounts = $discount_amount + $gl;
         return $total_amount - $total_discounts;
     }

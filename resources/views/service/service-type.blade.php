@@ -19,7 +19,7 @@
                     </button>
                 </form>
 
-                <form action="">
+                <form action="{{ route('services.store') }}" method="POST">
                     @csrf
                     <input type="hidden" name="service_type" value="Cremation Services">
                     <button class="w-96 flex items-center justify-start space-x-4 p-8 rounded-lg border border-gray-300 relative overflow-hidden group hover:ring-4 hover:ring-blue-200 hover:border-blue-700 cursor-pointer hover:bg-gray-50">

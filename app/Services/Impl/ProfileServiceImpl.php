@@ -21,7 +21,8 @@ class ProfileServiceImpl implements ProfileService
         return Profile::create($this->toProfileArray($profile, $user_id));
     }
 
-    public function updateProfile(array $data, $user_id) {
+    public function updateProfile(array $data, $user_id)
+    {
         $user = User::findOrFail($user_id);
         if ($user->profile) {
             return $user->profile->update($this->toUpdateProfileArray($data));
@@ -32,6 +33,12 @@ class ProfileServiceImpl implements ProfileService
 
     private function toProfileArray($data, $user_id)
     {
+        if (isset($data['image'])) {
+            $image = $data['image'];
+        } else {
+            $image = null;
+        }
+
         return [
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
@@ -39,12 +46,19 @@ class ProfileServiceImpl implements ProfileService
             'age' => $data['age'] ?? null,
             'sex' => $data['sex'] ?? null,
             'contact_number' => $data['contact_number'] ?? null,
-            'image' => $data['image'] ? $this->fileService->saveImage($data['image'], 'profiles') : null,
+            'image' => $image,
             'user_id' => $user_id,
         ];
     }
 
-    public function toUpdateProfileArray(array $data) {
+    public function toUpdateProfileArray(array $data)
+    {
+        if (isset($data['image'])) {
+            $image = $data['image'];
+        } else {
+            $image = null;
+        }
+
         return [
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
@@ -52,7 +66,7 @@ class ProfileServiceImpl implements ProfileService
             'age' => $data['age'],
             'sex' => $data['sex'],
             'contact_number' => $data['contact_number'],
-            'image' => $data['image'] ? $this->fileService->saveImage($data['image'], 'profiles') : null,
+            'image' => $image,
         ];
     }
 

@@ -44,7 +44,11 @@
                                 <span>GROSS AMOUNT OF SERVICE</span>
                                 <div class="w-40 flex items-center justify-between">
                                     <span>PHP</span>
-                                    <span class="w-28 border-b border-gray-500 text-start h-5">₱ {{ $service->casket->price ? number_format($service->casket->price, 2) : ' 00.00' }}</span>
+                                    @if ($request->service->service_type == 'Memorial Services')
+                                        <span class="w-28 border-b border-gray-500 text-start h-5">₱ {{ $service->casket->price ? number_format($service->casket->price, 2) : ' 00.00' }}</span>
+                                    @else
+                                        <span class="w-28 border-b border-gray-500 text-start h-5">₱ {{ $service->urn->price ? number_format($service->urn->price, 2) : ' 00.00' }}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="w-full flex items-start justify-between">
@@ -130,12 +134,21 @@
                                     </svg>
                                     Embalming
                                 </li>
-                                <li class="flex items-center">
-                                    <svg class="w-3 h-3 me-2 text-gray-500 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Z"/>
-                                    </svg>
-                                    Casket
-                                </li>
+                                @if ($request->service->service_type == 'Memorial Services')
+                                    <li class="flex items-center">
+                                        <svg class="w-3 h-3 me-2 text-gray-500 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Z"/>
+                                        </svg>
+                                        Casket
+                                    </li>
+                                @else
+                                    <li class="flex items-center">
+                                        <svg class="w-3 h-3 me-2 text-gray-500 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Z"/>
+                                        </svg>
+                                        Urn
+                                    </li>
+                                @endif
                                 <li class="flex items-center">
                                     <svg class="w-3 h-3 me-2 text-gray-500 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Z"/>

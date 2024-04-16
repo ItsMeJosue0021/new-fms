@@ -116,17 +116,31 @@
                             </svg>
                             Flowers
                         </li>
-                        <li class="flex items-center py-2 border-b border-gray-100">
-                            <div class="w-full flex items-center justify-between">
-                                <div class="flex items-center text-gray-800">
-                                    <svg class="w-3.5 h-3.5 me-2 {{ $service->casket_id ? 'text-green-500 dark:text-green-400' : 'text-gray-500 dark:text-gray-400' }} flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
-                                    </svg>
-                                    Casket
+                        @if ($service->service_type === 'Memorial Services')
+                            <li class="flex items-center py-2 border-b border-gray-100">
+                                <div class="w-full flex items-center justify-between">
+                                    <div class="flex items-center text-gray-800">
+                                        <svg class="w-3.5 h-3.5 me-2 {{ $service->casket_id ? 'text-green-500 dark:text-green-400' : 'text-gray-500 dark:text-gray-400' }} flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                                        </svg>
+                                        Casket
+                                    </div>
+                                    <span class="text-sm text-gray-800">{{ $service->casket->name }}</span>
                                 </div>
-                                <span class="text-sm text-gray-800">{{ $service->casket->name ?? '' }}</span>
-                            </div>
-                        </li>
+                            </li>
+                        @else
+                            <li class="flex items-center py-2 border-b border-gray-100">
+                                <div class="w-full flex items-center justify-between">
+                                    <div class="flex items-center text-gray-800">
+                                        <svg class="w-3.5 h-3.5 me-2 {{ $service->urn_id ? 'text-green-500 dark:text-green-400' : 'text-gray-500 dark:text-gray-400' }} flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                                        </svg>
+                                        Urn
+                                    </div>
+                                    <span class="text-sm text-gray-800">{{ $service->urn->name }}</span>
+                                </div>
+                            </li>
+                        @endif
                         <li class="flex items-center py-2 border-b border-gray-100">
                             <div class="w-full flex items-center justify-between">
                                 <div class="flex items-center text-gray-800">
@@ -301,61 +315,86 @@
                 <div class="py-6">
                     <h2 class="mb-2 text-2xl font-semibold text-gray-900 dark:text-white">Casket & Hearse</h2>
                     <div class="flex items-start space-x-4">
-                        <div class="md:w-1/3">
-                            <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
-                                {{-- <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="https://dummyimage.com/720x400" alt="blog"> --}}
-                                <div id="animation-carousel" class="relative w-full" data-carousel="static">
-                                    <!-- Carousel wrapper -->
-                                    <div class="relative lg:h-48 md:h-36 overflow-hidden z-0">
-                                        @if (count($service->casket->casketImages) > 0)
-                                            @foreach ($service->casket->casketImages as $image)
+                        @if ($service->service_type === 'Memorial Services')
+                            <div class="md:w-1/3">
+                                <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+                                    {{-- <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="https://dummyimage.com/720x400" alt="blog"> --}}
+                                    <div id="animation-carousel" class="relative w-full" data-carousel="static">
+                                        <!-- Carousel wrapper -->
+                                        <div class="relative lg:h-48 md:h-36 overflow-hidden z-0">
+                                            @if (count($service->casket->casketImages) > 0)
+                                                @foreach ($service->casket->casketImages as $image)
+                                                    <div class="hidden duration-200 ease-linear" data-carousel-item>
+                                                        <img src="{{ asset('storage/' . $image->image) }}" alt="{{ $service->casket->name }}" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer">
+                                                    </div>
+                                                @endforeach
+                                            @else
                                                 <div class="hidden duration-200 ease-linear" data-carousel-item>
-                                                    <img src="{{ asset('storage/' . $image->image) }}" alt="{{ $service->casket->name }}" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer">
+                                                    <img src="https://placehold.co/600x400/000000/FFF" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
                                                 </div>
-                                            @endforeach
-                                        @else
-                                            <div class="hidden duration-200 ease-linear" data-carousel-item>
-                                                <img src="https://placehold.co/600x400/000000/FFF" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
-                                            </div>
 
-                                            <div class="hidden duration-200 ease-linear" data-carousel-item>
-                                                <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
-                                            </div>
+                                                <div class="hidden duration-200 ease-linear" data-carousel-item>
+                                                    <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
+                                                </div>
 
-                                            <div class="hidden duration-200 ease-linear" data-carousel-item="active">
-                                                <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
-                                            </div>
-                                        @endif
+                                                <div class="hidden duration-200 ease-linear" data-carousel-item="active">
+                                                    <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <!-- Slider controls -->
+                                        <button type="button" class="z-0 absolute top-0 start-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+                                            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                                                <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                                                </svg>
+                                                <span class="sr-only">Previous</span>
+                                            </span>
+                                        </button>
+                                        <button type="button" class="z-0 absolute top-0 end-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+                                            <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                                                <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                                                </svg>
+                                                <span class="sr-only">Next</span>
+                                            </span>
+                                        </button>
                                     </div>
-                                    <!-- Slider controls -->
-                                    <button type="button" class="z-0 absolute top-0 start-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-                                        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-                                            </svg>
-                                            <span class="sr-only">Previous</span>
-                                        </span>
-                                    </button>
-                                    <button type="button" class="z-0 absolute top-0 end-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-                                        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                                            </svg>
-                                            <span class="sr-only">Next</span>
-                                        </span>
-                                    </button>
-                                </div>
-                                <div class="p-4">
-                                    <h1 class="title-font text-lg font-medium text-gray-900 ">{{ $service->casket->name }}</h1>
-                                    <p class="leading-6 mb-3 text-sm">{{ $service->casket->description }}</p>
+                                    <div class="p-4">
+                                        <h1 class="title-font text-lg font-medium text-gray-900 ">{{ $service->casket->name }}</h1>
+                                        <p class="leading-6 mb-3 text-sm">{{ $service->casket->description }}</p>
 
-                                    <div class="flex items-center justify-between z-50">
+                                        <div class="flex items-center justify-between z-50">
 
-                                        <span class="leading-6 font-medium text-base">&#x20B1; {{ $service->casket->price }}</span>
+                                            <span class="leading-6 font-medium text-base">₱{{ $service->casket->price ? number_format($service->casket->price, 2) : '' }}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @else
+                            <div class="md:w-1/3">
+                                <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+                                    <div id="animation-carousel" class="relative w-full" data-carousel="static">
+                                        <div class="relative lg:h-48 md:h-36 overflow-hidden z-0">
+                                            @if (!$service->urn->image)
+                                                <img src="{{ asset('storage/' . $service->urn->image) }}" alt="{{ $service->urn->name }}" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer">
+                                            @else
+                                                <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="p-4">
+                                        <h1 class="title-font text-lg font-medium text-gray-900 ">{{ $service->urn->name }}</h1>
+                                        <p class="leading-6 mb-3 text-sm">{{ $service->urn->description }}</p>
+
+                                        <div class="flex items-center justify-between z-50">
+
+                                            <span class="leading-6 font-medium text-base">₱{{ $service->urn->price ? number_format($service->urn->price, 2) : '0.00' }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                         <div class="md:w-1/3">
                             <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
                                 {{-- <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="https://dummyimage.com/720x400" alt="blog"> --}}
@@ -420,7 +459,11 @@
                             <h2 class="text-lg font-semibold ">Payment Details</h2>
                             <li class="w-full flex items-start justify-between cursor-pointer font-medium border-b border-dashed border-gray-300">
                                 <span>Total Amount:</span>
-                                <span>₱{{ $service->casket->price ? number_format($service->casket->price, 2) : '0.00' }}</span>
+                                @if ($service->service_type === 'Memorial Services')
+                                    <span>₱{{ $service->casket->price ? number_format($service->casket->price, 2) : '0.00' }}</span>
+                                @else
+                                    <span>₱{{ $service->urn->price ? number_format($service->urn->price, 2) : '0.00' }}</span>
+                                @endif
                             </li>
                             @if ($service->serviceRequest->status == 'confirmed' || $service->serviceRequest->status == 'completed')
                                 <li class="w-full flex items-start justify-between cursor-pointer font-medium border-b border-dashed border-gray-300">

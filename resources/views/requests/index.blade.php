@@ -34,7 +34,12 @@
                                     <td class="px-4 py-3">
                                         <span class="bg-red-50 text-red-700 text-sm font-medium me-2 px-2.5 py-1 rounded">{{ $request->status ?? 'N/A' }}</span>
                                     </td>
-                                    <td class="px-4 py-3">&#x20B1; {{ isset($request->service->casket->price) ? number_format($request->service->casket->price, 2, '.', ',') : '00.00' }}</td>
+                                    {{-- <td class="px-4 py-3">&#x20B1; {{ isset($request->service->casket->price) ? number_format($request->service->casket->price, 2, '.', ',') : '00.00' }}</td> --}}
+                                    @if ($request->service->service_type == 'Memorial Services')
+                                        <td class="px-4 py-3">&#x20B1; {{ isset($request->service->casket->price) ? number_format($request->service->casket->price, 2, '.', ',') : '00.00' }}</td>
+                                    @else
+                                        <td class="px-4 py-3">&#x20B1; {{ isset($request->service->urn->price) ? number_format($request->service->urn->price, 2, '.', ',') : '00.00' }}</td>
+                                    @endif
                                     <td class="px-4 py-3 flex items-center justify-end">
                                         <button id="{{ 'apple-imac-' . $request->id . '-dropdown-button'}}" data-dropdown-toggle="{{ 'apple-imac-' . $request->id . '-dropdown' }}" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
                                             <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

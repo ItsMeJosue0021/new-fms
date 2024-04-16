@@ -49,7 +49,11 @@
                                     <td class="px-4 py-3">
                                         <span class="bg-blue-50 text-blue-700 text-sm font-medium me-2 px-2.5 py-1 rounded ">{{ $request->status ?? 'N/A' }}</span>
                                     </td>
-                                    <td class="px-4 py-3">&#x20B1; {{ isset($request->service->casket->price) ? number_format($request->service->casket->price, 2, '.', ',') : '00.00' }}</td>
+                                    @if ($request->service->service_type == 'Memorial Services')
+                                        <td class="px-4 py-3">&#x20B1; {{ isset($request->service->casket->price) ? number_format($request->service->casket->price, 2, '.', ',') : '00.00' }}</td>
+                                    @else
+                                        <td class="px-4 py-3">&#x20B1; {{ isset($request->service->urn->price) ? number_format($request->service->urn->price, 2, '.', ',') : '00.00' }}</td>
+                                    @endif
                                     <td class="px-4 py-3">&#x20B1; {{ isset($request->discount_amount) ? number_format($request->discount_amount, 2, '.', ',') : '00.00' }}</td>
                                     <td class="px-4 py-3">&#x20B1; {{ isset($request->recieved_amount) ? number_format($request->recieved_amount, 2, '.', ',') : '00.00' }}</td>
                                     <td class="px-4 py-3 flex items-center justify-end">

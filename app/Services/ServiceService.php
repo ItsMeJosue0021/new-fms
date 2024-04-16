@@ -14,4 +14,5 @@ interface ServiceService {
     public function setDeceased($serviceId, $deceasedId);
     public function setInformant($serviceId, $informantId);
     public function setOtherServices($serviceId, array $data);
+    public function setUrn($serviceId, $urnId);
 }

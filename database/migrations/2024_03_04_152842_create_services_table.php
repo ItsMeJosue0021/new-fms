@@ -4,6 +4,7 @@ use App\Models\Casket;
 use App\Models\Deceased;
 use App\Models\Hearse;
 use App\Models\Informant;
+use App\Models\Urn;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->foreignIdFor(Informant::class)->nullable();
             $table->foreignIdFor(Casket::class)->nullable();
             $table->foreignIdFor(Hearse::class)->nullable();
+            $table->foreignIdFor(Urn::class)->nullable();
             $table->integer('water')->nullable();
             $table->string('service_type')->nullable();
             $table->longText('others')->nullable();
