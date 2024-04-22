@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Service;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Urn extends Model
 {
@@ -16,4 +17,8 @@ class Urn extends Model
         'stock',
         'price',
     ];
+
+    public function services() {
+        return $this->hasMany(Service::class);
+    }
 }

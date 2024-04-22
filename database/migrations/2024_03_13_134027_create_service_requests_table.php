@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('service_requests', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Service::class)->cascadeOnDelete(); //->constrained()
+            $table->foreignIdFor(Service::class)->cascadeOnDelete();
             $table->foreignIdFor(User::class)->constrained();
             $table->string('status');
             $table->string('payment_status')->default('Unpaid');

@@ -300,7 +300,7 @@
                                 <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
                                     <div id="animation-carousel" class="relative w-full" data-carousel="static">
                                         <div class="relative lg:h-48 md:h-36 overflow-hidden z-0">
-                                            @if (!$service->urn->image)
+                                            @if ($service->urn->image)
                                                 <img src="{{ asset('storage/' . $service->urn->image) }}" alt="{{ $service->urn->name }}" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer">
                                             @else
                                                 <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">

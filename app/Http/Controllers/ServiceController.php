@@ -180,10 +180,20 @@ class ServiceController extends Controller
     public function cancelServiceCreation($serviceId)
     {
         try {
-            $this->serviceService->deleteService($serviceId);
+            $this->serviceService->cancelService($serviceId);
             return redirect()->route('services.type');
         } catch (ServiceNotFoundException $e) {
             return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+
+
+    public function deleteService($serviceId) {
+        try {
+            $this->serviceService->deleteService($serviceId);
+            return redirect()->back()->with('success', 'Service request has been deleted.');
+        } catch (ServiceNotFoundException $e) {
+            return redirect()->back()->with('error', 'Something went wrong while trying to deleted Service request.');
         }
     }
 
@@ -252,11 +262,19 @@ class ServiceController extends Controller
     public function addOtherServices(SetOtherServiceRequest $request, $serviceId)
     {
         try {
+            $service = $this->serviceService->getServiceById($serviceId);
             $otherServices = $request->validated();
             if ($otherServices['others'] === null) {
+                if (isset($service->serviceRequest)) {
+                    return redirect()->route('services.summary', $serviceId);
+                }
                 return redirect()->route('services.payment-terms', $serviceId);
             }
             $this->serviceService->setOtherServices($serviceId, $otherServices);
+            if (isset($service->serviceRequest)) {
+                return redirect()->route('services.summary', $serviceId);
+            }
+
             return redirect()->route('services.payment-terms', $serviceId);
         } catch (ServiceNotFoundException $e) {
             return redirect()->back()->with('error', $e->getMessage());

@@ -37,6 +37,15 @@ class ServiceServiceImpl implements ServiceService
         return $savedService;
     }
 
+    public function cancelService($serviceId)
+    {
+        $service = Service::find($serviceId);
+        if (!$service) {
+            throw new ServiceNotFoundException($this->serviceNotBeFoundMessage);
+        }
+        $service->delete();
+    }
+
     public function deleteService($serviceId)
     {
         $service = Service::find($serviceId);
@@ -44,6 +53,7 @@ class ServiceServiceImpl implements ServiceService
             throw new ServiceNotFoundException($this->serviceNotBeFoundMessage);
         }
         $service->delete();
+        $service->serviceRequest->delete();
     }
 
     public function setGallonsOfWater($request, $serviceId)

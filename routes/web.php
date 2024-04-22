@@ -195,6 +195,10 @@ Route::group(['middleware' => ['auth', 'role:customer']], function () {
         Route::post('/feedback/{service_request_id}/save', 'store')->name('feedback.store');
     });
 
+    Route::controller(ServiceController::class)->group(function () {
+        Route::get('/services/{serviceId}/delete', 'deleteService')->name('services.delete');
+    });
+
 });
 
 require __DIR__ . '/auth.php';
