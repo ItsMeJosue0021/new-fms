@@ -56,7 +56,7 @@
                                             </div>
                                         @endif
                                     </td>
-                                    <td class="px-4 py-3">&#x20B1; {{ $casket->price ?? 'N/A' }}</td>
+                                    <td class="px-4 py-3">&#x20B1; {{ number_format($casket->price, 2, '.', ',') }}</td>
                                     <td class="px-4 py-3">{{ $casket->quantity ?? 'N/A' }}</td>
                                     <td class="px-4 py-3">{{ $casket->created_at ? $casket->created_at->format('F d, Y') : 'N/A' }}</td>
                                     <td class="px-4 py-3">{{ $casket->created_at ? $casket->created_at->format('h:i:s A') : 'N/A' }}</td>
