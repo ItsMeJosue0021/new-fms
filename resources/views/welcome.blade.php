@@ -118,7 +118,7 @@
                                                 <path d="M12 5l7 7-7 7"></path>
                                             </svg>
                                         </a>
-                                        <span class="leading-6 font-medium text-base">&#x20B1; {{ $casket->price }}</span>
+                                        <span class="leading-6 font-medium text-base">&#x20B1; {{ number_format($casket->price, 2, '.', ',') }} </span>
                                     </div>
                                 </div>
                             </div>

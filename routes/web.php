@@ -113,6 +113,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
             Route::post('/{serviceRequestId}/M3nV5j7R/confirm', 'confirm')->name('requests.confirm');
             Route::get('/{serviceRequestId}/y2G6hK8l/reject', 'reject')->name('requests.reject');
             Route::get('/{serviceRequestId}/E3gH6j9K/complete', 'markAsCompleted')->name('requests.complete');
+            Route::get('/completed/print', 'print')->name('requests.print-completed');
         });
 
         Route::prefix('customer')->group(function () {

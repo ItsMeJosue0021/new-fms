@@ -7,7 +7,7 @@
             <!-- Start coding here -->
             <div class="bg-white dark:bg-gray-800 relative shadow sm:rounded-lg overflow-hidden">
                 <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-                    {{-- <div class="w-full md:w-1/2">
+                    <div class="w-full md:w-1/2">
                         <form class="flex items-center">
                             <label for="simple-search" class="sr-only">Search</label>
                             <div class="relative w-full">
@@ -20,8 +20,9 @@
                             </div>
                             <button class="ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-md text-sm px-5 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Search</button>
                         </form>
-                    </div> --}}
+                    </div>
                     <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                        <a href="{{}}" class="ml-2 text-gray-700 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2 border border-gray-300">Print</a>
                     </div>
                 </div>
                 <div class="overflow-x-auto">

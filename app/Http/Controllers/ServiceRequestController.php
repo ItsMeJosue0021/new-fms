@@ -163,4 +163,10 @@ class ServiceRequestController extends Controller
             return redirect()->back()->with('error', 'Something went wrong while trying to mark the service request as completed');
         }
     }
+
+    public function print() {
+        return view('requests.print-completed', [
+            'requests' => $this->serviceRequestService->getCompletedServiceRequest()
+        ]);
+    }
 }
