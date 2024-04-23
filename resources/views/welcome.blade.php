@@ -24,7 +24,7 @@
        <div class="w-full py-16 backdrop-blur-[3px]">
            <div class="flex flex-col items-center justify-center max-w-[1400px] px-4 mx-auto">
                <h1 class="w-full text-center mb-4 text-4xl font-extrabold leading-none md:text-5xl xl:text-6xl text-blue-700 dark:text-white">Tores Escaro Funeral Services</h1>
-               <p class="w-full md:w-1/2 text-center mb-6 font-light text-white lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">From checkout to global sales tax compliance, companies around the world use Flowbite to simplify their payment stack.</p>
+               <p class="w-full md:w-1/2 text-center mb-6 font-light text-white lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">110 Bayanan Rd, Bacoor, 4102 Cavite</p>
                <a href="{{ route('services.type') }}" class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
                    Request Service
                    <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>

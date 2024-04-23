@@ -30,9 +30,9 @@
                         <button class="flex mx-auto text-white bg-blue-600 border-0 py-2 px-8 focus:outline-none hover:bg-blue-700 rounded-md text-lg">Send Message</button>
                     </div>
                     <div class="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
-                        <a class="text-indigo-500">example@email.com</a>
-                        <p class="leading-normal my-5">49 Smith St.
-                        <br>Saint Cloud, MN 56301
+                        <a class="text-indigo-500">torresescarofuneral@gmail.comm</a>
+                        <p class="leading-normal my-5">110 Bayanan Rd,
+                        <br>Bacoor, 4102 Cavite
                         </p>
                         <span class="inline-flex">
                         <a class="text-gray-500">
