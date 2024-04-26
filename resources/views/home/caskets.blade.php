@@ -91,6 +91,11 @@
                                 </div>
                             </div>
                         @endforeach
+                        @if($caskets->isEmpty())
+                            <div class="w-full h-40 flex items-center justify-center">
+                                <span class="text-base text-red-600 text-center" colspan="9">No Records Found</span>
+                            </div>
+                        @endif
                     </div>
 
                     <div class="pt-6">

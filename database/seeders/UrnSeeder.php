@@ -21,16 +21,9 @@ class UrnSeeder extends Seeder
                 'stock' => 10,
                 'price' => 50000,
             ],
-            [
-                'name' => 'Urn 2',
-                'description' => 'Urn 2 description',
-                'image' => 'urn2.jpg',
-                'stock' => 20,
-                'price' => 50000,
-            ],
         ];
 
-        foreach ($urns as $urn) { 
+        foreach ($urns as $urn) {
             Urn::create($urn);
         }
     }

@@ -48,9 +48,11 @@
                                                 <li>
                                                     <a href="{{ route('customer.requests-show', $request->id) }}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
                                                 </li>
-                                                <li>
-                                                    <a href="{{ route('services.inclusions', $request->service->id) }}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                                </li>
+                                                @if ($request->status == 'pending')
+                                                    <li>
+                                                        <a href="{{ route('services.inclusions', $request->service->id) }}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
+                                                    </li>
+                                                @endif
                                             </ul>
                                             @if ($request->status == 'pending')
                                                 <div class="py-1">
@@ -61,6 +63,11 @@
                                     </td>
                                 </tr>
                             @endforeach
+                            @if($requests->isEmpty())
+                                <tr class="h-20">
+                                    <td class="text-base text-red-600 text-center" colspan="9">No Records Found</td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>

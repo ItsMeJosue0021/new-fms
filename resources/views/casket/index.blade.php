@@ -82,6 +82,11 @@
                                     </td>
                                 </tr>
                             @endforeach
+                            @if($caskets->isEmpty())
+                                <tr class="h-20">
+                                    <td class="text-base text-red-600 text-center" colspan="9">No Records Found</td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>

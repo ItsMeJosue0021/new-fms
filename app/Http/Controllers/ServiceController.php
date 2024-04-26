@@ -79,7 +79,7 @@ class ServiceController extends Controller
     {
         try {
             $service = $this->serviceService->getServiceById($serviceId);
-            return view('service.inclusions', ['service' => $service, 'page' => 'inclusions']);
+            return view('service.inclusions', ['service' => $service, 'page' => 'inclusions', 'from' => 'service_type']);
         } catch (ServiceNotFoundException $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }

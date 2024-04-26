@@ -189,6 +189,7 @@ Route::group(['middleware' => ['auth', 'role:customer']], function () {
             Route::get('/requests', 'customerRequests')->name('customer.requests');
             Route::get('/requests/{request}', 'showCustomerRequest')->name('customer.requests-show');
             Route::get('/requests/{request}/cancel', 'cancel')->name('customer.requests-cancel');
+            // Route::get('/requests/{service}/edit', 'requestEdit')->name('customer.request-edit');
         });
     });
 

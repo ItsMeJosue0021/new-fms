@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ServiceRequest;
+use App\Services\ServiceService;
 use App\Services\ServiceRequestService;
 use App\Http\Requests\StoreServiceRequest;
+use App\Exceptions\ServiceNotFoundException;
 use App\Http\Requests\StorePaymentInforRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ServiceRequestController extends Controller
 {
     private $serviceRequestService;
-    public function __construct(ServiceRequestService $serviceRequestService) {
+    private $serviceService;
+    public function __construct(ServiceRequestService $serviceRequestService, ServiceService $serviceService) {
         $this->serviceRequestService = $serviceRequestService;
     }
 
@@ -169,4 +172,14 @@ class ServiceRequestController extends Controller
             'requests' => $this->serviceRequestService->getCompletedServiceRequest()
         ]);
     }
+
+    // public function requestEdit($serviceId) {
+    //     // return redirect()->route('services.inclusions', $serviceId);
+    //     try {
+    //         $service = $this->serviceService->getServiceById($serviceId);
+    //         return view('service.inclusions', ['service' => $service, 'page' => 'inclusions', 'from' => 'customer_dashboard']);
+    //     } catch (ServiceNotFoundException $e) {
+    //         return redirect()->back()->with('error', $e->getMessage());
+    //     }
+    // }
 }

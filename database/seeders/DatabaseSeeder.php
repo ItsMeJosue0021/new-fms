@@ -25,14 +25,14 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(CasketSeeder::class);
-        $this->call(HearseSeeder::class);
+        // $this->call(CasketSeeder::class);
+        // $this->call(HearseSeeder::class);
         $this->call(JobSeeder::class);
         $this->call(ReligionSeeder::class);
         $this->call(DeathCauseSeeder::class);
         $this->call(InformantRelationshipSeeder::class);
-        $this->call(AnnouncementSeeder::class);
-        $this->call(ServiceRequestSeeder::class);
+        // $this->call(AnnouncementSeeder::class);
+        // $this->call(ServiceRequestSeeder::class);
         $this->call(UrnSeeder::class);
     }
 

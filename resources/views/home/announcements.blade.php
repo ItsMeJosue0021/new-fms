@@ -22,6 +22,11 @@
                         </div>
                     </a>
                 @endforeach
+                @if($announcements->isEmpty())
+                    <div class="w-full h-40 flex items-center justify-center">
+                        <span class="text-base text-red-600 text-center" colspan="9">No Records Found</span>
+                    </div>
+                @endif
               </div>
               <div class="py-4">
                 {{ $announcements->links() }}
