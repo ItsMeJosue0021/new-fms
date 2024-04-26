@@ -6,7 +6,7 @@
                     <div class="w-full flex items-start justify-between mb-10">
                         <div>
                             <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">Caskets</h2>
-                            <p class="text-sm">Here aree some of our available caskets</p>
+                            <p class="text-sm">Here are some of our available caskets</p>
                         </div>
 
                         <form action="{{ route('caskets') }}" class="w-full flex items-center max-w-lg">

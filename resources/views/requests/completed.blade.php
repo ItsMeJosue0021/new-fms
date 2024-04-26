@@ -22,7 +22,7 @@
                         </form>
                     </div>
                     <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                        <a class="ml-2 text-gray-700 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2 border border-gray-300">Print</a>
+                        <a href="{{ route('requests.print-completed') }}" class="ml-2 text-gray-700 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2 border border-gray-300">Print</a>
                     </div>
                 </div>
                 <div class="overflow-x-auto">
@@ -51,9 +51,9 @@
                                         <span class="bg-blue-50 text-blue-700 text-sm font-medium me-2 px-2.5 py-1 rounded ">{{ $request->status ?? 'N/A' }}</span>
                                     </td>
                                     @if ($request->service->service_type == 'Memorial Services')
-                                        <td class="px-4 py-3">&#x20B1; {{ isset($request->service->casket->price) ? number_format($request->service->casket->price, 2, '.', ',') : '00.00' }}</td>
+                                        <td class="px-4 py-3">&#x20B1; {{ isset($request->total_amount) ? number_format($request->total_amount, 2, '.', ',') : '00.00' }}</td>
                                     @else
-                                        <td class="px-4 py-3">&#x20B1; {{ isset($request->service->urn->price) ? number_format($request->service->urn->price, 2, '.', ',') : '00.00' }}</td>
+                                        <td class="px-4 py-3">&#x20B1; {{ isset($request->total_amount) ? number_format($request->total_amount, 2, '.', ',') : '00.00' }}</td>
                                     @endif
                                     <td class="px-4 py-3">&#x20B1; {{ isset($request->discount_amount) ? number_format($request->discount_amount, 2, '.', ',') : '00.00' }}</td>
                                     <td class="px-4 py-3">&#x20B1; {{ isset($request->recieved_amount) ? number_format($request->recieved_amount, 2, '.', ',') : '00.00' }}</td>

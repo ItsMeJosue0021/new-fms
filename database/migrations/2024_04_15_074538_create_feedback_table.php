@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(ServiceRequest::class)->constrained();
             $table->string('name');
-            $table->string('content')->nullable();
+            $table->longText('content')->nullable();
             $table->integer('stars')->nullable();
             $table->boolean('show_on_website')->default(false);
             $table->timestamps();

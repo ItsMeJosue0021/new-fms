@@ -47,6 +47,19 @@ class ServiceRequestController extends Controller
     }
 
     public function confirmedRequest() {
+
+        $confirmedRequests = ServiceRequest::where('status', 'confirmed')->get();
+
+        foreach ($confirmedRequests as $confirmedRequest) {
+            $today = date("Y-m-d H:i:s");
+            $internment_datetime = $confirmedRequest->service->deceased->deathDetail->internment_date . ' ' . $confirmedRequest->service->deceased->deathDetail->internment_time;
+            if (strtotime($internment_datetime) < strtotime($today)) {
+                $confirmedRequest->update([
+                    'status' => 'completed'
+                ]);
+            }
+        }
+        
         return view('requests.confirmed', [
             'requests' => $this->serviceRequestService->getConfirmedServiceRequests()
         ]);
@@ -167,11 +180,31 @@ class ServiceRequestController extends Controller
         }
     }
 
-    public function print() {
-        return view('requests.print-completed', [
-            'requests' => $this->serviceRequestService->getCompletedServiceRequest()
-        ]);
+    public function print(Request $request) {
+
+        if ($request->input('from') || $request->input('to')) {
+            $from = $request->input('from');
+            $to = $request->input('to');
+
+            $requests = ServiceRequest::where('status', 'completed')
+                                            ->whereBetween('created_at', [$from, $to])
+                                            ->get();
+
+            return view('requests.print-completed', [
+                'requests' => $requests,
+                'total' => $requests->sum('total_amount')
+            ]);
+
+        } else {
+            $requests = ServiceRequest::where('status', 'completed')->latest()->get();
+            return view('requests.print-completed', [
+                'requests' => $requests ,
+                'total' => $requests->sum('total_amount')
+            ]);
+        }
     }
+
+
 
     // public function requestEdit($serviceId) {
     //     // return redirect()->route('services.inclusions', $serviceId);

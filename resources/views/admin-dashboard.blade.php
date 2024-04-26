@@ -26,7 +26,11 @@
             </div>
         </div>
 
-        <div class="p-6 my-4 bg-white rounded-lg shadow">
+        <div class="w-full py-4">
+            <a href="{{ route('requests.print-completed') }}" class=" text-gray-700 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2 border border-gray-300">Print Report</a>
+        </div>
+
+        <div class="p-6 mb-4 bg-white rounded-lg shadow">
             {!! $chart->container() !!}
         </div>
         <script src="{{ $chart->cdn() }}"></script>

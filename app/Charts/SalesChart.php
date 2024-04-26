@@ -21,7 +21,7 @@ class SalesChart
 
         $all_requests = ServiceRequest::where('status', 'completed')->get();
 
-        if (empty($all_requests)) {
+        if (!empty($all_requests)) {
             $year = DB::table('service_requests')
             ->selectRaw('YEAR(created_at) as year')
             ->orderBy('year', 'desc')

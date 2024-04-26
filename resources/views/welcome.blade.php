@@ -23,7 +23,7 @@
    <section class="bg-white dark:bg-gray-900 bg-[url('/public/images/banner.jpg')] bg-bottom">
        <div class="w-full py-16 backdrop-blur-[3px]">
            <div class="flex flex-col items-center justify-center max-w-[1400px] px-4 mx-auto">
-               <h1 class="w-full text-center mb-4 text-4xl font-extrabold leading-none md:text-5xl xl:text-6xl text-blue-700 dark:text-white">Tores Escaro Funeral Services</h1>
+               <h1 class="w-full text-center mb-4 text-4xl font-extrabold leading-none md:text-5xl xl:text-6xl text-blue-700 dark:text-white">Torres Escaro Funeral Services</h1>
                <p class="w-full md:w-1/2 text-center mb-6 font-light text-white lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">110 Bayanan Rd, Bacoor, 4102 Cavite</p>
                <a href="{{ route('services.type') }}" class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
                    Request Service
@@ -39,7 +39,7 @@
                 <div class="w-full flex items-start justify-between mb-10">
                     <div>
                         <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">Caskets</h2>
-                        <p class="text-sm">Here aree some of our available caskets</p>
+                        <p class="text-sm">Here are some of our available caskets</p>
                     </div>
 
                     <form action="{{ route('home') }}" class="w-full flex items-center max-w-lg">
@@ -109,7 +109,7 @@
                                 </div>
                                 <div class="p-4">
                                     <h1 class="title-font text-lg font-medium text-gray-900 ">{{ $casket->name }}</h1>
-                                    <p class="leading-6 mb-3 text-sm">{{ $casket->description }}</p>
+                                    <p class="leading-6 mb-3 text-sm">{{ Illuminate\Support\Str::limit($casket->description, 25, '...') ?? 'N/A' }}</p>
 
                                     <div class="flex items-center justify-between z-50">
                                         <a href="{{ route('home.select-casket', $casket->id) }}" class="text-indigo-500 inline-flex text-sm items-center md:mb-2 lg:mb-0">Select and proceed
