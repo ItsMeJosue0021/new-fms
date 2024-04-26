@@ -54,9 +54,9 @@
                         </div>
                     </form>
                 </div>
-                <button hx-get="/json/caskets/" hx-trigger="click" hx-target="#results">click me</button>
+                {{-- <button hx-get="/json/caskets/" hx-trigger="click" hx-target="#results">click me</button> --}}
                 <div id="loading" class="hidden">Loading...</div>
-                <div  id="results"  class="flex flex-wrap -m-4" id="cntr">
+                <div hx-get="/json/caskets/" hx-trigger="load" id="results"  class="flex flex-wrap -m-4" id="cntr">
                     {{-- @foreach ($caskets as $casket)
                         <div class="p-4 md:w-1/3">
                             <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
@@ -205,23 +205,10 @@
                 document.getElementById('closeModal').addEventListener('click', closeModal);
             }
 
-            function loadImage() {
-    // Get a reference to the image element
-    var images = document.querySelectorAll('.zoomable-image');
-
-    // Add an event listener for each image
-    images.forEach(function (image) {
-        image.addEventListener('click', function () {
-            openModal(image.src);
-        });
-    });
-}
-
             document.addEventListener('DOMContentLoaded', reinitializeZoom);
 
             document.body.addEventListener('htmx:afterOnLoad', function (event) {
                 reinitializeZoom();
-                loadImage();
             });
         </script>
    </section>
