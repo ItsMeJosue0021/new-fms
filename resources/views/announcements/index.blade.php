@@ -44,7 +44,7 @@
                             @foreach ($announcements as $announcement)
                                 <tr class="border-b dark:border-gray-700">
                                     <td class="px-4 py-3">{{ $announcement->title ?? 'N/A' }}</td>
-                                    <td class="px-4 py-3 max-w-96">{{ Illuminate\Support\Str::limit($announcement->content, 25, '...') ?? 'N/A' }}</td>
+                                    <td class="px-4 py-3 max-w-96">{{ Illuminate\Support\Str::limit($announcement->content, 35, '...') ?? 'N/A' }}</td>
                                     <td class="px-4 py-3 flex space-x-2 items-center max-w-80 overflow-x-auto scroll-container">
                                         @if ($announcement->announcementImages->isEmpty())
                                             <span class="text-lg text-gray-700">...</span>

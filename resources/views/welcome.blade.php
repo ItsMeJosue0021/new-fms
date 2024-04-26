@@ -50,22 +50,18 @@
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.15 5.6h.01m3.337 1.913h.01m-6.979 0h.01M5.541 11h.01M15 15h2.706a1.957 1.957 0 0 0 1.883-1.325A9 9 0 1 0 2.043 11.89 9.1 9.1 0 0 0 7.2 19.1a8.62 8.62 0 0 0 3.769.9A2.013 2.013 0 0 0 13 18v-.857A2.034 2.034 0 0 1 15 15Z"/>
                                 </svg>
                             </div> --}}
-                            <input type="text" name="search" id="search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-4 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Name, Description, Design, Color..." required />
+                            <input type="text" type="text" hx-get="/json/caskets/" hx-trigger="keyup delay:500ms" hx-indicator="#loading" hx-target="#results" name="search" id="search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-4 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Name, Description, Design, Color..." required />
                         </div>
-                        <button type="submit" class="inline-flex items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                            </svg>Search
-                        </button>
                     </form>
                 </div>
-                <div class="flex flex-wrap -m-4">
-                    @foreach ($caskets as $casket)
+                <button hx-get="/json/caskets/" hx-trigger="click" hx-target="#results">click me</button>
+                <div id="loading" class="hidden">Loading...</div>
+                <div  id="results"  class="flex flex-wrap -m-4" id="cntr">
+                    {{-- @foreach ($caskets as $casket)
                         <div class="p-4 md:w-1/3">
                             <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
-                                {{-- <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="https://dummyimage.com/720x400" alt="blog"> --}}
+
                                 <div id="animation-carousel" class="relative w-full" data-carousel="static">
-                                    <!-- Carousel wrapper -->
                                     <div class="relative lg:h-48 md:h-36 overflow-hidden z-0">
 
                                         @if (count($casket->casketImages) > 0)
@@ -89,7 +85,7 @@
                                             </div>
                                         @endif
                                     </div>
-                                    <!-- Slider controls -->
+
                                     <button type="button" class="z-0 absolute top-0 start-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
                                         <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
                                             <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
@@ -109,7 +105,7 @@
                                 </div>
                                 <div class="p-4">
                                     <h1 class="title-font text-lg font-medium text-gray-900 ">{{ $casket->name }}</h1>
-                                    <p class="leading-6 mb-3 text-sm">{{ Illuminate\Support\Str::limit($casket->description, 25, '...') ?? 'N/A' }}</p>
+                                    <p class="leading-6 mb-3 text-sm">{{ Illuminate\Support\Str::limit($casket->description, 35, '...') ?? 'N/A' }}</p>
 
                                     <div class="flex items-center justify-between z-50">
                                         <a href="{{ route('home.select-casket', $casket->id) }}" class="text-indigo-500 inline-flex text-sm items-center md:mb-2 lg:mb-0">Select and proceed
@@ -123,17 +119,17 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
-                    @if($caskets->isEmpty())
+                    @endforeach --}}
+                    {{-- @if($caskets->isEmpty())
                         <div class="w-full h-40 flex items-center justify-center">
                             <span class="text-base text-red-600 text-center" colspan="9">No Records Found</span>
                         </div>
-                    @endif
+                    @endif --}}
                 </div>
 
-                <div class="pt-6">
+                {{-- <div class="pt-6">
                     {{ $caskets->links() }}
-                </div>
+                </div> --}}
 
                 @if (count($feedbacks) > 0)
                     <section class="text-gray-600 body-font">
@@ -166,7 +162,7 @@
                 @endif
             </div>
 
-            <div id="imageModal" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 ">
+            <div id="imageModal" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 z-50 ">
                 <div class="w-full h-full flex items-center justify-center">
                     <div id="modalContent" class="max-w-2xl mx-auto">
                         <img id="modalImage" src="" alt="Modal Image" class="w-full h-full rounded">
@@ -191,7 +187,7 @@
                 document.getElementsByTagName('header')[0].style.zIndex = '40';
             }
 
-            document.addEventListener('DOMContentLoaded', function () {
+            function reinitializeZoom() {
                 var images = document.querySelectorAll('.zoomable-image');
 
                 images.forEach(function (image) {
@@ -207,6 +203,25 @@
                 });
 
                 document.getElementById('closeModal').addEventListener('click', closeModal);
+            }
+
+            function loadImage() {
+    // Get a reference to the image element
+    var images = document.querySelectorAll('.zoomable-image');
+
+    // Add an event listener for each image
+    images.forEach(function (image) {
+        image.addEventListener('click', function () {
+            openModal(image.src);
+        });
+    });
+}
+
+            document.addEventListener('DOMContentLoaded', reinitializeZoom);
+
+            document.body.addEventListener('htmx:afterOnLoad', function (event) {
+                reinitializeZoom();
+                loadImage();
             });
         </script>
    </section>

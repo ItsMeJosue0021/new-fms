@@ -1,5 +1,6 @@
 import './bootstrap';
 import 'flowbite';
+import 'htmx.org';
 
 import Alpine from 'alpinejs';
 

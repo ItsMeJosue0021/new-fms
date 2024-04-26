@@ -1,18 +1,19 @@
 <?php
 
-use App\Http\Controllers\FeedbackController;
-use App\Http\Controllers\UrnController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UrnController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CasketController;
 use App\Http\Controllers\HearseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\DeceasedController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InformantController;
 use App\Http\Controllers\ServiceTypeController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\JsonResponseController;
 use App\Http\Controllers\ServiceRequestController;
 use App\Http\Controllers\UnauthorizedAcceeController;
 
@@ -49,6 +50,11 @@ Route::get('/404', [UnauthorizedAcceeController::class, 'unauthorizedAccess'])->
 
 
 Route::middleware('auth')->group(function () {
+
+    Route::controller(JsonResponseController::class)->group(function () {
+        Route::get('/json/caskets', 'caskets')->name('json.caskets');
+
+    });
 
     Route::prefix('/services/{serviceId}')->group(function () {
         Route::controller(ServiceController::class)->group(function () {
