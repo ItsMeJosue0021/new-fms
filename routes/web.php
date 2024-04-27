@@ -28,6 +28,11 @@ use App\Http\Controllers\UnauthorizedAcceeController;
 |
 */
 
+Route::controller(JsonResponseController::class)->group(function () {
+    Route::get('/json/caskets', 'caskets')->name('json.caskets');
+
+});
+
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'home')->name('home');
     Route::get('/about', 'about')->name('about');
@@ -50,11 +55,6 @@ Route::get('/404', [UnauthorizedAcceeController::class, 'unauthorizedAccess'])->
 
 
 Route::middleware('auth')->group(function () {
-
-    Route::controller(JsonResponseController::class)->group(function () {
-        Route::get('/json/caskets', 'caskets')->name('json.caskets');
-
-    });
 
     Route::prefix('/services/{serviceId}')->group(function () {
         Route::controller(ServiceController::class)->group(function () {
