@@ -7,7 +7,7 @@
             <div class="flex flex-wrap">
                 <div class="flex w-full mb-6 flex-col space-y-4">
                     <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900 w-full lg:mb-0 mb-4">{{ $announcement->title }}</h1>
-                    <p class="w-full mx-auto leading-relaxed text-base">Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical gentrify, subway tile poke farm-to-table. Franzen you probably haven't heard of them man bun deep jianbing selfies heirloom.</p>
+                    <p class="w-full mx-auto leading-relaxed text-base">{{ $announcement->content }}</p>
                 </div>
                 <div class="flex flex-wrap w-full">
                     <div class="flex flex-wrap w-full">

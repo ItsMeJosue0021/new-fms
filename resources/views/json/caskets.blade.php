@@ -68,6 +68,15 @@
     </div>
 @endif
 
+{{-- <script>
+    var images = document.querySelectorAll('.zoomable-image');
+    images.forEach(function(image) {
+        // Trigger loading by setting src attribute
+        image.src = image.getAttribute('data-src');
+        console.log("Loading image:", image.src);
+    });
+</script> --}}
+
 {{-- <div class="pt-6">
     {{ $caskets->links() }}
 </div> --}}

@@ -45,7 +45,7 @@
                     <form action="{{ route('home') }}" class="w-full flex items-center max-w-lg">
                         <label for="voice-search" class="sr-only">Search</label>
                         <div class="relative w-full">
-                            <input type="text" type="text" hx-get="/json/caskets/" hx-trigger="keyup delay:500ms" hx-indicator="#loading" hx-target="#results" name="search" id="search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-4 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Name, Description, Design, Color..." required />
+                            <input type="text" type="text" hx-get="/json/caskets/" hx-trigger="keyup delay:300ms" hx-indicator="#loading" hx-target="#results" name="search" id="search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-4 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Name, Description, Design, Color..." required />
                         </div>
                     </form>
                 </div>
@@ -96,65 +96,148 @@
                 </div>
             </div>
         </div>
-        <script>
-            function openModal(imageSrc) {
-                document.getElementById('modalImage').src = imageSrc;
-                document.getElementById('imageModal').classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-                document.getElementsByTagName('header')[0].style.zIndex = '0';
-            }
-
-            function closeModal() {
-                document.getElementById('imageModal').classList.add('hidden');
-                document.body.style.overflow = 'auto';
-                document.getElementsByTagName('header')[0].style.zIndex = '40';
-            }
-
-            function reinitializeZoom() {
-                var images = document.querySelectorAll('.zoomable-image');
-
-                images.forEach(function (image) {
-                    image.addEventListener('click', function () {
-                        openModal(image.src);
-                    });
-                });
-
-                document.getElementById('imageModal').addEventListener('click', function (event) {
-                    if (event.target.id === 'imageModal') {
-                        closeModal();
-                    }
-                });
-
-                document.getElementById('closeModal').addEventListener('click', closeModal);
-            }
-
-            document.addEventListener('DOMContentLoaded', reinitializeZoom);
-
-            document.body.addEventListener('htmx:afterOnLoad', function (event) {
-                reinitializeZoom();
-                loadImage();
-            });
-
-            function loadImage() {
-                // Get a reference to the image element
-                var images = document.querySelectorAll('.zoomable-image');
-
-                // Add an event listener for each image
-                images.forEach(function (image) {
-                    // Append a random query string to the image URL
-                    image.src = image.src + '?random=' + Math.random();
-
-                    image.addEventListener('click', function () {
-                        openModal(image.src);
-                    });
-                });
-            }
-
-            // Call the loadImage function after htmx swaps in new content
-            document.body.addEventListener('htmx:afterOnLoad', loadImage);
-
-        </script>
    </section>
+
+   <script>
+    console.log('test');
+    function openModal(imageSrc) {
+        document.getElementById('modalImage').src = imageSrc;
+        document.getElementById('imageModal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        document.getElementsByTagName('header')[0].style.zIndex = '0';
+    }
+
+    function closeModal() {
+        document.getElementById('imageModal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+        document.getElementsByTagName('header')[0].style.zIndex = '40';
+    }
+
+    function reinitializeZoom() {
+        var images = document.querySelectorAll('.zoomable-image');
+
+        images.forEach(function (image) {
+            image.addEventListener('click', function () {
+                openModal(image.src);
+            });
+        });
+
+        document.getElementById('imageModal').addEventListener('click', function (event) {
+            if (event.target.id === 'imageModal') {
+                closeModal();
+            }
+        });
+
+        document.getElementById('closeModal').addEventListener('click', closeModal);
+    }
+
+    // document.body.addEventListener('htmx:afterSwap', () => {
+    //     const dataContainer = document.getElementById('results');
+    //     const jsonData = JSON.parse(dataContainer.textContent);
+
+    //     // Create an HTML template
+    //     const template = jsonData.map(item => `
+    //         <div class="p-4 md:w-1/3">
+    //         <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+    //             {{-- <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="https://dummyimage.com/720x400" alt="blog"> --}}
+    //             <div id="animation-carousel" class="relative w-full" data-carousel="static">
+    //                 <!-- Carousel wrapper -->
+    //                 <div class="relative lg:h-48 md:h-36 overflow-hidden z-0">
+    //                 <div class="hidden duration-200 ease-linear" data-carousel-item>
+    //                     <img src="https://placehold.co/600x400/000000/FFF"  class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer">
+    //                 </div>
+    //                 </div>
+    //                 <!-- Slider controls -->
+    //                 <button type="button" class="z-0 absolute top-0 start-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+    //                     <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+    //                         <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+    //                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+    //                         </svg>
+    //                         <span class="sr-only">Previous</span>
+    //                     </span>
+    //                 </button>
+    //                 <button type="button" class="z-0 absolute top-0 end-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+    //                     <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+    //                         <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+    //                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+    //                         </svg>
+    //                         <span class="sr-only">Next</span>
+    //                     </span>
+    //                 </button>
+    //             </div>
+    //             <div class="p-4">
+    //                 <h1 class="title-font text-lg font-medium text-gray-900 ">${item.name}</h1>
+    //                 <p class="leading-6 mb-3 text-sm">${item.description}</p>
+
+    //                 <div class="flex items-center justify-between z-50">
+    //                     <a href="" class="text-indigo-500 inline-flex text-sm items-center md:mb-2 lg:mb-0">Select and proceed
+    //                         <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    //                             <path d="M5 12h14"></path>
+    //                             <path d="M12 5l7 7-7 7"></path>
+    //                         </svg>
+    //                     </a>
+    //                     <span class="leading-6 font-medium text-base">&#x20B1; ${item.price} </span>
+    //                 </div>
+    //             </div>
+    //         </div>
+    // </div>
+    //     `).join('');
+
+    //     // Render the template
+    //     dataContainer.innerHTML = template;
+    // });
+
+    document.body.addEventListener('htmx:afterSwap', function (event) {
+        reinitializeZoom();
+
+        // var images = document.querySelectorAll('.zoomable-image');
+        // images.forEach(function(image) {
+        //     // Trigger loading by setting src attribute
+        //     image.src = image.getAttribute('data-src');
+        //     console.log("Loading image:", image.src);
+        // });
+    });
+
+    // document.body.addEventListener('htmx:afterRequest', function (event) {
+    //     var images = document.querySelectorAll('.zoomable-image');
+    //     images.forEach(function(image) {
+    //         // Trigger loading by setting src attribute
+    //         image.src = image.getAttribute('data-src');
+    //         console.log("Loading image:", image.src);
+    //     });
+    // });
+
+    // setTimeout(() => {
+    //     var images = document.querySelectorAll('.zoomable-image');
+    //     images.forEach(function(image) {
+    //         // Trigger loading by setting src attribute
+    //         image.src = image.getAttribute('data-src');
+    //         console.log("Loading image:", image.src);
+    //     });
+    // }, 3000);
+
+    // document.getElementById('search').addEventListener('keyup', function (event) {
+    //     // var search = event.target.value;
+    //     // var url = '/json/caskets/?search=' + search;
+
+    //     // fetch(url)
+    //     //     .then(response => response.text())
+    //     //     .then(data => {
+    //     //         document.getElementById('cntr').innerHTML = data;
+    //     //     });
+    //     var images = document.querySelectorAll('.zoomable-image');
+    //     images.forEach(function(image) {
+    //         // Trigger loading by setting src attribute
+    //         image.src = image.getAttribute('data-src');
+    //         console.log("Loading image:", image.src);
+    //     });
+    // });
+
+
+
+
+</script>
+
 
    <section class="text-gray-600 body-font bg-neutral-200 relative py-14">
     <div class="mx-auto max-w-[1240px]" data-aos="fade-up">
