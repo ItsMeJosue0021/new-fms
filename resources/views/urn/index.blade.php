@@ -32,7 +32,7 @@
                                 <th scope="col" class="px-4 py-3">Name</th>
                                 <th scope="col" class="px-4 py-3">Description</th>
                                 <th scope="col" class="px-4 py-3">Image</th>
-                                {{-- <th scope="col" class="px-4 py-3">Status</th> --}}
+                                <th scope="col" class="px-4 py-3">Water</th>
                                 <th scope="col" class="px-4 py-3">Date Added</th>
                                 <th scope="col" class="px-4 py-3">Last Update</th>
                                 <th scope="col" class="px-4 py-3">
@@ -54,6 +54,7 @@
                                             </div>
                                         @endif
                                     </td>
+                                    <td class="px-4 py-3">{{ $urn->water ?? 'N/A' }}</td>
                                     <td class="px-4 py-3">{{ $urn->created_at ? $urn->created_at->format('F d, Y') : 'N/A' }}</td>
                                     <td class="px-4 py-3">{{ $urn->updated_at ? $urn->updated_at->format('F d, Y') : 'N/A' }}</td>
                                     <td class="px-4 py-3 flex items-center justify-end">

@@ -16,7 +16,8 @@ class Casket extends Model
         'description',
         'image',
         'price',
-        'quantity'
+        'quantity',
+        'water'
     ];
 
     public function service()

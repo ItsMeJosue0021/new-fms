@@ -45,13 +45,93 @@
                     <form action="{{ route('home') }}" class="w-full flex items-center max-w-lg">
                         <label for="voice-search" class="sr-only">Search</label>
                         <div class="relative w-full">
-                            <input type="text" type="text" hx-get="/json/caskets/" hx-trigger="keyup delay:300ms" hx-indicator="#loading" hx-target="#results" name="search" id="search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-4 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Name, Description, Design, Color..." required />
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 21 21">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.15 5.6h.01m3.337 1.913h.01m-6.979 0h.01M5.541 11h.01M15 15h2.706a1.957 1.957 0 0 0 1.883-1.325A9 9 0 1 0 2.043 11.89 9.1 9.1 0 0 0 7.2 19.1a8.62 8.62 0 0 0 3.769.9A2.013 2.013 0 0 0 13 18v-.857A2.034 2.034 0 0 1 15 15Z"/>
+                                </svg>
+                            </div>
+                            <input type="text" name="search" id="search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Name, Description, Design, Color..." required />
                         </div>
+                        <button type="submit" class="inline-flex items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                            </svg>Search
+                        </button>
                     </form>
                 </div>
-                <div id="loading" class="hidden">Loading...</div>
-                <div hx-get="/json/caskets/" hx-trigger="load" id="results"  class="flex flex-wrap -m-4" id="cntr">
+                <div class="flex flex-wrap -m-4">
+                    @foreach ($caskets as $casket)
+                        <div class="p-4 md:w-1/3">
+                            <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+                                {{-- <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="https://dummyimage.com/720x400" alt="blog"> --}}
+                                <div id="animation-carousel" class="relative w-full" data-carousel="static">
+                                    <!-- Carousel wrapper -->
+                                    <div class="relative lg:h-48 md:h-36 overflow-hidden z-0">
 
+                                        @if (count($casket->casketImages) > 0)
+                                            @foreach ($casket->casketImages as $image)
+                                            <div class="hidden duration-200 ease-linear" data-carousel-item>
+                                                <img src="{{ asset('storage/' . $image->image) }}" alt="{{ $casket->name }}" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer">
+                                            </div>
+
+                                            @endforeach
+                                        @else
+                                            <div class="hidden duration-200 ease-linear" data-carousel-item>
+                                                <img src="https://placehold.co/600x400/000000/FFF" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
+                                            </div>
+
+                                            <div class="hidden duration-200 ease-linear" data-carousel-item>
+                                                <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
+                                            </div>
+
+                                            <div class="hidden duration-200 ease-linear" data-carousel-item="active">
+                                                <img src="https://dummyimage.com/720x400" class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer" alt="...">
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <!-- Slider controls -->
+                                    <button type="button" class="z-0 absolute top-0 start-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+                                        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                                            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                                            </svg>
+                                            <span class="sr-only">Previous</span>
+                                        </span>
+                                    </button>
+                                    <button type="button" class="z-0 absolute top-0 end-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+                                        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+                                            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                                            </svg>
+                                            <span class="sr-only">Next</span>
+                                        </span>
+                                    </button>
+                                </div>
+                                <div class="p-4">
+                                    <h1 class="title-font text-lg font-medium text-gray-900 ">{{ $casket->name }}</h1>
+                                    <p class="leading-6 mb-3 text-sm">{{ Illuminate\Support\Str::limit($casket->description, 35, '...') ?? 'N/A' }}</p>
+
+                                    <div class="flex items-center justify-between z-50">
+                                        <a href="{{ route('home.select-casket', $casket->id) }}" class="text-indigo-500 inline-flex text-sm items-center md:mb-2 lg:mb-0">Select and proceed
+                                            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M5 12h14"></path>
+                                                <path d="M12 5l7 7-7 7"></path>
+                                            </svg>
+                                        </a>
+                                        <span class="leading-6 font-medium text-base">&#x20B1; {{ number_format($casket->price, 2, '.', ',') }} </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                    @if($caskets->isEmpty())
+                        <div class="w-full h-40 flex items-center justify-center">
+                            <span class="text-base text-red-600 text-center" colspan="9">No Records Found</span>
+                        </div>
+                    @endif
+                </div>
+                <div class="w-full py-5">
+                    {{ $caskets->links() }}
                 </div>
 
                 @if (count($feedbacks) > 0)
@@ -131,161 +211,61 @@
         document.getElementById('closeModal').addEventListener('click', closeModal);
     }
 
-    // document.body.addEventListener('htmx:afterSwap', () => {
-    //     const dataContainer = document.getElementById('results');
-    //     const jsonData = JSON.parse(dataContainer.textContent);
-
-    //     // Create an HTML template
-    //     const template = jsonData.map(item => `
-    //         <div class="p-4 md:w-1/3">
-    //         <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
-    //             {{-- <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="https://dummyimage.com/720x400" alt="blog"> --}}
-    //             <div id="animation-carousel" class="relative w-full" data-carousel="static">
-    //                 <!-- Carousel wrapper -->
-    //                 <div class="relative lg:h-48 md:h-36 overflow-hidden z-0">
-    //                 <div class="hidden duration-200 ease-linear" data-carousel-item>
-    //                     <img src="https://placehold.co/600x400/000000/FFF"  class="zoomable-image absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 cursor-pointer">
-    //                 </div>
-    //                 </div>
-    //                 <!-- Slider controls -->
-    //                 <button type="button" class="z-0 absolute top-0 start-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-    //                     <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-    //                         <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-    //                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-    //                         </svg>
-    //                         <span class="sr-only">Previous</span>
-    //                     </span>
-    //                 </button>
-    //                 <button type="button" class="z-0 absolute top-0 end-0 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-    //                     <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-    //                         <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-    //                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-    //                         </svg>
-    //                         <span class="sr-only">Next</span>
-    //                     </span>
-    //                 </button>
-    //             </div>
-    //             <div class="p-4">
-    //                 <h1 class="title-font text-lg font-medium text-gray-900 ">${item.name}</h1>
-    //                 <p class="leading-6 mb-3 text-sm">${item.description}</p>
-
-    //                 <div class="flex items-center justify-between z-50">
-    //                     <a href="" class="text-indigo-500 inline-flex text-sm items-center md:mb-2 lg:mb-0">Select and proceed
-    //                         <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    //                             <path d="M5 12h14"></path>
-    //                             <path d="M12 5l7 7-7 7"></path>
-    //                         </svg>
-    //                     </a>
-    //                     <span class="leading-6 font-medium text-base">&#x20B1; ${item.price} </span>
-    //                 </div>
-    //             </div>
-    //         </div>
-    // </div>
-    //     `).join('');
-
-    //     // Render the template
-    //     dataContainer.innerHTML = template;
-    // });
-
     document.body.addEventListener('htmx:afterSwap', function (event) {
         reinitializeZoom();
-
-        // var images = document.querySelectorAll('.zoomable-image');
-        // images.forEach(function(image) {
-        //     // Trigger loading by setting src attribute
-        //     image.src = image.getAttribute('data-src');
-        //     console.log("Loading image:", image.src);
-        // });
     });
-
-    // document.body.addEventListener('htmx:afterRequest', function (event) {
-    //     var images = document.querySelectorAll('.zoomable-image');
-    //     images.forEach(function(image) {
-    //         // Trigger loading by setting src attribute
-    //         image.src = image.getAttribute('data-src');
-    //         console.log("Loading image:", image.src);
-    //     });
-    // });
-
-    // setTimeout(() => {
-    //     var images = document.querySelectorAll('.zoomable-image');
-    //     images.forEach(function(image) {
-    //         // Trigger loading by setting src attribute
-    //         image.src = image.getAttribute('data-src');
-    //         console.log("Loading image:", image.src);
-    //     });
-    // }, 3000);
-
-    // document.getElementById('search').addEventListener('keyup', function (event) {
-    //     // var search = event.target.value;
-    //     // var url = '/json/caskets/?search=' + search;
-
-    //     // fetch(url)
-    //     //     .then(response => response.text())
-    //     //     .then(data => {
-    //     //         document.getElementById('cntr').innerHTML = data;
-    //     //     });
-    //     var images = document.querySelectorAll('.zoomable-image');
-    //     images.forEach(function(image) {
-    //         // Trigger loading by setting src attribute
-    //         image.src = image.getAttribute('data-src');
-    //         console.log("Loading image:", image.src);
-    //     });
-    // });
-
-
-
-
 </script>
 
 
    <section class="text-gray-600 body-font bg-neutral-200 relative py-14">
-    <div class="mx-auto max-w-[1240px]" data-aos="fade-up">
-      <div class="z-10 text-center text-black">
-          <h1 class="text-4xl font-bold uppercase mb-4">
-            Where to find & contact us
-          </h1>
-        </div>
-      <div class="px-5 py-8    mx-auto flex sm:flex-nowrap flex-wrap">
-        <div class="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
-          <iframe width="100%" height="100%" class="absolute inset-0" frameborder="0" title="map" marginheight="0" marginwidth="0" scrolling="no" src="https://maps.google.com/maps?q=Torres-Escaro Funeral Service 110 Bayanan Rd, Bacoor, 4102 Cavite&t=&z=17&ie=UTF8&iwloc=&output=embed" ></iframe>
-          <div class="bg-white relative flex flex-wrap py-6 rounded shadow-md">
-            <div class="lg:w-1/2 px-6">
-              <h2 class="title-font font-semibold text-black tracking-widest text-xs">ADDRESS</h2>
-              <p class="mt-1 text-black">110 Bayanan Rd, Bacoor, 4102 Cavite</p>
+        <div class="mx-auto max-w-[1240px]" data-aos="fade-up">
+            <div class="z-10 text-center text-black">
+                <h1 class="text-4xl font-bold uppercase mb-4">
+                    Where to find & contact us
+                </h1>
             </div>
-            <div class="lg:w-1/2 px-6 mt-4 lg:mt-0">
-              <h2 class="title-font font-semibold text-black tracking-widest text-xs">EMAIL</h2>
-              <a class="text-indigo-800 leading-relaxed">torresescarofuneral@gmail.com</a>
-              <h2 class="title-font font-semibold text-black tracking-widest text-xs mt-4">MOBILE</h2>
-              <p class="leading-relaxed text-black">0921-421-4743 / 0919-075-5427 / <br> LANDLINE: (046) 502-6635</p>
-            </div>
-          </div>
-        </div>
+            <div class="px-5 py-8    mx-auto flex sm:flex-nowrap flex-wrap">
+                <div class="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
+                <iframe width="100%" height="100%" class="absolute inset-0" frameborder="0" title="map" marginheight="0" marginwidth="0" scrolling="no" src="https://maps.google.com/maps?q=Torres-Escaro Funeral Service 110 Bayanan Rd, Bacoor, 4102 Cavite&t=&z=17&ie=UTF8&iwloc=&output=embed" ></iframe>
+                <div class="bg-white relative flex flex-wrap py-6 rounded shadow-md">
+                    <div class="lg:w-1/2 px-6">
+                    <h2 class="title-font font-semibold text-black tracking-widest text-xs">ADDRESS</h2>
+                    <p class="mt-1 text-black">110 Bayanan Rd, Bacoor, 4102 Cavite</p>
+                    </div>
+                    <div class="lg:w-1/2 px-6 mt-4 lg:mt-0">
+                    <h2 class="title-font font-semibold text-black tracking-widest text-xs">EMAIL</h2>
+                    <a class="text-indigo-800 leading-relaxed">torresescarofuneral@gmail.com</a>
+                    <h2 class="title-font font-semibold text-black tracking-widest text-xs mt-4">MOBILE</h2>
+                    <p class="leading-relaxed text-black">0921-421-4743 / 0919-075-5427 / <br> LANDLINE: (046) 502-6635</p>
+                    </div>
+                </div>
+                </div>
 
-        <div class="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full rounded-md p-5 mt-8 md:mt-0">
-          <h2 class="text-gray-900 text-lg mb-1 font-medium title-font">Feedback</h2>
-          <p class="leading-relaxed mb-5 text-sm text-gray-600">We value your input! <br> At Toress Escaro Funeral Service, we are committed to providing you with the best possible experience. </p>
-          <div class="relative mb-4">
-            <label for="name" class="leading-7 text-sm text-gray-600">Name</label>
-            <input type="text" id="name" name="name" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-          </div>
-          <div class="relative mb-4">
-            <label for="email" class="leading-7 text-sm text-gray-600">Email</label>
-            <input type="email" id="email" name="email" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-          </div>
-          <div class="relative mb-4">
-            <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
-            <textarea id="message" name="message" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
-          </div>
-          <button class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
-          <p class="text-sm text-gray-500 mt-3">Your feedback is essential in helping us achieve that goal. Whether you've had a great experience or encountered any challenges, we want to hear from you.</p>
+                <form action="{{ route('message.store') }}" method="POST" class="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full rounded-md p-5 mt-8 md:mt-0">
+                    @csrf
+                    <h2 class="text-gray-900 text-lg mb-1 font-medium title-font">Feedback</h2>
+                    <p class="leading-relaxed mb-5 text-sm text-gray-600">We value your input! <br> At Toress Escaro Funeral Service, we are committed to providing you with the best possible experience. </p>
+                    <div class="relative mb-4">
+                        <label for="name" class="leading-7 text-sm text-gray-600">Name</label>
+                        <input type="text" id="name" name="name" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                    </div>
+                    <div class="relative mb-4">
+                        <label for="email" class="leading-7 text-sm text-gray-600">Email</label>
+                        <input type="email" id="email" name="email" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                    </div>
+                    <div class="relative mb-4">
+                        <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
+                        <textarea id="message" name="message" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+                    </div>
+                    <button class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Submit</button>
+                    <p class="text-sm text-gray-500 mt-3">Your feedback is essential in helping us achieve that goal. Whether you've had a great experience or encountered any challenges, we want to hear from you.</p>
+                </form>
+            </div>
         </div>
-      </div>
-    </div>
   </section>
 
    <x-footer />
+   <x-flash-messages/>
 
    <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
 </body>

@@ -33,6 +33,14 @@
                             <p class="text-red-500 text-xs">{{$message}}</p>
                         @enderror
                     </div>
+
+                    <div class="flex flex-col space-y-2 w-full">
+                        <label for="water" class="text-sm font-semibold">Water</label>
+                        <input id="water" name="water" type="number" placeholder="0" class="text-sm rounded-md border border-gray-200 w-full" value="{{ $casket->water }}"/>
+                        @error('water')
+                            <p class="text-red-500 text-xs">{{$message}}</p>
+                        @enderror
+                    </div>
                 </div>
 
                 <div class="flex flex-col space-y-2 mt-3">

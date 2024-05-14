@@ -5,6 +5,7 @@ use App\Http\Controllers\UrnController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CasketController;
 use App\Http\Controllers\HearseController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\DeceasedController;
@@ -14,7 +15,9 @@ use App\Http\Controllers\InformantController;
 use App\Http\Controllers\ServiceTypeController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\JsonResponseController;
+use App\Http\Controllers\OtherServiceController;
 use App\Http\Controllers\ServiceRequestController;
+use App\Http\Controllers\DeceasedDocumentController;
 use App\Http\Controllers\UnauthorizedAcceeController;
 
 /*
@@ -43,6 +46,16 @@ Route::controller(HomeController::class)->group(function () {
 });
 
 
+Route::controller(MessageController::class)->group(function () {
+    Route::prefix('messages')->group(function () {
+        Route::get('/', 'index')->name('message.index');
+        Route::post('/store', 'store')->name('message.store');
+        Route::delete('/{message}/delete', 'delete')->name('message.delete');
+        Route::get('/{message}', 'show')->name('message.show');
+    });
+});
+
+
 Route::get('/services/choose-type/{casketId?}', [ServiceTypeController::class, 'index'])->name('services.type');
 
 Route::post('/services/create/{casketId?}', [ServiceController::class, 'store'])->name('services.store');
@@ -67,7 +80,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/hearses/{hearse}/select', 'selectHearse')->name('services.hearses-select');
             Route::get('/deceased', 'deceased')->name('services.deceased');
             Route::get('/informant', 'informant')->name('services.informant');
-            Route::get('/other-services', 'otherServices')->name('services.other-services');
+            Route::get('/documents', 'otherServices')->name('services.other-services');
             Route::post('/other-services/save', 'addOtherServices')->name('services.save-other-services');
             Route::get('/summary', 'summary')->name('services.summary');
             Route::get('/payment-terms', 'paymentTerms')->name('services.payment-terms');
@@ -86,6 +99,17 @@ Route::middleware('auth')->group(function () {
             Route::post('/request/save', 'store')->name('services.request-store');
         });
 
+        Route::controller(DeceasedDocumentController::class)->group(function () {
+            Route::post('/documents/save', 'store')->name('services.documents-store');
+            Route::delete('/documents/{document}/delete', 'delete')->name('services.documents-delete');
+            Route::get('/redirect', 'redirectFromDocuments')->name('services.documents-redirect');
+        });
+
+        Route::controller(OtherServiceController::class)->group(function () {
+            Route::get('/{request}/9fN3tBa/others', 'create')->name('services.other-services-create');
+            Route::post('/others/save', 'store')->name('services.other-services-store');
+            Route::get('/others/{otherService}/delete', 'delete')->name('services.other-services-delete');
+        });
     });
 
     Route::prefix('/profile')->group(function () {

@@ -229,6 +229,43 @@
                     </div>
                 </div>
 
+                @if ($service->deceased->documents)
+                    <div class="w-full pb-1 border-b border-gray-200 mt-5">
+                        <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">Uploaded Documents</h2>
+                    </div>
+                    <div class="flex flex-col space-y-2 mt-5">
+                        @foreach ($service->deceased->documents as $document)
+                            <div class="w-full flex items-center justify-between px-2 py-1 rounded border border-gray-200 group hover:bg-gray-50 cursor-pointer">
+                                <div class="flex items-center space-x-2">
+                                    <i class='bx bxs-file-doc text-lg group-hover:text-blue-600'></i>
+                                    <span class="group-hover:text-blue-600">{{ $document->name }}</span>
+                                </div>
+                                <form action="{{ route('services.documents-delete', [$service->id, $document->id]) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button>
+                                        <i class='bx bx-x text-lg px-2 rounded hover:bg-red-100 hover:text-red-500'></i>
+                                    </button>
+                                </form>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+
+                <div>
+                    <h2 class="mb-2 mt-8 text-2xl font-semibold text-gray-900 dark:text-white">Other Services</h2>
+                    <div class="w-full flex flex-col space-y-4 rounded-lg overflow-hidden">
+                        <div class="mb-4">
+                            @if ($service->others)
+                                <h3 class="text-lg font-semibold mb-4 border-b border-gray-100">Services</h3>
+                                <p>{{ $service->others }}</p>
+                            @else
+                                <h3 class="text-lg w-full text-center mb-4 text-red-500 ">No other services</h3>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
                 <div class="py-6">
                     <h2 class="mb-2 text-2xl font-semibold text-gray-900 dark:text-white">Casket & Hearse</h2>
                     <div class="flex items-start space-x-4">

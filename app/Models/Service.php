@@ -6,6 +6,7 @@ use App\Models\Urn;
 use App\Models\Casket;
 use App\Models\Hearse;
 use App\Models\Informant;
+use App\Models\OtherService;
 use App\Models\ServiceRequest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -53,5 +54,10 @@ class Service extends Model
     public function urn()
     {
         return $this->belongsTo(Urn::class);
+    }
+
+    public function otherServices()
+    {
+        return $this->hasMany(OtherService::class);
     }
 }

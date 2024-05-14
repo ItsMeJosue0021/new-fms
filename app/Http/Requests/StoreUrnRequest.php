@@ -27,6 +27,7 @@ class StoreUrnRequest extends FormRequest
             'stock' => ['nullable', 'integer'],
             'price' => ['required', 'integer'],
             'image' => 'nullable',
+            'water' => 'integer|nullable'
         ];
     }
 }

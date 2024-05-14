@@ -76,19 +76,36 @@ class ServiceRequestServiceImpl implements ServiceRequestService {
             'recieved_amount' => $data['recieved_amount'],
             'gl' => $data['gl'],
             'payment_reference' => $data['payment_reference'],
-            'paid_by' => $data['first_name'] . ' ' . $data['last_name'],
-            'payment_date' => today()
+            'paid_by' => $data['first_name'] . ' ' . $data['middle_name'] . ' ' . $data['last_name'],
+            'payment_date' => today(),
+            'balance_payment' => $data['balance_payment'] ?? null,
+            'official_receipt_serial' => $data['official_receipt_serial'] ?? null,
+            'payment_document' => $data['payment_document'] ?? null,
         ];
     }
 
     public function calculatePaidAmmountMS($request, $discount_amount = 0, $gl = 0) {
         $total_amount = $request->service->casket->price;
+
+        if ($request->service->otherServices) {
+            foreach ($request->service->otherServices as $other_service) {
+                $total_amount += $other_service->price;
+            }
+        }
+
         $total_discounts = $discount_amount + $gl;
         return $total_amount - $total_discounts;
     }
 
     public function calculatePaidAmmountCS($request, $discount_amount = 0, $gl = 0) {
         $total_amount = $request->service->urn->price;
+
+        if ($request->service->otherServices) {
+            foreach ($request->service->otherServices as $other_service) {
+                $total_amount += $other_service->price;
+            }
+        }
+    
         $total_discounts = $discount_amount + $gl;
         return $total_amount - $total_discounts;
     }

@@ -98,13 +98,24 @@
                             {{-- Hot and Cold water despencer with __ of gallons of water --}}
                             <div class="w-full flex items-center space-x-2">
                                 <span>Hot and Cold water despencer with</span>
-                                <select name="water" id="small" class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                {{-- <select name="water" id="small" class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     @for ($i = 1; $i <= 10; $i++)
                                         <option value="{{ $i }}" {{ (old('water') ?? ($service->water ?? '')) == $i ? 'selected' : '' }}>
                                             {{ $i }}
                                         </option>
                                     @endfor
-                                </select>
+                                </select> --}}
+
+                                <span class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    @if ($service->casket_id)
+                                        {{ $service->casket->water }}
+
+                                    @elseif ($service->urn_id)
+                                        {{ $service->urn->water }}
+                                    @else
+                                        0
+                                    @endif
+                                </span>
 
                                 <span>Gallons of Water</span>
                             </div>

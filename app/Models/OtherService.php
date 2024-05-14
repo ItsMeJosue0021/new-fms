@@ -6,20 +6,18 @@ use App\Models\Service;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Urn extends Model
+class OtherService extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'description',
-        'image',
-        'stock',
+        'service_id',
+        'service',
         'price',
-        'water',
     ];
 
-    public function services() {
-        return $this->hasMany(Service::class);
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
     }
 }

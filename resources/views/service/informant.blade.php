@@ -115,8 +115,8 @@
                     <div class="w-full flex space-x-4 items-start">
                         <div class="w-full flex flex-col">
                             <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Telephone Number</label>
-                            <input type="number" name="telephone" placeholder="Telephone number"
-                            class="phone active:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            <input type="text" name="telephone" placeholder="XXX-YYYY"
+                            class="telephone active:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             value="{{ old('telephone') ?? ($service->informant->telephone ?? '') }}">
                             @error('telephone')
                                 <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
@@ -125,7 +125,7 @@
 
                         <div class="w-full flex flex-col">
                             <label class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Cellphone Number</label>
-                            <input type="number" name="mobilephone" placeholder="Cellphone Number"
+                            <input type="text" name="mobilephone" placeholder="09XX-XXX-YYYY"
                             class="phone active:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             value="{{ old('mobilephone') ?? ($service->informant->mobilephone ?? '') }}">
                             @error('mobilephone')
@@ -136,17 +136,45 @@
 
                     <script>
                         document.addEventListener('DOMContentLoaded', function() {
-                            const inputs = document.querySelectorAll('.phone');
+                            const phone = document.querySelector('.phone');
+                            const telephone = document.querySelector('.telephone');
 
-                            inputs.forEach(input => {
-                                input.addEventListener('input', function() {
-                                    this.value = this.value.replace(/\D/g, '');
+                            phone.addEventListener('input', function() {
+                                phone.value = phone.value.replace(/\D/g, '');
 
-                                    if (this.value.length > 11) {
-                                        this.value = this.value.slice(0, 11);
-                                    }
-                                });
+                                if (phone.value.length > 11) {
+                                    phone.value = phone.value.slice(0, 11);
+                                }
+                                phone.value = formatPhoneNumber(phone.value);
                             });
+
+                            function formatPhoneNumber(phoneNumberString) {
+                                var cleaned = ('' + phoneNumberString).replace(/\D/g, '');
+                                var match = cleaned.match(/^(\d{4})(\d{3})(\d{4})$/);
+                                if (match) {
+                                    return match[1] + '-' + match[2] + '-' + match[3];
+                                }
+                                return phoneNumberString;
+                            }
+
+                            telephone.addEventListener('input', function() {
+                                telephone.value = telephone.value.replace(/\D/g, '');
+
+                                if (telephone.value.length > 7) {
+                                    telephone.value = telephone.value.slice(0, 7);
+                                }
+                                telephone.value = formatTelephoneNumber(telephone.value);
+                            });
+
+                            function formatTelephoneNumber(telephoneNumberString) {
+                                var cleaned = ('' + telephoneNumberString).replace(/\D/g, '');
+                                var match = cleaned.match(/^(\d{3})(\d{4})$/);
+                                if (match) {
+                                    return match[1] + '-' + match[2];
+                                }
+                                return phoneNumberString;
+                            }
+
                         });
                     </script>
 

@@ -19,8 +19,8 @@ return new class extends Migration {
             $table->string('death_place')->nullable();
             $table->string('cementery_address')->nullable();
             $table->string('viewing_place')->nullable();
-            $table->string('internment_time');
-            $table->string('internment_date');
+            $table->string('internment_time')->nullable();
+            $table->string('internment_date')->nullable();
             $table->foreignIdFor(Deceased::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

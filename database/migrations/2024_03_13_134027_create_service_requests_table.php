@@ -27,6 +27,10 @@ return new class extends Migration
             $table->string('payment_reference')->nullable();
             $table->string('paid_by')->nullable();
             $table->date('payment_date')->nullable();
+            // added fields
+            $table->string('balance_payment')->nullable();
+            $table->string('official_receipt_serial')->nullable();
+            $table->string('payment_document')->nullable();
             $table->timestamps();
         });
     }

@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->string('image')->nullable();
             $table->integer('stock')->nullable();
             $table->integer('price')->nullable();
+            $table->integer('water')->nullable();
             $table->timestamps();
         });
     }

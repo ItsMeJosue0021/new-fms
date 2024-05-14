@@ -28,6 +28,7 @@ class StoreCasketRequest extends FormRequest
             'price' => 'required|numeric|min:0',
             'quantity' => 'required|integer|min:0',
             'images' => 'nullable|array',
+            'water' => 'required|numeric',
         ];
     }
 }

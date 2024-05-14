@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Service;
 use App\Models\DeathDetail;
 use App\Models\DeceasedAddress;
+use App\Models\DeceasedDocument;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -43,5 +44,10 @@ class Deceased extends Model
     public function deceasedAddress()
     {
         return $this->hasOne(DeceasedAddress::class);
+    }
+
+    public function documents()
+    {
+        return $this->hasMany(DeceasedDocument::class);
     }
 }

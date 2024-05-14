@@ -12,7 +12,7 @@
 
 
         <div class="w-full flex flex-col">
-            <label for="middle_name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Middle name</label>
+            <label for="middle_name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Middle name <span class="italic font-light text-xs">(Optional)</span></label>
             <input type="text" name="middle_name" placeholder="Middle name" id="middle_name" class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             value="{{ old('middle_name') ?? ($service->deceased->middle_name ?? '') }}" />
             @error('middle_name')
@@ -52,7 +52,7 @@
         <div class="w-full flex flex-col">
             <label for="sex" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Sex</label>
             <select name="sex" placeholder="Sex" id="sex" class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                {{-- <option value="" {{ (old('sex') ?? ($service->deceased->sex ?? '')) == '' ? 'selected' : '' }} disabled >Sex</option> --}}
+                <option value="" {{ (old('sex') ?? ($service->deceased->sex ?? '')) == '' ? 'selected' : '' }} disabled >--Select--</option>
                 <option value="Male" {{ (old('sex') ?? ($service->deceased->sex ?? '')) == 'Male' ? 'selected' : '' }}>Male</option>
                 <option value="Female" {{ (old('sex') ?? ($service->deceased->sex ?? '')) == 'Female' ? 'selected' : '' }}>Female</option>
             </select>
@@ -80,7 +80,7 @@
         </div>
     </div>
 
-    <h2 class="pt-4 text-lg font-semibold text-gray-900 dark:text-white border-b border-gray-100">Dceased's Address</h2>
+    <h2 class="pt-4 text-lg font-semibold text-gray-900 dark:text-white border-b border-gray-100">Deceased's Address</h2>
 
     <div class="w-full flex space-x-4 items-start">
 

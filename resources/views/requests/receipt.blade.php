@@ -49,10 +49,25 @@
                                 <span>GROSS AMOUNT OF SERVICE</span>
                                 <div class="w-40 flex items-center justify-between">
                                     <span>PHP</span>
+                                    @php
+                                        if ($service->otherServices) {
+                                            if ($service->service_type === 'Memorial Services') {
+                                                $total = $service->casket->price;
+                                                foreach ($service->otherServices as $other_service) {
+                                                    $total += $other_service->price;
+                                                }
+                                            } else {
+                                                $total = $service->urn->price;
+                                                foreach ($service->otherServices as $other_service) {
+                                                    $total += $other_service->price;
+                                                }
+                                            }
+                                        }
+                                    @endphp
                                     @if ($request->service->service_type == 'Memorial Services')
-                                        <span class="w-28 border-b border-gray-500 text-start h-5">₱ {{ $service->casket->price ? number_format($service->casket->price, 2) : ' 00.00' }}</span>
+                                        <span class="w-28 border-b border-gray-500 text-start h-5">₱ {{ $total ? number_format($total, 2) : ' 00.00' }}</span>
                                     @else
-                                        <span class="w-28 border-b border-gray-500 text-start h-5">₱ {{ $service->urn->price ? number_format($service->urn->price, 2) : ' 00.00' }}</span>
+                                        <span class="w-28 border-b border-gray-500 text-start h-5">₱ {{ $total ? number_format($total, 2) : ' 00.00' }}</span>
                                     @endif
                                 </div>
                             </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Service;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,13 +12,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('caskets', function (Blueprint $table) {
+        Schema::create('other_services', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->longText('description')->nullable();
-            $table->integer('price');
-            $table->integer('quantity');
-            $table->integer('water');
+            $table->foreignIdFor(Service::class)->constrained()->onDelete('cascade');
+            $table->string('service');
+            $table->string('price')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('caskets');
+        Schema::dropIfExists('other_services');
     }
 };

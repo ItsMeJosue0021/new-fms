@@ -28,7 +28,11 @@ class StorePaymentInforRequest extends FormRequest
             'recieved_amount' => 'required',
             'gl' => 'nullable',
             'first_name' => 'required',
+            'middle_name' => 'nullable',
             'last_name' => 'required',
+            'balance_payment' => 'nullable',
+            'official_receipt_serial'  => 'nullable',
+            'payment_document'  => 'nullable',
         ];
     }
 }

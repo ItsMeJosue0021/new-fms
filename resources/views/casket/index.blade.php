@@ -34,6 +34,7 @@
                                 <th scope="col" class="px-4 py-3">Image</th>
                                 <th scope="col" class="px-4 py-3">Price</th>
                                 <th scope="col" class="px-4 py-3">Quantity</th>
+                                <th scope="col" class="px-4 py-3">Water</th>
                                 <th scope="col" class="px-4 py-3">Date Added</th>
                                 <th scope="col" class="px-4 py-3">Time Added</th>
                                 <th scope="col" class="px-4 py-3">Last Update</th>
@@ -46,7 +47,7 @@
                             @foreach ($caskets as $casket)
                                 <tr class="border-b dark:border-gray-700">
                                     <td class="px-4 py-3">{{ $casket->name ?? 'N/A' }}</td>
-                                    <td class="px-4 py-3 max-w-96">{{ $casket->description ?? 'N/A' }}</td>
+                                    <td class="px-4 py-3 max-w-96">{{ Illuminate\Support\Str::limit($casket->description, 35, '...') ?? 'N/A' }}</td>
                                     <td class="px-4 py-3">
                                         @if ($casket->casketImages->first() && $casket->casketImages->first()->image)
                                             <img src="{{ asset('storage/' . $casket->casketImages->first()->image) }}" alt="" class="w-14 h-14 zoomable-image cursor-pointer">
@@ -58,6 +59,7 @@
                                     </td>
                                     <td class="px-4 py-3">&#x20B1; {{ number_format($casket->price, 2, '.', ',') }}</td>
                                     <td class="px-4 py-3">{{ $casket->quantity ?? 'N/A' }}</td>
+                                    <td class="px-4 py-3">{{ $casket->water ?? 'N/A' }}</td>
                                     <td class="px-4 py-3">{{ $casket->created_at ? $casket->created_at->format('F d, Y') : 'N/A' }}</td>
                                     <td class="px-4 py-3">{{ $casket->created_at ? $casket->created_at->format('h:i:s A') : 'N/A' }}</td>
                                     <td class="px-4 py-3">{{ $casket->updated_at ? $casket->updated_at->format('F d, Y') : 'N/A' }}</td>

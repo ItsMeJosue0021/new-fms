@@ -20,6 +20,7 @@ class UrnSeeder extends Seeder
                 'image' => 'urn1.jpg',
                 'stock' => 10,
                 'price' => 50000,
+                'water' => 4,
             ],
         ];
 

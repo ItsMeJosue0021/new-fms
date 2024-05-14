@@ -49,6 +49,7 @@ class UrnController extends Controller
             'stock' => $data['stock'] ?? 0,
             'price' => $data['price'],
             'image' => $image,
+            'water' => $data['water'] ?? 0
         ];
     }
 

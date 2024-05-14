@@ -200,10 +200,10 @@ class ServiceController extends Controller
     /**
      * Saving of Inclusions
      */
-    public function saveInclusions(SetGallonOfWaterRequest $request, $serviceId)
+    public function saveInclusions($serviceId)
     {
         try {
-            $this->serviceService->setGallonsOfWater($request->validated(), $serviceId);
+            // $this->serviceService->setGallonsOfWater($request->validated(), $serviceId);
 
             $service = $this->serviceService->getServiceById($serviceId);
             if ($service == 'Memorial Services') {
@@ -280,4 +280,5 @@ class ServiceController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
 }
