@@ -7,6 +7,7 @@ use App\Http\Controllers\CasketController;
 use App\Http\Controllers\HearseController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\DeceasedController;
 use App\Http\Controllers\FeedbackController;
@@ -125,6 +126,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('requests/{serviceRequestId}/T1uV3w6Y/receipt', [ServiceRequestController::class, 'receipt'])->name('requests.receipt');
 
+    Route::get('/request/{request}/receipt',[ReceiptController::class, 'index'] )->name('requests.receipt-spattie');
+
 });
 
 
@@ -144,6 +147,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
             Route::get('/{serviceRequestId}/y2G6hK8l/reject', 'reject')->name('requests.reject');
             Route::get('/{serviceRequestId}/E3gH6j9K/complete', 'markAsCompleted')->name('requests.complete');
             Route::get('/completed/print', 'print')->name('requests.print-completed');
+            Route::get('/{serviceRequestId}/interment-info/edit', 'addEditBurialIntermentInfo')->name('add-edit-burial-interment-info');
+            Route::post('/{serviceRequestId}/interment-info/update', 'updateBurialIntermentInfo')->name('update-burial-interment-info');
         });
 
         Route::prefix('customer')->group(function () {

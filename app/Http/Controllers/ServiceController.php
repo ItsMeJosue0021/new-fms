@@ -203,21 +203,16 @@ class ServiceController extends Controller
     public function saveInclusions($serviceId)
     {
         try {
-            // $this->serviceService->setGallonsOfWater($request->validated(), $serviceId);
-
             $service = $this->serviceService->getServiceById($serviceId);
             if ($service == 'Memorial Services') {
                 if (!$this->serviceService->casketIsSet($serviceId)) {
                     return redirect()->route('services.inclusions', $serviceId)->with('warning', 'Please Select a Casket.');
                 }
             }
-
             if (!$this->serviceService->hearseIsSet($serviceId)) {
                 return redirect()->route('services.inclusions', $serviceId)->with('warning', 'Please Select a Hearse.');
             }
-
             return redirect()->route('services.deceased', $serviceId);
-
         } catch (ServiceNotFoundException $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }

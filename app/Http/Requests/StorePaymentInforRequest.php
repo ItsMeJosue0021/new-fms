@@ -33,6 +33,13 @@ class StorePaymentInforRequest extends FormRequest
             'balance_payment' => 'nullable',
             'official_receipt_serial'  => 'nullable',
             'payment_document'  => 'nullable',
+            'rb' => 'nullable|string',
+            'driver_on_duty' => 'nullable|string',
+            'helper_on_duty' => 'nullable|string',
+            'arrival_date' => 'nullable|date',
+            'arrival_time' => 'nullable|date_format:H:i',
+            'l_remark' => 'nullable|string',
+            'w_rmark' => 'nullable|string',
         ];
     }
 }

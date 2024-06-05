@@ -31,6 +31,14 @@ return new class extends Migration
             $table->string('balance_payment')->nullable();
             $table->string('official_receipt_serial')->nullable();
             $table->string('payment_document')->nullable();
+
+            $table->string('rb')->nullable();
+            $table->string('driver_on_duty')->nullable();
+            $table->string('helper_on_duty')->nullable();
+            $table->string('arrival_date_time')->nullable();
+            $table->string('l_remark')->nullable();
+            $table->string('w_rmark')->nullable();
+
             $table->timestamps();
         });
     }

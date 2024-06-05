@@ -13,4 +13,5 @@ interface ServiceRequestService {
     public function confirmRequest(array $data, $id);
     public function getCompletedServiceRequest();
     public function markAsCompleted($id);
+    public function updateBurialIntermentInfo(array $data, $id);
 }

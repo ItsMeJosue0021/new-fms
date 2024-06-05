@@ -26,7 +26,13 @@ class ServiceRequest extends Model
         'payment_date',
         'balance_payment',
         'official_receipt_serial',
-        'payment_document'
+        'payment_document',
+        'rb',
+        'driver_on_duty',
+        'helper_on_duty',
+        'arrival_date_time',
+        'l_remark',
+        'w_remark'
     ];
 
     public function service()

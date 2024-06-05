@@ -9,6 +9,7 @@ use App\Services\ServiceRequestService;
 use App\Http\Requests\StoreServiceRequest;
 use App\Exceptions\ServiceNotFoundException;
 use App\Http\Requests\StorePaymentInforRequest;
+use App\Http\Requests\UpdateBurialIntermentInforRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ServiceRequestController extends Controller
@@ -59,7 +60,7 @@ class ServiceRequestController extends Controller
                 ]);
             }
         }
-        
+
         return view('requests.confirmed', [
             'requests' => $this->serviceRequestService->getConfirmedServiceRequests()
         ]);
@@ -120,14 +121,14 @@ class ServiceRequestController extends Controller
 
     public function confirm(StorePaymentInforRequest $request, $requestId) {
         // dd($request->all());
-        try {
+        // try {
             $this->serviceRequestService->confirmRequest($request->validated(), $requestId);
             return redirect()->route('requests.receipt', $requestId)->with('success', 'Service request has been confirmed');
-        } catch (ModelNotFoundException $e) {
-            return redirect()->back()->with('error', 'Service request not found');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Something went wrong while trying to confirm the service request');
-        }
+        // } catch (ModelNotFoundException $e) {
+        //     return redirect()->back()->with('error', 'Service request not found');
+        // } catch (\Exception $e) {
+        //     return redirect()->back()->with('error', 'Something went wrong while trying to confirm the service request');
+        // }
     }
 
     public function completed() {
@@ -204,15 +205,27 @@ class ServiceRequestController extends Controller
         }
     }
 
+    public function addEditBurialIntermentInfo($requestId) {
+        try {
+            $request = $this->serviceRequestService->getServiceRequestById($requestId);
+            return view('requests.add_edit_burial_interment_info', [
+                'request' => $request,
+                'service' => $request->service
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return redirect()->back()->with('error', 'Service request not found');
+        }
+    }
 
+    public function updateBurialIntermentInfo(UpdateBurialIntermentInforRequest $request, $requestId) {
+        try {
+            $this->serviceRequestService->updateBurialIntermentInfo($request->validated(), $requestId);
+            return redirect()->back()->with('success', 'Burial/Interment information has been updated');
+        } catch (ModelNotFoundException $e) {
+            return redirect()->back()->with('error', 'Service request not found');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong while trying to update the burial/interment information');
+        }
+    }
 
-    // public function requestEdit($serviceId) {
-    //     // return redirect()->route('services.inclusions', $serviceId);
-    //     try {
-    //         $service = $this->serviceService->getServiceById($serviceId);
-    //         return view('service.inclusions', ['service' => $service, 'page' => 'inclusions', 'from' => 'customer_dashboard']);
-    //     } catch (ServiceNotFoundException $e) {
-    //         return redirect()->back()->with('error', $e->getMessage());
-    //     }
-    // }
 }

@@ -69,12 +69,20 @@
                             </div>
                         </li>
                         <li class="flex items-center py-2 border-b border-gray-100">
-                            <svg class="w-3.5 h-3.5 me-2 {{ $service->water ? 'text-green-500 dark:text-green-400' : 'text-gray-500 dark:text-gray-400' }} flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <svg class="w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
                             </svg>
                             <div class="w-full flex items-center space-x-2 text-gray-800">
                                 <span>Hot and Cold water despencer with</span>
-                                <span>{{ $service->water ?? '' }}</span>
+                                <span>
+                                    @if ($service->casket_id)
+                                    {{ $service->casket->water }}
+                                    @elseif ($service->urn_id)
+                                        {{ $service->urn->water }}
+                                    @else
+                                        0
+                                    @endif
+                                </span>
                                 <span>Gallons of Water</span>
                             </div>
                         </li>
@@ -239,13 +247,13 @@
                                     <i class='bx bxs-file-doc text-lg group-hover:text-blue-600'></i>
                                     <span class="group-hover:text-blue-600">{{ $document->name }}</span>
                                 </div>
-                                <form action="{{ route('services.documents-delete', [$service->id, $document->id]) }}" method="POST">
+                                {{-- <form action="{{ route('services.documents-delete', [$service->id, $document->id]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button>
                                         <i class='bx bx-x text-lg px-2 rounded hover:bg-red-100 hover:text-red-500'></i>
                                     </button>
-                                </form>
+                                </form> --}}
                             </div>
                         @endforeach
                     </div>
@@ -267,9 +275,9 @@
                                                 <span class="group-hover:text-blue-600">{{ $other_service->service }}</span>
                                             </div>
                                             <span>₱{{ $other_service->price ? number_format($other_service->price, 2) : '0.00' }}</span>
-                                            <a href="{{ route('services.other-services-delete', [$service->id, $other_service->id]) }}">
+                                            {{-- <a href="{{ route('services.other-services-delete', [$service->id, $other_service->id]) }}">
                                                 <i class='bx bx-x text-lg px-2 rounded hover:bg-red-100 hover:text-red-500'></i>
-                                            </a>
+                                            </a> --}}
                                         </div>
                                     @endforeach
                                 </div>
@@ -441,10 +449,10 @@
                                 <span>₱{{ $total ? number_format($total, 2) : '0.00' }}</span>
                             @endif
                         </li>
-                        <li class="w-full flex items-start justify-between cursor-pointer font-medium border-b border-dashed border-gray-300">
+                        {{-- <li class="w-full flex items-start justify-between cursor-pointer font-medium border-b border-dashed border-gray-300">
                             <span>Discount:</span>
                             <span>₱{{ $request->discount_amount ? number_format($request->discount_amount, 2) : '' }}</span>
-                        </li>
+                        </li> --}}
                         <li class="w-full flex items-start justify-between cursor-pointer font-medium border-b border-dashed border-gray-300">
                             <span>Recieved Amount:</span>
                             <span>₱{{ $request->recieved_amount ? number_format($request->recieved_amount, 2) : '' }}</span>

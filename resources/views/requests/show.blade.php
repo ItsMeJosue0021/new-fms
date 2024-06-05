@@ -77,12 +77,20 @@
                             </div>
                         </li>
                         <li class="flex items-center py-2 border-b border-gray-100">
-                            <svg class="w-3.5 h-3.5 me-2 {{ $service->water ? 'text-green-500 dark:text-green-400' : 'text-gray-500 dark:text-gray-400' }} flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <svg class="w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
                             </svg>
                             <div class="w-full flex items-center space-x-2 text-gray-800">
                                 <span>Hot and Cold water despencer with</span>
-                                <span>{{ $service->water ?? '' }}</span>
+                                <span>
+                                    @if ($service->casket_id)
+                                    {{ $service->casket->water }}
+                                    @elseif ($service->urn_id)
+                                        {{ $service->urn->water }}
+                                    @else
+                                        0
+                                    @endif
+                                </span>
                                 <span>Gallons of Water</span>
                             </div>
                         </li>
@@ -171,7 +179,10 @@
                         </div>
 
                         <div class="mb-4">
-                            <h3 class="text-lg font-semibold mb-4 border-b border-gray-100">Address, Interment & Burial Information</h3>
+                            <div class="flex items-start justify-between mb-4 ">
+                                <h3 class="text-lg font-semibold ">Address, Interment & Burial Information</h3>
+                                <a href="{{ route('add-edit-burial-interment-info', $request->id) }}" class="text-xs rounded-md border text-blue-600 border-blue-600 py-2 px-4 hover:text-blue-700 hover:border-blue-700">Add/Edit Burial & Interment Infomation</a>
+                            </div>
                             <ul class="flex items-start justify-between space-x-20">
                                 <div class="w-full flex flex-col space-y-2">
                                     <li class="w-full flex items-start justify-between border-dashed border-b border-gray-100 hover:border-green-500 hover:bg-gray-50 cursor-pointer">
@@ -236,57 +247,93 @@
                     </div>
                 </div>
 
-                @if ($service->deceased->documents)
-                    <div class="w-full pb-1 border-b border-gray-200 mt-5">
-                        <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">Uploaded Documents</h2>
-                    </div>
-                    <div class="flex flex-col space-y-2 mt-5">
-                        @foreach ($service->deceased->documents as $document)
-                            <div class="w-full flex items-center justify-between px-2 py-1 rounded border border-gray-200 group hover:bg-gray-50 cursor-pointer">
-                                <div class="flex items-center space-x-2">
-                                    <i class='bx bxs-file-doc text-lg group-hover:text-blue-600'></i>
-                                    <span class="group-hover:text-blue-600">{{ $document->name }}</span>
+                <div class="flex items-start justify-between space-x-12 py-16">
+                    <div class="w-full">
+                        <form action="{{ route('services.documents-store', $service->id) }}" method="POST"
+                            class="w-full flex items-center" enctype="multipart/form-data">
+                            @csrf
+                            <div class="w-full flex flex-col space-y-4">
+                                <div>
+                                    <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">Upload Documents</h2>
+                                    <h2 class="text-sm text-gray-600">Please upload the documents of the deceased.</h1>
                                 </div>
-                                <form action="{{ route('services.documents-delete', [$service->id, $document->id]) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button>
-                                        <i class='bx bx-x text-lg px-2 rounded hover:bg-red-100 hover:text-red-500'></i>
-                                    </button>
-                                </form>
-                            </div>
-                        @endforeach
-                    </div>
-                @endif
+                                <div class="flex flex-col space-y-2 w-full">
+                                    <label for="files" class="text-sm font-semibold">Documents</label>
+                                    <input type="file" name="files[]" id="files" class="text-sm rounded-md border border-gray-200 w-full" multiple>
+                                    @error('files')
+                                        <p class="text-red-500 text-xs">{{$message}}</p>
+                                    @enderror
+                                </div>
+                                <div class="flex items-center justify-between space-x-4">
 
-                <div>
-                    <h2 class="mb-2 mt-8 text-2xl font-semibold text-gray-900 dark:text-white">Other Services</h2>
-                    <div class="w-full flex flex-col space-y-4 rounded-lg overflow-hidden">
-                        <div class="mb-4">
-                            @if ($service->otherServices)
+                                    <div class="flex items-center space-x-4">
+                                        <a class="nav-button text-sm px-6 py-2 rounded-md bg-gray-200 hover:bg-gray-300 hover:text-gray-700 cursor-pointer"
+                                        href="{{ route('services.informant', $service->id) }}"
+                                        >Back</a>
+                                        <button type="submit" class="text-xs px-6 py-2 font-medium rounded-md text-blue-700 border border-blue-700 hover:bg-blue-800 hover:text-white cursor-pointer">Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div>
+                            @if ($service->deceased->documents)
+                                <div class="w-full pb-1 border-b border-gray-200 mt-5">
+                                    <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Uploaded Documents</h2>
+                                </div>
                                 <div class="flex flex-col space-y-2 mt-5">
-                                    @php
-                                        $counter = 0;
-                                    @endphp
-                                    @foreach ($service->otherServices as $other_service)
+                                    @foreach ($service->deceased->documents as $document)
                                         <div class="w-full flex items-center justify-between px-2 py-1 rounded border border-gray-200 group hover:bg-gray-50 cursor-pointer">
                                             <div class="flex items-center space-x-2">
-                                                <span class="group-hover:text-blue-600">{{ chr(65 + $counter++) }}.</span>
-                                                <span class="group-hover:text-blue-600">{{ $other_service->service }}</span>
+                                                <i class='bx bxs-file-doc text-lg group-hover:text-blue-600'></i>
+                                                <span class="group-hover:text-blue-600">{{ $document->name }}</span>
                                             </div>
-                                            <span>₱{{ $other_service->price ? number_format($other_service->price, 2) : '0.00' }}</span>
-                                            <a href="{{ route('services.other-services-delete', [$service->id, $other_service->id]) }}">
-                                                <i class='bx bx-x text-lg px-2 rounded hover:bg-red-100 hover:text-red-500'></i>
-                                            </a>
+                                            <form action="{{ route('services.documents-delete', [$service->id, $document->id]) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button>
+                                                    <i class='bx bx-x text-lg px-2 rounded hover:bg-red-100 hover:text-red-500'></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     @endforeach
                                 </div>
-                            @else
-                                <h3 class="text-sm w-full text-center mb-4 text-red-500 ">No other services</h3>
                             @endif
                         </div>
                     </div>
+
+                    <div class="w-full">
+                        <div class="w-full flex items-center justify-between mb-4 border-b border-gray-200 pb-2">
+                            <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Other Services</h2>
+                            <a href="{{ route('services.other-services-create', [$service->id, $request->id]) }}" type="submit" class="w-fit text-xs px-6 py-2 font-medium rounded-md hover:bg-blue-700 hover:text-white text-blue-700 border border-blue-600 cursor-pointer">Add Other Service</a>
+                        </div>
+                        <div class="w-full flex flex-col space-y-4 rounded-lg overflow-hidden">
+                            <div class="mb-4">
+                                @if ($service->otherServices)
+                                    <div class="flex flex-col space-y-2 mt-5">
+                                        @php
+                                            $counter = 0;
+                                        @endphp
+                                        @foreach ($service->otherServices as $other_service)
+                                            <div class="w-full flex items-center justify-between px-2 py-1 rounded border border-gray-200 group hover:bg-gray-50 cursor-pointer">
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="group-hover:text-blue-600">{{ chr(65 + $counter++) }}.</span>
+                                                    <span class="group-hover:text-blue-600">{{ $other_service->service }}</span>
+                                                </div>
+                                                <span>₱{{ $other_service->price ? number_format($other_service->price, 2) : '0.00' }}</span>
+                                                <a href="{{ route('services.other-services-delete', [$service->id, $other_service->id]) }}">
+                                                    <i class='bx bx-x text-lg px-2 rounded hover:bg-red-100 hover:text-red-500'></i>
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <h3 class="text-sm w-full text-center mb-4 text-red-500 ">No other services</h3>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
 
                 <div class="py-6">
                     <h2 class="mb-2 text-2xl font-semibold text-gray-900 dark:text-white">Casket & Hearse</h2>
@@ -431,26 +478,26 @@
                             <div>
                                 <span class="w-full border-b border-gray-300 mb-4 py-1 block text-lg font-semibold text-gray-900 dark:text-white">Payment Method</span>
                                 <div class="flex items-center space-x-4">
-                                    <div class="w-fit flex items-center px-4 border border-gray-200 rounded dark:border-gray-700">
-                                        <input id="bordered-checkbox-1" type="checkbox" name="payment_method" value="Cash" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <div class="w-full flex items-center justify-between px-4 py-2 border border-gray-200 rounded-md bg-gray-50 dark:border-gray-700">
                                         <div class="flex items-center space-x-1 ml-1">
-                                            <i class='bx bx-money text-2xl text-green-500' ></i>
+                                            <input id="bordered-checkbox-1" type="checkbox" name="payment_method" value="Cash" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                             <label for="bordered-checkbox-1" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cash</label>
                                         </div>
+                                        <img src="{{ asset('images/cash.png') }}" alt="card" class="w-16 h-18">
                                     </div>
-                                    <div class="w-fit flex items-center px-4 border border-gray-200 rounded dark:border-gray-700">
-                                        <input id="bordered-checkbox-1" type="checkbox" name="payment_method" value="E-Wallet" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <div class="w-full flex items-center justify-between px-4 py-2 border border-gray-200 rounded-md bg-gray-50 dark:border-gray-700">
                                         <div class="flex items-center space-x-1 ml-1">
-                                            <i class='bx bx-wallet text-xl text-blue-500' ></i>
+                                            <input id="bordered-checkbox-1" type="checkbox" name="payment_method" value="E-Wallet" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                             <label for="bordered-checkbox-1" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">E-Wallet</label>
                                         </div>
+                                        <img src="{{ asset('images/ewallet.png') }}" alt="card" class="w-16 h-18">
                                     </div>
-                                    <div class="w-fit flex items-center px-4 border border-gray-200 rounded dark:border-gray-700">
-                                        <input id="bordered-checkbox-1" type="checkbox" name="payment_method" value="Card" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <div class="flex items-center space-x-1 ml-1">
-                                            <i class='bx bxs-credit-card-alt text-2xl text-red-500' ></i>
+                                    <div class="w-full flex items-center justify-between px-4 py-2 border border-gray-200 rounded-md bg-gray-50 dark:border-gray-700">
+                                        <div class="flex items-center space-x-2 ml-1">
+                                            <input id="bordered-checkbox-1" type="checkbox" name="payment_method" value="Card" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                             <label for="bordered-checkbox-1" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Card</label>
                                         </div>
+                                        <img src="{{ asset('images/Mastercard.png') }}" alt="card" class="w-16 h-18">
                                     </div>
                                 </div>
                                 @error('payment_method')
@@ -475,26 +522,23 @@
                                         @enderror
                                     </div>
                                     <div class="w-full">
-                                        <label for="recieved_amount" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Recieved Amount</label>
-                                        <input type="number" name="recieved_amount" id="recieved_amount" placeholder="0.00" class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        @error('recieved_amount')
-                                            <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
-                                        @enderror
+                                        <label for="net_amount" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Net Amount</label>
+                                        <input type="number"  id="net_amount" placeholder="0.00" disabled class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     </div>
-                                    <div class="w-full">
+                                    {{-- <div class="w-full">
                                         <label for="payment_reference" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Payment Reference Number <span class="italic">(Optional)</span></label>
                                         <input type="text" name="payment_reference" id="payment_reference" placeholder="Payment Reference Number.." class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         @error('payment_reference')
                                             <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
                                         @enderror
-                                    </div>
-                                    <div class="w-full">
+                                    </div> --}}
+                                    {{-- <div class="w-full">
                                         <label for="official_receipt_serial" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Official Receipt Serial Number <span class="italic">(Optional)</span></label>
                                         <input type="text" name="official_receipt_serial" id="official_receipt_serial" placeholder="Official Receipt Serial Number.." class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         @error('official_receipt_serial')
                                             <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
                                     <div class="flex flex-col space-y-2 w-full">
                                         <label for="payment_document" class="text-sm font-semibold">Payment Document</label>
                                         <input type="file" name="payment_document" id="payment_document" class="text-sm rounded-md border border-gray-200 w-full" multiple>
@@ -503,36 +547,51 @@
                                         @enderror
                                     </div>
                                 </div>
+
+                                @php
+
+                                    $net_amount = 0;
+                                    $grand_total = 0;
+                                    $initial_amount = 0;
+                                    $total_services = 0;
+                                    foreach ($service->otherServices as $other_service) {
+                                        $total_services += $other_service->price;
+                                    }
+
+                                    if ($service->otherServices) {
+                                        if ($service->service_type === 'Memorial Services') {
+                                            $total = $service->casket->price;
+                                            $initial_amount = $service->casket->price;
+                                            foreach ($service->otherServices as $other_service) {
+                                                $total += $other_service->price;
+                                            }
+                                        } else {
+                                            $total = $service->urn->price;
+                                            $initial_amount = $service->urn->price;
+                                            foreach ($service->otherServices as $other_service) {
+                                                $total += $other_service->price;
+                                            }
+                                        }
+                                    }
+                                @endphp
+
+
+                                <input type="hidden" name="initial_amount" id="initial_amount" value="{{ $initial_amount }}">
+                                <input type="hidden" name="total_services" id="total_services" value="{{ $total_services }}">
+
+
                                 <div class="w-full flex flex-col">
-                                    <div>
-                                        <div class="w-full flex items-center justify-between mb-4 border-b border-gray-200 pb-2">
-                                            <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Other Services</h2>
-                                            <a href="{{ route('services.other-services-create', [$service->id, $request->id]) }}" type="submit" class="w-fit text-xs px-6 py-2 font-medium rounded-md hover:bg-blue-700 hover:text-white text-blue-700 border border-blue-600 cursor-pointer">Add Other Service</a>
+                                    <div class="w-full flex flex-col items-start space-y-4">
+                                        <div class="w-full">
+                                            <label for="recieved_amount" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Recieved Amount</label>
+                                            <input type="number" name="recieved_amount" id="recieved_amount" placeholder="0.00" class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            @error('recieved_amount')
+                                                <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
+                                            @enderror
                                         </div>
-                                        <div class="w-full flex flex-col space-y-4 rounded-lg overflow-hidden">
-                                            <div class="mb-4">
-                                                @if ($service->otherServices)
-                                                    <div class="flex flex-col space-y-2 mt-5">
-                                                        @php
-                                                            $counter = 0;
-                                                        @endphp
-                                                        @foreach ($service->otherServices as $other_service)
-                                                            <div class="w-full flex items-center justify-between px-2 py-1 rounded border border-gray-200 group hover:bg-gray-50 cursor-pointer">
-                                                                <div class="flex items-center space-x-2">
-                                                                    <span class="group-hover:text-blue-600">{{ chr(65 + $counter++) }}.</span>
-                                                                    <span class="group-hover:text-blue-600">{{ $other_service->service }}</span>
-                                                                </div>
-                                                                <span>₱{{ $other_service->price ? number_format($other_service->price, 2) : '0.00' }}</span>
-                                                                <a href="{{ route('services.other-services-delete', [$service->id, $other_service->id]) }}">
-                                                                    <i class='bx bx-x text-lg px-2 rounded hover:bg-red-100 hover:text-red-500'></i>
-                                                                </a>
-                                                            </div>
-                                                        @endforeach
-                                                    </div>
-                                                @else
-                                                    <h3 class="text-sm w-full text-center mb-4 text-red-500 ">No other services</h3>
-                                                @endif
-                                            </div>
+                                        <div class="w-full">
+                                            <label for="grand_total" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Grand Total</label>
+                                            <input type="number" value="" id="grand_total" placeholder="0.00" disabled class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         </div>
                                     </div>
                                 </div>
@@ -540,29 +599,76 @@
                             </div>
 
                             <div class="w-full flex text-lg items-start px-2 py-1 justify-between cursor-pointer font-medium border border-dashed border-gray-500">
-
-                                @php
-                                    if ($service->otherServices) {
-                                        if ($service->service_type === 'Memorial Services') {
-                                            $total = $service->casket->price;
-                                            foreach ($service->otherServices as $other_service) {
-                                                $total += $other_service->price;
-                                            }
-                                        } else {
-                                            $total = $service->urn->price;
-                                            foreach ($service->otherServices as $other_service) {
-                                                $total += $other_service->price;
-                                            }
-                                        }
-                                    }
-                                @endphp
                                 <span>Total Due:</span>
-                                @if ($service->service_type === 'Memorial Services')
-                                    <span>₱{{ $total ? number_format($total, 2) : '0.00' }}</span>
-                                @else
-                                    <span>₱{{ $total ? number_format($total, 2) : '0.00' }}</span>
-                                @endif
+                                <span id="total_due"></span>
                             </div>
+
+                            <script>
+                                const recieved_amount = document.getElementById('recieved_amount');
+                                const grand_total = document.getElementById('grand_total');
+                                const net_amount = document.getElementById('net_amount');
+                                const discount_amount = document.getElementById('discount_amount');
+                                const gl = document.getElementById('gl');
+                                const initial_amount = document.getElementById('initial_amount');
+                                const total_services = document.getElementById('total_services');
+                                const total_due = document.getElementById('total_due');
+
+                                net_amount.value = parseFloat(initial_amount.value);
+                                grand_total.value = parseFloat(net_amount.value) + parseFloat(total_services.value);
+                                const grandTotal = parseFloat(grand_total.value) || 0;
+                                        const formattedTotal = grandTotal.toLocaleString('en-PH', {
+                                            style: 'currency',
+                                            currency: 'PHP',
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2,
+                                        });
+                                total_due.textContent = formattedTotal;
+                                console.log(parseFloat(total_due.textContent.replace(/[^0-9.]+/g, '')));
+
+                                let timeoutId;
+
+                                discount_amount.addEventListener('input', () => {
+                                    clearTimeout(timeoutId);
+                                    timeoutId = setTimeout(() => {
+                                        const discount = parseFloat(discount_amount.value) || 0;
+                                        const glValue = parseFloat(gl.value) || 0;
+                                        const netAmount = initial_amount.value - discount - glValue;
+
+                                        net_amount.value = netAmount;
+                                        grand_total.value = parseFloat(net_amount.value) + parseFloat(total_services.value);
+
+                                        const grandTotal = parseFloat(grand_total.value) || 0;
+                                        const formattedTotal = grandTotal.toLocaleString('en-PH', {
+                                            style: 'currency',
+                                            currency: 'PHP',
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2,
+                                        });
+                                        total_due.textContent = formattedTotal;
+                                    }, 1000);
+                                });
+
+                                gl.addEventListener('input', () => {
+                                    clearTimeout(timeoutId);
+                                    timeoutId = setTimeout(() => {
+                                        const discount = parseFloat(discount_amount.value) || 0;
+                                        const glValue = parseFloat(gl.value) || 0;
+                                        const netAmount = initial_amount.value - discount - glValue;
+                                        net_amount.value = netAmount;
+                                        grand_total.value = parseFloat(net_amount.value) + parseFloat(total_services.value);
+
+                                        const grandTotal = parseFloat(grand_total.value) || 0;
+                                        const formattedTotal = grandTotal.toLocaleString('en-PH', {
+                                            style: 'currency',
+                                            currency: 'PHP',
+                                            minimumFractionDigits: 2,
+                                            maximumFractionDigits: 2,
+                                        });
+                                        total_due.textContent = formattedTotal;
+                                    }, 1000);
+                                });
+                            </script>
+
 
                             <div>
                                 <span class="w-full  border-gray-300 py-1 block mb-1 text-sm font-medium text-gray-900 dark:text-white">Paid By</span>
@@ -575,7 +681,7 @@
                                         @enderror
                                     </div>
                                     <div class="w-full">
-                                        <label for="middle_name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Middle Name</label>
+                                        <label for="middle_name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Middle Name <span class="text-xs italic">(Optional)</span></label>
                                         <input type="text" name="middle_name" id="middle_name" placeholder="Middle name.." class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         @error('middle_name')
                                             <span class="text-xs text-red-500 pl-2">{{ $message }}</span>

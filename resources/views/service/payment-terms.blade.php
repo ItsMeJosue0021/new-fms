@@ -5,15 +5,17 @@
             <div class="w-full flex flex-col items-center justify-center h-full">
                 <h2 class="text-4xl font-semibold text-blue-600 mb-4 text-center">Payment Terms</h2>
                 <div class="w-full flex flex-col items-center justify-start pt-3 text-center">
-                    <p class="text-center">
-                        <span class="underline font-bold ">FOR MEMORIAL SERVICE:</span>
-                        Down payment is optional not required. Full payment for the memorial service should be settle <span class="font-bold">1 Day before the interment.</span>
-                    </p>
-                    <p class="text-center flex items-start justify-center">
-                        <span class="underline font-bold">FOR DIRECT CREMATION:</span>
-                        Down payment is optional not required. Full payment is required <span class="font-bold">before the scheduled time and date of cremation.</span>
-                    </p>
-
+                    @if ($service->service_type == 'Memorial Services')
+                        <p class="text-center">
+                            <span class="underline font-bold ">FOR MEMORIAL SERVICE:</span>
+                            Down payment is optional not required. Full payment for the memorial service should be settle <span class="font-bold">1 Day before the interment.</span>
+                        </p>
+                    @elseif ($service->service_type == 'Cremation Services')
+                        <p class="text-center flex items-start justify-center">
+                            <span class="underline font-bold">FOR DIRECT CREMATION:</span>
+                            Down payment is optional not required. Full payment is required <span class="font-bold">before the scheduled time and date of cremation.</span>
+                        </p>
+                    @endif
                     <p class="text-center italic pt-5">
                         By accepting this agreement, I understand the above stated information and it has been properly discussed to me and I hereby agree to engage and avail the abovementioned memorial service. Withdrawal will be subject for approval and changes.
                     </p>
