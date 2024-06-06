@@ -472,7 +472,7 @@
                 </div>
                 <form action="{{ route('requests.confirm', $request->id) }}" method="POST" class="mb-6 flex flex-col space-y-4">
                     @csrf
-                    <div class="border border-gray-100  p-4 rounded-md shadow-md">
+                    <div class="border border-gray-100  p-4 rounded-md shadow-md mb-4">
                         <div class="py-4 flex flex-col space-y-6">
 
                             <div>
@@ -541,7 +541,7 @@
                                     </div> --}}
                                     <div class="flex flex-col space-y-2 w-full">
                                         <label for="payment_document" class="text-sm font-semibold">Payment Document</label>
-                                        <input type="file" name="payment_document" id="payment_document" class="text-sm rounded-md border border-gray-200 w-full" multiple>
+                                        <input type="file" name="payment_document" id="payment_document"  class="text-sm rounded-md border border-gray-200 w-full" multiple>
                                         @error('payment_document')
                                             <p class="text-red-500 text-xs">{{$message}}</p>
                                         @enderror
@@ -584,7 +584,7 @@
                                     <div class="w-full flex flex-col items-start space-y-4">
                                         <div class="w-full">
                                             <label for="recieved_amount" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Recieved Amount</label>
-                                            <input type="number" name="recieved_amount" id="recieved_amount" placeholder="0.00" class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <input type="number" name="recieved_amount" id="recieved_amount" placeholder="0.00" value="{{ old('recieved_amount') }}" class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                             @error('recieved_amount')
                                                 <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
                                             @enderror
@@ -675,25 +675,93 @@
                                 <div class="flex items-start space-x-6">
                                     <div class="w-full">
                                         <label for="first_name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
-                                        <input type="text" name="first_name" id="first_name" placeholder="First name.." class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <input type="text" name="first_name" id="first_name" placeholder="First name.." value="{{ old('first_name') }}" class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         @error('first_name')
                                             <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="w-full">
                                         <label for="middle_name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Middle Name <span class="text-xs italic">(Optional)</span></label>
-                                        <input type="text" name="middle_name" id="middle_name" placeholder="Middle name.." class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <input type="text" name="middle_name" id="middle_name" placeholder="Middle name.." value="{{ old('middle_name') }}" class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         @error('middle_name')
                                             <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="w-full">
                                         <label for="last_name" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
-                                        <input type="text" name="last_name" id="last_name" placeholder="Last name.." class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <input type="text" name="last_name" id="last_name" placeholder="Last name.." value="{{ old('last_name') }}" class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         @error('last_name')
                                             <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
                                         @enderror
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-100  p-4 rounded-md shadow-md flex flex-col space-y-4">
+                        <h2 class="font-bold">TO BE ACCOMPLISHED BY FUNERAL REPRESENTATIVE</h2>
+                        <div class="w-full">
+                            <label for="rb" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">RB</label>
+                            <input type="text" name="rb" id="rb" placeholder="RB.." value="{{ old('rb') }}" class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            @error('rb')
+                                <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="flex items-start space-x-6">
+                            <div class="w-full">
+                                <label for="driver_on_duty" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Driver On Duty</label>
+                                <select type="text" name="driver_on_duty" id="driver_on_duty" placeholder="Driver on duty" class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option value="" disabled selected>--Select--</option>
+                                    @foreach ($drivers as $driver)
+                                        <option value="{{ $driver->first_name . ' ' . $driver->middle_name . ' ' . $driver->last_name }}" {{ old('driver_on_duty') == $driver->first_name . ' ' . $driver->middle_name . ' ' . $driver->last_name ? 'selected' : '' }}>{{ $driver->first_name . ' ' . $driver->middle_name . ' ' . $driver->last_name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('driver_on_duty')
+                                    <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="w-full">
+                                <label for="helper_on_duty" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Helper On Duty</label>
+                                <select type="text" name="helper_on_duty" id="helper_on_duty" placeholder="Helper on duty" class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option value="" disabled selected>--Select--</option>
+                                    @foreach ($helpers as $helper)
+                                        <option value="{{ $helper->first_name . ' ' . $helper->middle_name . ' ' . $helper->last_name }}" {{ old('helper_on_duty') == $helper->first_name . ' ' . $helper->middle_name . ' ' . $helper->last_name ? 'selected' : '' }}>{{ $helper->first_name . ' ' . $helper->middle_name . ' ' . $helper->last_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-6">
+                            <div class="w-full">
+                                <label for="arrival_date" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Arrival Date</label>
+                                <input type="date" name="arrival_date" id="arrival_date" placeholder="Driver on duty" value="{{ old('arrival_date') }}" class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                @error('arrival_date')
+                                    <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="w-full">
+                                <label for="arrival_time" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Arrival Time</label>
+                                <input type="time" name="arrival_time" id="arrival_time" placeholder="Helper on duty" value="{{ old('arrival_time') }}" class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                @error('arrival_time')
+                                    <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="flex flex-col space-y-4">
+                            <h2 class="font-bold">Remarks</h2>
+                            <div class="flex items-start space-x-6">
+                                <div class="w-full">
+                                    <label for="l_remark" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">L</label>
+                                    <input type="text" name="l_remark" id="l_remark" placeholder="Type here.." value="{{ old('l_remark') }}" class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    @error('l_remark')
+                                        <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="w-full">
+                                    <label for="w_rmark" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">W</label>
+                                    <input type="text" name="w_rmark" id="w_rmark" placeholder="Type here.." value="{{ old('w_rmark') }}" class="focus:bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    @error('w_rmark')
+                                        <span class="text-xs text-red-500 pl-2">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

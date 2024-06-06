@@ -91,6 +91,12 @@ class ServiceRequestServiceImpl implements ServiceRequestService
             'balance_payment' => $data['balance_payment'] ?? null,
             'official_receipt_serial' => $data['official_receipt_serial'] ?? null,
             'payment_document' => $data['payment_document'] ?? null,
+            'rb' => $data['rb'] ?? null,
+            'driver_on_duty' => $data['driver_on_duty'] ?? null,
+            'helper_on_duty' => $data['helper_on_duty'] ?? null,
+            'arrival_date_time' => $data['arrival_date'] . ' ' . $data['arrival_time'] ?? null,
+            'l_remark' => $data['l_remark'] ?? null,
+            'w_rmark' => $data['w_rmark'] ?? null,
         ];
     }
 

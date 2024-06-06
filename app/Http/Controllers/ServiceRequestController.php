@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Models\ServiceRequest;
 use App\Services\ServiceService;
@@ -31,7 +32,9 @@ class ServiceRequestController extends Controller
             $request = $this->serviceRequestService->getServiceRequestById($id);
             return view('requests.show', [
             'request' => $request,
-            'service' => $request->service
+            'service' => $request->service,
+            'drivers' => Employee::where('type', 'Driver')->get(),
+            'helpers' => Employee::where('type', 'Helper')->get()
         ]);
         } catch (ModelNotFoundException $e) {
             return redirect()->back()->with('error', 'Service request not found');

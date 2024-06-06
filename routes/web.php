@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReceiptController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\DeceasedController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InformantController;
@@ -212,6 +213,19 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
             Route::put('/{urn}', 'update')->name('urns.update');
             Route::delete('/{urn}', 'delete')->name('urns.delete');
             Route::get('/image/{imageId}', 'deleteUrnImage')->name('urns.delete-image');
+        });
+    });
+
+    Route::controller(EmployeeController::class)->group(function () {
+        Route::prefix('employees')->group(function () {
+            Route::get('', 'index')->name('employees.index');
+            Route::get('/create', 'create')->name('employees.create');
+            Route::post('/store', 'store')->name('employees.store');
+            Route::get('/{employee}', 'show')->name('employees.show');
+            Route::get('/{employee}/edit', 'edit')->name('employees.edit');
+            Route::put('/{employee}', 'update')->name('employees.update');
+            Route::delete('/{employee}', 'delete')->name('employees.delete');
+            Route::get('/{employee}/delete-image', 'deleteImage')->name('employees.delete-image');
         });
     });
 

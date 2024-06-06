@@ -11,6 +11,7 @@ use Database\Seeders\RoleSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\CasketSeeder;
 use Database\Seeders\HearseSeeder;
+use Database\Seeders\EmployeeSeeder;
 use Database\Seeders\ReligionSeeder;
 use Database\Seeders\DeathCauseSeeder;
 use Database\Seeders\AnnouncementSeeder;
@@ -34,6 +35,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(AnnouncementSeeder::class);
         // $this->call(ServiceRequestSeeder::class);
         $this->call(UrnSeeder::class);
+        $this->call(EmployeeSeeder::class);
     }
 
 }

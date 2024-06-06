@@ -276,28 +276,28 @@
                             </div>
                             <div class="w-full flex items-end justify-between">
                                 <p class="w-52 flex justify-between">RB<span>:</span></p>
-                                <p class="w-full border-b border-gray-500 text-left h-5"></p>
+                                <p class="w-full border-b border-gray-500 text-left h-5">{{ $request->rb }}</p>
                             </div>
                             <div class="w-full flex items-end justify-between">
                                 <p class="w-52 flex justify-between">Driver on Duty<span>:</span></p>
-                                <p class="w-full border-b border-gray-500 text-left h-5"></p>
+                                <p class="w-full border-b border-gray-500 text-left h-5">{{ $request->driver_on_duty }}</p>
                             </div>
                             <div class="w-full flex items-end justify-between">
                                 <p class="w-52 flex justify-between">Helper on Duty<span>:</span></p>
-                                <p class="w-full border-b border-gray-500 text-left h-5"></p>
+                                <p class="w-full border-b border-gray-500 text-left h-5">{{ $request->helper_on_duty }}</p>
                             </div>
                             <div class="w-full flex items-end justify-between">
                                 <p class="w-52 flex justify-between">Arrival Date & Time<span>:</span></p>
-                                <p class="w-full border-b border-gray-500 text-left h-5"></p>
+                                <p class="w-full border-b border-gray-500 text-left h-5">{{ $request->arrival_date_time }}</p>
                             </div>
                             <p class="font-bold mt-2">REMARKS</p>
-                            <div class="w-24 flex items-end justify-between">
+                            <div class="min-w-24 w-fit flex items-end justify-between">
                                 <p class="w-4 flex justify-between">L:</p>
-                                <p class="w-full border-b border-gray-500 text-left h-5"></p>
+                                <p class="w-full border-b border-gray-500 text-left h-5">{{ $request->l_remark }}</p>
                             </div>
-                            <div class="w-24 flex items-end justify-between">
+                            <div class="min-w-24 w-fit flex items-end justify-between">
                                 <p class="w-4 flex justify-between">W:</p>
-                                <p class="w-full border-b border-gray-500 text-left h-5"></p>
+                                <p class="w-full border-b border-gray-500 text-left h-5">{{ $request->w_rmark }}</p>
                             </div>
                         </div>
                     </div>
