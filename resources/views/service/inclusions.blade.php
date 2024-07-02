@@ -11,27 +11,19 @@
                     <h2 class="mb-2 text-2xl font-semibold text-gray-900 dark:text-white">Package Inclusions</h2>
                     <ul class="w-full space-y-1 text-gray-500 list-inside dark:text-gray-400">
                         <li class="flex items-center py-2 border-b border-gray-100">
-                            <svg class="w-3.5 h-3.5 me-2 text-gray-600 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Z"/>
-                            </svg>
+                            <i class='bx bxs-square mr-2 text-gray-600'></i>
                             Retrieval of Remains
                         </li>
                         <li class="flex items-center py-2 border-b border-gray-100">
-                            <svg class="w-3.5 h-3.5 me-2 text-gray-600 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Z"/>
-                            </svg>
+                            <i class='bx bxs-square mr-2 text-gray-600'></i>
                             Embalming
                         </li>
                         <li class="flex items-center py-2 border-b border-gray-100">
-                            <svg class="w-3.5 h-3.5 me-2 text-gray-600 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Z"/>
-                            </svg>
+                            <i class='bx bxs-square mr-2 text-gray-600'></i>
                             Viewing Equipment
                         </li>
                         <li class="flex items-center py-2 border-b border-gray-100">
-                            <svg class="w-3.5 h-3.5 me-2 text-gray-600 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Z"/>
-                            </svg>
+                            <i class='bx bxs-square mr-2 text-gray-600'></i>
                             Flowers
                         </li>
                         {{-- {{ $service->casket_id ? 'text-green-500 dark:text-green-400' : 'text-gray-500 dark:text-gray-400' }} --}}
@@ -39,18 +31,19 @@
                             <li class="flex items-center py-2 border-b border-gray-100">
                                 <div class="w-full flex items-center justify-between">
                                     <div class="flex items-center">
-                                        <svg class="w-3.5 h-3.5 me-2 text-gray-600 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Z"/>
-                                        </svg>
+                                        <i class='bx bxs-square mr-2 text-gray-600'></i>
                                         Casket
                                     </div>
                                     <div class="flex items-center space-x-16">
                                         @if ($service->casket_id)
-                                            <span class="text-sm">{{ $service->casket->name }}</span>
+                                            <div class="flex items-center space-x-4 relative">
+                                                <img src="{{ asset('storage/' . $service->casket->casketImages[0]->image) }}" alt="image" class="zoomable-image w-12 h-8 object-center object-cover cursor-pointer">
+                                                <span class="text-sm">{{ $service->casket->name }}</span>
+                                            </div>
                                         @else
                                             <span class="text-red-500 text-sm">No Casket Selected</span>
                                         @endif
-                                        <a href="{{ route('services.caskets', $service->id) }}" class="text-blue-700">Select Casket</a>
+                                        <a href="{{ route('services.caskets', $service->id) }}" class="text-white text-sm px-4 py-2 rounded bg-blue-600 hover:bg-blue-700">Select Casket</a>
                                     </div>
                                 </div>
                             </li>
@@ -58,14 +51,15 @@
                             <li class="flex items-center py-2 border-b border-gray-100">
                                 <div class="w-full flex items-center justify-between">
                                     <div class="flex items-center">
-                                        <svg class="w-3.5 h-3.5 me-2 text-gray-600 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Z"/>
-                                        </svg>
+                                        <i class='bx bxs-square mr-2 text-gray-600'></i>
                                         Urn
                                     </div>
                                     <div class="flex items-center space-x-16">
                                         @if ($service->urn_id)
-                                            <span class="text-sm">{{ $service->urn->name }}</span>
+                                            <div class="flex items-center space-x-4 relative">
+                                                <img src="{{ asset('storage/' . $service->urn->image) }}" alt="image" class="zoomable-image w-12 h-8 object-center object-cover cursor-pointer">
+                                                <span class="text-sm">{{ $service->urn->name }}</span>
+                                            </div>
                                         @else
                                             <span class="text-red-500 text-sm">No Casket Selected</span>
                                         @endif
@@ -76,35 +70,27 @@
                         <li class="flex items-center py-2 border-b border-gray-100">
                             <div class="w-full flex items-center justify-between">
                                 <div class="flex items-center">
-                                    <svg class="w-3.5 h-3.5 me-2 text-gray-600 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Z"/>
-                                    </svg>
+                                    <i class='bx bxs-square mr-2 text-gray-600'></i>
                                     Hearse for Interment
                                 </div>
                                 <div class="flex items-center space-x-16">
                                 @if ($service->hearse_id)
-                                    <span class="text-sm">{{ $service->hearse->name }}</span>
+                                    <div class="flex items-center space-x-4 relative">
+                                        <img src="{{ asset('storage/' . $service->hearse->hearseImages[0]->image) }}" alt="image" class="zoomable-image w-12 h-8 object-center object-cover cursor-pointer">
+                                        <span class="text-sm">{{ $service->hearse->name }}</span>
+                                    </div>
                                 @else
                                     <span class="text-red-500 text-sm">No Hearse Selected</span>
                                 @endif
-                                    <a href="{{ route('services.hearses', $service->id) }}" class="text-blue-700">Select Hearse</a>
+                                    <a href="{{ route('services.hearses', $service->id) }}" class="text-white text-sm px-4 py-2 rounded bg-blue-600 hover:bg-blue-700">Select Hearse</a>
                                 </div>
                             </div>
                         </li>
                         <li class="flex items-center py-2 border-b border-gray-100">
-                            <svg class="w-3.5 h-3.5 me-2 text-gray-600 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Z"/>
-                            </svg>
+                            <i class='bx bxs-square mr-2 text-gray-600'></i>
                             {{-- Hot and Cold water despencer with __ of gallons of water --}}
                             <div class="w-full flex items-center space-x-2">
                                 <span>Hot and Cold water despencer with</span>
-                                {{-- <select name="water" id="small" class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    @for ($i = 1; $i <= 10; $i++)
-                                        <option value="{{ $i }}" {{ (old('water') ?? ($service->water ?? '')) == $i ? 'selected' : '' }}>
-                                            {{ $i }}
-                                        </option>
-                                    @endfor
-                                </select> --}}
 
                                 <span class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     @if ($service->casket_id)
@@ -121,9 +107,7 @@
                             </div>
                         </li>
                         <li class="flex items-center py-2 border-b border-gray-100">
-                            <svg class="w-3.5 h-3.5 me-2 text-gray-600 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Z"/>
-                            </svg>
+                            <i class='bx bxs-square mr-2 text-gray-600'></i>
                             Facilitation of Death Certificate and Permits c/o
                         </li>
                     </ul>
@@ -166,6 +150,50 @@
                     </div>
                 </div>
             </div>
+
+            <div id="imageModal" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 z-50">
+                <div class="w-full h-full flex items-center justify-center">
+                    <div id="modalContent" class="max-w-2xl mx-auto">
+                        <img id="modalImage" src="" alt="Modal Image" class="w-full h-full rounded">
+                        <button id="closeModal" class="absolute top-6 right-6 text-white cursor-pointer">
+                            <i class="bx bx-x text-3xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
+    <script>
+        function openModal(imageSrc) {
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('imageModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            document.getElementsByTagName('header')[0].style.zIndex = '0';
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            document.getElementsByTagName('header')[0].style.zIndex = '40';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var images = document.querySelectorAll('.zoomable-image');
+
+            images.forEach(function (image) {
+                image.addEventListener('click', function () {
+                    openModal(image.src);
+                });
+            });
+
+            document.getElementById('imageModal').addEventListener('click', function (event) {
+                if (event.target.id === 'imageModal') {
+                    closeModal();
+                }
+            });
+
+            document.getElementById('closeModal').addEventListener('click', closeModal);
+        });
+    </script>
     </x-customer>

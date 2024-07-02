@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Urn;
+use App\Models\PaymentTerm;
 use Illuminate\Support\Str;
 use App\Services\JobService;
 use App\Services\CasketService;
 use App\Services\HearseService;
 use App\Services\ServiceService;
 use App\Services\ReligionService;
+use App\Models\CondolencesMessage;
 use App\Services\DeathCauseService;
 use App\Services\RelationshipService;
 use App\Exceptions\CasketNotFoundException;
@@ -152,6 +154,7 @@ class ServiceController extends Controller
     {
         return view('service.payment-terms', [
             'service' => $this->serviceService->getServiceById($serviceId),
+            'term' => PaymentTerm::first(),
             'page' => 'payment_terms'
         ]);
     }
@@ -170,6 +173,7 @@ class ServiceController extends Controller
         $qrCode = QrCode::format('png')->size(250)->generate($url);
         return view('service.message', [
             'service' => $this->serviceService->getServiceById($serviceId),
+            'message' => CondolencesMessage::first(),
             'qrcode' => $qrCode
         ]);
     }

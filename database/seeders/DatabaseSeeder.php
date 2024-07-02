@@ -36,6 +36,8 @@ class DatabaseSeeder extends Seeder
         // $this->call(ServiceRequestSeeder::class);
         $this->call(UrnSeeder::class);
         $this->call(EmployeeSeeder::class);
+        $this->call(CondolencesMessageSeeder::class);
+        $this->call(PaymentTermsSeeder::class);
     }
 
 }

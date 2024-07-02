@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\PaymentTerm;
+use App\Models\CondolencesMessage;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UrnController;
 use App\Http\Controllers\HomeController;
@@ -14,6 +16,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InformantController;
+use App\Http\Controllers\PaymentTermController;
 use App\Http\Controllers\ServiceTypeController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\JsonResponseController;
@@ -21,6 +24,7 @@ use App\Http\Controllers\OtherServiceController;
 use App\Http\Controllers\ServiceRequestController;
 use App\Http\Controllers\DeceasedDocumentController;
 use App\Http\Controllers\UnauthorizedAcceeController;
+use App\Http\Controllers\CondolencesMessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -226,6 +230,20 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
             Route::put('/{employee}', 'update')->name('employees.update');
             Route::delete('/{employee}', 'delete')->name('employees.delete');
             Route::get('/{employee}/delete-image', 'deleteImage')->name('employees.delete-image');
+        });
+    });
+
+    Route::controller(CondolencesMessageController::class)->group(function () {
+        Route::prefix('condolences')->group(function () {
+            Route::get('', 'index')->name('condolences-message.index');
+            Route::put('/{message}/update', 'update')->name('condolences-message.update');
+        });
+    });
+
+    Route::controller(PaymentTermController::class)->group(function () {
+        Route::prefix('payment-terms')->group(function () {
+            Route::get('', 'index')->name('payment-terms.index');
+            Route::put('/{message}/update', 'update')->name('payment-terms.update');
         });
     });
 

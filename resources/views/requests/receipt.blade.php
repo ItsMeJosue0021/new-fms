@@ -117,7 +117,7 @@
                                     </div>
                                     <div class="w-1/4 flex items-end justify-between">
                                         <p>Religion:</p>
-                                        <p class="w-32 border-b border-gray-500 text-center h-5">{{ $service->deceased->religion ?? '' }}</p>
+                                        <p class="w-32 border-b border-gray-500 text-left h-5 text-xs pl-2">{{ $service->deceased->religion ?? '' }}</p>
                                     </div>
                                 </div>
                                 <div class="w-full flex ">
@@ -378,7 +378,10 @@
                                 @endphp
                                 @foreach ($service->otherServices as $other_service )
                                     <div class="w-full flex items-start justify-between">
-                                        <span>{{ chr(65 + $counter++) }}.)</span>
+                                        <div class="flex items-center space-x-2">
+                                            <span>{{ chr(65 + $counter++) }}.)</span>
+                                            <span>{{ $other_service->service }}</span>
+                                        </div>
                                         <div class="w-40 flex items-start justify-between">
                                             <span>PHP</span>
                                             <span class="w-28 border-b border-gray-500 text-left h-5">₱{{ $other_service->price ? number_format($other_service->price, 2) : '0.00' }}</span>
@@ -452,7 +455,16 @@
                                     <svg class="w-3 h-3 me-2 text-gray-500 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Z"/>
                                     </svg>
-                                    Hot & Cold-Water Dispenser with <span class="underline px-2">{{ $service->water }}</span> gallons of water
+                                    Hot & Cold-Water Dispenser with
+                                    <span class="underline px-2">@if ($service->casket_id)
+                                        {{ $service->casket->water }}
+
+                                        @elseif ($service->urn_id)
+                                            {{ $service->urn->water }}
+                                        @else
+                                            0
+                                        @endif
+                                    </span> gallons of water
                                 </li>
                                 <li class="flex items-center">
                                     <svg class="w-3 h-3 me-2 text-gray-500 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">

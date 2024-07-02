@@ -79,7 +79,7 @@
                                         <p class="leading-6 mb-3 text-sm">{{ Illuminate\Support\Str::limit($casket->description, 35, '...') ?? 'N/A' }}</p>
 
                                         <div class="flex items-center justify-between z-50">
-                                            <a href="{{ route('home.select-casket', $casket->id) }}" class="text-indigo-500 inline-flex text-sm items-center md:mb-2 lg:mb-0">Select and proceed
+                                            <a href="{{ route('home.select-casket', $casket->id) }}" class="text-white text-sm px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 flex items-center">Select and proceed
                                                 <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                     <path d="M5 12h14"></path>
                                                     <path d="M12 5l7 7-7 7"></path>
